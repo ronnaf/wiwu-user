@@ -12,7 +12,7 @@ import {
 
 import { MonoText } from '../components/StyledText'
 
-export default function HomeScreen () {
+export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ScrollView
@@ -73,7 +73,7 @@ HomeScreen.navigationOptions = {
   header: null
 }
 
-function DevelopmentModeNotice () {
+function DevelopmentModeNotice() {
   if (__DEV__) {
     const learnMoreButton = (
       <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
@@ -96,13 +96,13 @@ function DevelopmentModeNotice () {
   }
 }
 
-function handleLearnMorePress () {
+function handleLearnMorePress() {
   WebBrowser.openBrowserAsync(
     'https://docs.expo.io/versions/latest/workflow/development-mode/'
   )
 }
 
-function handleHelpPress () {
+function handleHelpPress() {
   WebBrowser.openBrowserAsync(
     'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
   )
