@@ -6,7 +6,7 @@ import {
 } from 'react-navigation'
 
 import TabBarIcon from '../components/TabBarIcon'
-import HomeScreen from '../screens/HomeScreen'
+import LoginScreen from '../screens/LoginScreen'
 import LinksScreen from '../screens/LinksScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import PracticeScreen from '../screens/PracticeScreen'
@@ -16,14 +16,14 @@ const config = Platform.select({
   default: {}
 })
 
-const HomeStack = createStackNavigator(
+const LoginStack = createStackNavigator(
   {
-    Home: HomeScreen
+    Login: LoginScreen
   },
   config
 )
 
-HomeStack.navigationOptions = {
+LoginStack.navigationOptions = {
   tabBarLabel: 'Home',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -37,7 +37,7 @@ HomeStack.navigationOptions = {
   )
 }
 
-HomeStack.path = ''
+LoginStack.path = ''
 
 const LinksStack = createStackNavigator(
   {
@@ -101,7 +101,7 @@ PracticeStack.navigationOptions = {
 PracticeStack.path = ''
 
 const tabNavigator = createBottomTabNavigator({
-  HomeStack,
+  LoginStack,
   LinksStack,
   SettingsStack,
   PracticeStack
