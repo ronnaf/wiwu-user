@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Icon } from 'native-base'
+import { Container, Text, Icon, Footer, FooterTab, Button } from 'native-base'
 import { SafeAreaView, View, Dimensions, TouchableOpacity } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -15,7 +15,7 @@ const UserHome = () => {
     <Container style={{ backgroundColor: '#f6f1ee' }}>
       <SafeAreaView style={{ flex: 1, margin: 16 }}>
         <Grid>
-          <Row style={{ height: 56 }}>
+          <Row style={{ height: 48 }}>
             <Col>
               <TouchableOpacity>
                 <Icon name='menu' style={{ color: '#6F706F' }} />
@@ -30,7 +30,7 @@ const UserHome = () => {
               </TouchableOpacity>
             </Col>
           </Row>
-          <Row size={5} style={{ justifyContent: 'flex-end' }}>
+          <Row size={3.5} style={{ alignItems: 'flex-end' }}>
             <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
               <View
                 style={{
@@ -67,7 +67,10 @@ const UserHome = () => {
                   </TouchableOpacity>
                 </View>
               </View>
-              <Spacer height={40} />
+            </Col>
+          </Row>
+          <Row size={1.25}>
+            <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Text
                 style={{
                   color: '#6F706F',
@@ -89,7 +92,6 @@ const UserHome = () => {
                 }}>
                 Choose an emergency
               </Text>
-              <Spacer height={40} />
             </Col>
           </Row>
           <Row size={1.5}>
@@ -146,7 +148,7 @@ const UserHome = () => {
                   </TouchableOpacity>
                 </Col>
               </Row>
-              <Row style={{ marginBottom: 8 }}>
+              <Row>
                 <Col>
                   <TouchableOpacity style={{ flex: 1 }}>
                     <LinearGradient
@@ -202,6 +204,22 @@ const UserHome = () => {
           </Row>
         </Grid>
       </SafeAreaView>
+      <Footer>
+        <FooterTab>
+          <Button>
+            <Icon name='home' />
+          </Button>
+          <Button>
+            <Icon name='notifications' />
+          </Button>
+          <Button>
+            <Icon name='map' />
+          </Button>
+          <Button>
+            <Icon name='contacts' />
+          </Button>
+        </FooterTab>
+      </Footer>
     </Container>
   )
 }
