@@ -1,5 +1,6 @@
 import { auth } from '../../firebase'
 import { LOGIN } from './user.constants'
+import NavigationService from '../../navigation/NavigationService'
 
 export function loginUser(email, password) {
   return async dispatch => {
@@ -9,5 +10,6 @@ export function loginUser(email, password) {
       type: LOGIN,
       payload: { email: auth.currentUser.email }
     })
+    NavigationService.navigate('UserHome')
   }
 }

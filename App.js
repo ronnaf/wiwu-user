@@ -5,9 +5,10 @@ import React, { useState } from 'react'
 import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
-import configureStore from './configureStore'
-
+import NavigationService from './navigation/NavigationService'
 import AppNavigator from './navigation/AppNavigator'
+
+import configureStore from './configureStore'
 const store = configureStore()
 
 export default function App(props) {
@@ -26,7 +27,11 @@ export default function App(props) {
       <Provider store={store}>
         <View style={styles.container}>
           {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-          <AppNavigator />
+          <AppNavigator
+            ref={navigatorRef => {
+              NavigationService.setTopLevelNavigator(navigatorRef)
+            }}
+          />
         </View>
       </Provider>
     )
