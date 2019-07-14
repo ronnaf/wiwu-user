@@ -1,88 +1,95 @@
 import React from 'react'
-import { Constants } from 'expo'
 import {
   Container,
-  Header,
   Button,
   Text,
-  Body,
   Form,
   Item as FormItem,
-  Input,
-  Label,
-  Title
+  Input
 } from 'native-base'
-import { Formik } from 'formik'
+import { Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
+import { Formik } from 'formik'
+import { Col, Row, Grid } from 'react-native-easy-grid'
 import { login } from '../../actions/user/userLogin.actions'
+import { images } from '../../assets/index'
+import Spacer from '../../components/Spacer'
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
   const current = useSelector(state => state.user.current)
-  console.log(current)
+  console.log('[!] LoginScreen - current -', current)
 
   return (
-    <Container style={{ paddingTop: Constants.statusBarHeight }}>
-      <Header>
-        <Body>
-          <Title>weee wooo</Title>
-        </Body>
-      </Header>
-      <Formik
-        initialValues={{ username: '', password: '' }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false)
-          }, 400)
-          dispatch(login(values.username, values.password))
-        }}>
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting,
-          setFieldValue,
-          setFieldTouched
-        }) => (
-          <Container>
-            <Form>
-              <FormItem floatingLabel>
-                <Label>Email</Label>
-                <Input
-                  name='username'
-                  onChangeText={handleChange('username')}
-                  onBlur={handleBlur('username')}
-                  autoCapitalize='none'
-                  value={values.username}
-                />
-              </FormItem>
-              <FormItem floatingLabel last>
-                <Label>Password</Label>
-                <Input
-                  name='password'
-                  type='password'
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                  autoCapitalize='none'
-                  secureTextEntry={true}
-                />
-              </FormItem>
-
-              <Button
-                onPress={handleSubmit}
-                full
-                primary
-                style={{ paddingBottom: 4 }}>
-                <Text> Login </Text>
-              </Button>
-            </Form>
-          </Container>
-        )}
-      </Formik>
+    <Container
+      style={{ paddingLeft: 16, paddingRight: 16, backgroundColor: '#f6f2ef' }}>
+      <Grid>
+        <Row size={2.5}>
+          <Col style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Image
+              source={images.logo}
+              resizeMode='contain'
+              style={{ height: 200, width: 200 }}
+            />
+          </Col>
+        </Row>
+        <Row size={3}>
+          <Col>
+            <Spacer height={24} />
+            <Formik
+              initialValues={{ username: '', password: '' }}
+              onSubmit={(values, { setSubmitting }) => {
+                setTimeout(() => {
+                  setSubmitting(false)
+                }, 400)
+                dispatch(login(values.username, values.password))
+              }}>
+              {({
+                values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting,
+                setFieldValue,
+                setFieldTouched
+              }) => (
+                <Form>
+                  <FormItem regular>
+                    <Input
+                      name='username'
+                      placeholder='Email'
+                      onChangeText={handleChange('username')}
+                      onBlur={handleBlur('username')}
+                      autoCapitalize='none'
+                      value={values.username}
+                    />
+                  </FormItem>
+                  <Spacer height={8} />
+                  <FormItem regular>
+                    <Input
+                      name='password'
+                      type='password'
+                      placeholder='Password'
+                      onChangeText={handleChange('password')}
+                      onBlur={handleBlur('password')}
+                      value={values.password}
+                      autoCapitalize='none'
+                      secureTextEntry={true}
+                    />
+                  </FormItem>
+                  <Spacer height={48} />
+                  <Button onPress={handleSubmit} full primary>
+                    <Text>Login</Text>
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+          </Col>
+        </Row>
+        <Row size={1}></Row>
+      </Grid>
     </Container>
   )
 }
