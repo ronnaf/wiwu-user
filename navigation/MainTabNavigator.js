@@ -1,3 +1,7 @@
+/**
+ * not in use
+ */
+
 import React from 'react'
 import { Platform } from 'react-native'
 import {
@@ -6,7 +10,7 @@ import {
 } from 'react-navigation'
 
 import TabBarIcon from '../components/TabBarIcon'
-import LoginScreen from '../screens/LoginScreen'
+import LoginScreen from '../screens/shared/LoginScreen'
 import LinksScreen from '../screens/LinksScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import PracticeScreen from '../screens/PracticeScreen'

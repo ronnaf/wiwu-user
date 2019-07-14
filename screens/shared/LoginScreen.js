@@ -14,17 +14,18 @@ import {
 } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../actions/user/userLogin.actions'
+import { login } from '../../actions/user/userLogin.actions'
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
   const current = useSelector(state => state.user.current)
   console.log(current)
+
   return (
     <Container style={{ paddingTop: Constants.statusBarHeight }}>
       <Header>
         <Body>
-          <Title>Wee Woo</Title>
+          <Title>weee wooo</Title>
         </Body>
       </Header>
       <Formik
