@@ -1,7 +1,7 @@
 import { auth } from '../../firebase'
 import { LOGIN } from './user.constants'
 
-export function login(email, password) {
+export function loginUser(email, password) {
   return async dispatch => {
     // TODO add try catch
     await auth.signInWithEmailAndPassword(email, password)

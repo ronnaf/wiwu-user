@@ -11,7 +11,7 @@ import { Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import { Col, Row, Grid } from 'react-native-easy-grid'
-import { login } from '../../actions/user/userLogin.actions'
+import { loginUser } from '../../actions/user/loginUser.action'
 import { images } from '../../assets/index'
 import Spacer from '../../components/Spacer'
 
@@ -42,7 +42,7 @@ const LoginScreen = props => {
                 setTimeout(() => {
                   setSubmitting(false)
                 }, 400)
-                dispatch(login(values.username, values.password))
+                dispatch(loginUser(values.username, values.password))
               }}>
               {({
                 values,
