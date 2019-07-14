@@ -5,7 +5,8 @@ import {
   Text,
   Form,
   Item as FormItem,
-  Input
+  Input,
+  Footer
 } from 'native-base'
 import { Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,8 +22,7 @@ const LoginScreen = props => {
   console.log('[!] LoginScreen - current -', current)
 
   return (
-    <Container
-      style={{ paddingLeft: 16, paddingRight: 16, backgroundColor: '#f6f2ef' }}>
+    <Container style={{ padding: 16, backgroundColor: '#f6f1ee' }}>
       <Grid>
         <Row size={2.5}>
           <Col style={{ justifyContent: 'flex-end', alignItems: 'center' }}>

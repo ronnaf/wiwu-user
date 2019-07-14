@@ -49,7 +49,14 @@ async function loadResourcesAsync() {
       ...Ionicons.font,
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf')
+      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+      'dosis-bold': require('./assets/fonts/Dosis-Bold.ttf'),
+      'dosis-extrabold': require('./assets/fonts/Dosis-ExtraBold.ttf'),
+      'dosis-extralight': require('./assets/fonts/Dosis-ExtraLight.ttf'),
+      'dosis-light': require('./assets/fonts/Dosis-Light.ttf'),
+      'dosis-medium': require('./assets/fonts/Dosis-Medium.ttf'),
+      'dosis-regular': require('./assets/fonts/Dosis-Regular.ttf'),
+      'dosis-semibold': require('./assets/fonts/Dosis-SemiBold.ttf')
     })
   ])
 }
