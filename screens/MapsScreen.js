@@ -22,7 +22,7 @@ const Maps = props => {
         region={mapRegion}
         onRegionChangeComplete={mapRegionChange}
         onPress={e => locationChange(e.nativeEvent.coordinate)}>
-        <MapView.Marker pinColor={'blue'} coordinate={location} />
+        <MapView.Marker coordinate={location} />
       </MapView>
     </View>
   )

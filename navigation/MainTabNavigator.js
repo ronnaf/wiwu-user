@@ -7,7 +7,7 @@ import {
 
 import TabBarIcon from '../components/TabBarIcon'
 import LoginScreen from '../screens/LoginScreen'
-import LinksScreen from '../screens/LinksScreen'
+import MapsScreen from '../screens/MapsScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import PracticeScreen from '../screens/PracticeScreen'
 
@@ -39,24 +39,24 @@ LoginStack.navigationOptions = {
 
 LoginStack.path = ''
 
-const LinksStack = createStackNavigator(
+const MapsStack = createStackNavigator(
   {
-    Links: LinksScreen
+    Links: MapsScreen
   },
   config
 )
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+MapsStack.navigationOptions = {
+  tabBarLabel: 'Maps',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'}
+      name={Platform.OS === 'ios' ? 'ios-pin' : 'md-pin'}
     />
   )
 }
 
-LinksStack.path = ''
+MapsStack.path = ''
 
 const SettingsStack = createStackNavigator(
   {
@@ -102,7 +102,7 @@ PracticeStack.path = ''
 
 const tabNavigator = createBottomTabNavigator({
   LoginStack,
-  LinksStack,
+  MapsStack,
   SettingsStack,
   PracticeStack
 })
