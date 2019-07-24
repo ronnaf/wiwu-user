@@ -1,3 +1,12 @@
 import { combineReducers } from 'redux'
 
-export default combineReducers({})
+const reducers = {}
+
+let combinedReducers
+if (Object.getOwnPropertyNames(reducers).length > 0) {
+  combinedReducers = combineReducers(reducers)
+} else {
+  combinedReducers = () => {}
+}
+
+export default combinedReducers
