@@ -1,12 +1,6 @@
 import { combineReducers } from 'redux'
+import user from './user'
 
-const reducers = {}
-
-let combinedReducers
-if (Object.getOwnPropertyNames(reducers).length > 0) {
-  combinedReducers = combineReducers(reducers)
-} else {
-  combinedReducers = () => {}
-}
-
-export default combinedReducers
+export default combineReducers({
+  user: user
+})
