@@ -20,6 +20,9 @@ const FormInput = styled(Input)`
   text-align: center;
   margin: 10px;
 `
+const SubmitButton = styled(Button)`
+  margin: 10px;
+`
 export const SignupForm = () => {
   const dispatch = useDispatch()
   return (
@@ -127,14 +130,14 @@ export const SignupForm = () => {
               {errors.phoneNumber && touched.phoneNumber ? (
                 <ValidationText>{errors.phoneNumber}</ValidationText>
               ) : null}
-              <Button
+              <SubmitButton
                 onPress={handleSubmit}
                 title='Submit'
                 disabled={isSubmitting || isValidating}
                 rounded
                 full>
                 <Text>Submit</Text>
-              </Button>
+              </SubmitButton>
             </Form>
           </View>
         )}
