@@ -7181,6 +7181,11 @@ react-native-screens@1.0.0-alpha.22, "react-native-screens@^1.0.0 || ^1.0.0-alph
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.22.tgz#7a120377b52aa9bbb94d0b8541a014026be9289b"
   integrity sha512-kSyAt0AeVU6N7ZonfV6dP6iZF8B7Bce+tk3eujXhzBGsLg0VSLnU7uE9VqJF0xdQrHR91ZjGgVMieo/8df9KTA==
 
+react-native-simple-table@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-simple-table/-/react-native-simple-table-0.0.3.tgz#5bb37337078d0043a5b4ee862b44173bb36a1fff"
+  integrity sha512-U5b6KXqsCxOgwqm26Ej4G3T3gCch4BV3micK/WYFjMENW33fh/DmoTfr11Gwb92/FDToH8dzuNY/peA0oEbkjQ==
+
 react-native-svg@9.4.0:
   version "9.4.0"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.4.0.tgz#e428e0eae55aebd2355f1ff4f22675dad4611960"
