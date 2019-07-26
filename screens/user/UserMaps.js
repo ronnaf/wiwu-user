@@ -1,17 +1,8 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Constants, MapView } from 'expo'
-import {
-  Container,
-  Header,
-  Left,
-  Button,
-  Icon,
-  Body,
-  Right,
-  Footer,
-  FooterTab
-} from 'native-base'
+import { Container, Header, Left, Button, Icon, Body, Right } from 'native-base'
+import UserFooter from '../../components/UserFooter'
 
 const UserMaps = props => {
   const [mapRegion, mapRegionChange] = useState({
@@ -50,22 +41,7 @@ const UserMaps = props => {
           <MapView.Marker coordinate={location} />
         </MapView>
       </View>
-      <Footer>
-        <FooterTab>
-          <Button>
-            <Icon name='home' />
-          </Button>
-          <Button>
-            <Icon name='notifications' />
-          </Button>
-          <Button active>
-            <Icon name='map' />
-          </Button>
-          <Button>
-            <Icon name='contacts' />
-          </Button>
-        </FooterTab>
-      </Footer>
+      <UserFooter active='map' />
     </Container>
   )
 }

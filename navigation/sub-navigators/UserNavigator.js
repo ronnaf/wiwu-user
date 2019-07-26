@@ -1,8 +1,8 @@
-import { createStackNavigator } from 'react-navigation'
+import { createSwitchNavigator } from 'react-navigation'
 import UserHome from '../../screens/user/UserHome'
 import UserMaps from '../../screens/user/UserMaps'
 
-const UserNavigator = createStackNavigator(
+const UserNavigator = createSwitchNavigator(
   {
     UserHome: {
       screen: UserHome

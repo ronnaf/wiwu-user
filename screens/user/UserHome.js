@@ -3,8 +3,6 @@ import {
   Container,
   Text,
   Icon,
-  Footer,
-  FooterTab,
   Button,
   Header,
   Left,
@@ -16,6 +14,7 @@ import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
 import Spacer from '../../components/Spacer'
 import commonColor from '../../native-base-theme/variables/commonColor'
+import UserFooter from '../../components/UserFooter'
 
 const { contentPadding } = commonColor
 const { width } = Dimensions.get('window')
@@ -213,22 +212,7 @@ const UserHome = () => {
           </Col>
         </Row>
       </Grid>
-      <Footer>
-        <FooterTab>
-          <Button active>
-            <Icon name='home' />
-          </Button>
-          <Button>
-            <Icon name='notifications' />
-          </Button>
-          <Button>
-            <Icon name='map' />
-          </Button>
-          <Button>
-            <Icon name='contacts' />
-          </Button>
-        </FooterTab>
-      </Footer>
+      <UserFooter active='home' />
     </Container>
   )
 }
