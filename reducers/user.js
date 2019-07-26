@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, SIGNUP } from '../actions/user/user.constants.js'
+import { LOGIN, LOGOUT, SIGNUP, CHANGE_PASSWORD } from '../actions/user/user.constants.js'
 
 const initialState = {
   // master account
@@ -18,6 +18,10 @@ export default function reducer(state = initialState, action) {
         current: action.payload
       }
     case LOGOUT:
+      return {
+        ...initialState
+      }
+    case CHANGE_PASSWORD:
       return {
         ...initialState
       }
