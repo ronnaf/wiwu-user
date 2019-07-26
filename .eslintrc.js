@@ -23,5 +23,6 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/display-name': 0 // off
+    // 'react/prop-types': 0 // disable prop type validation // we'll use proptypes
   }
 }

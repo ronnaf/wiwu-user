@@ -12,6 +12,8 @@ import {
 import TabBarIcon from '../components/TabBarIcon'
 import LoginScreen from '../screens/shared/LoginScreen'
 import MapsScreen from '../screens/MapsScreen'
+import LoginScreen from '../screens/LoginScreen'
+import LinksScreen from '../screens/LinksScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import PracticeScreen from '../screens/PracticeScreen'
 
@@ -107,6 +109,7 @@ PracticeStack.path = ''
 const tabNavigator = createBottomTabNavigator({
   LoginStack,
   MapsStack,
+  LinksStack,
   SettingsStack,
   PracticeStack
 })
