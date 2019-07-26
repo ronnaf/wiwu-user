@@ -9,7 +9,8 @@ import TabBarIcon from '../components/TabBarIcon'
 import LoginScreen from '../screens/LoginScreen'
 import LinksScreen from '../screens/LinksScreen'
 import SettingsScreen from '../screens/SettingsScreen'
-import PracticeScreen from '../screens/PracticeScreen'
+import ContactDirectoriesScreen from '../screens/ContactDirectoriesScreen'
+// import PracticeScreen from '../screens/PracticeScreen'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -77,15 +78,15 @@ SettingsStack.navigationOptions = {
 
 SettingsStack.path = ''
 
-const PracticeStack = createStackNavigator(
+const ContactDirectoriesStack = createStackNavigator(
   {
-    Practice: PracticeScreen
+    ContactDirectories: ContactDirectoriesScreen
   },
   config
 )
 
-PracticeStack.navigationOptions = {
-  tabBarLabel: 'Practice',
+ContactDirectoriesStack.navigationOptions = {
+  tabBarLabel: 'Contact Directories',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
@@ -98,13 +99,37 @@ PracticeStack.navigationOptions = {
   )
 }
 
-PracticeStack.path = ''
+ContactDirectoriesStack.path = ''
+
+// const PracticeStack = createStackNavigator(
+//   {
+//     Practice: PracticeScreen
+//   },
+//   config
+// )
+
+// PracticeStack.navigationOptions = {
+//   tabBarLabel: 'Practice',
+//   tabBarIcon: ({ focused }) => (
+//     <TabBarIcon
+//       focused={focused}
+//       name={
+//         Platform.OS === 'ios'
+//           ? `ios-information-circle${focused ? '' : '-outline'}`
+//           : 'md-information-circle'
+//       }
+//     />
+//   )
+// }
+
+// PracticeStack.path = ''
 
 const tabNavigator = createBottomTabNavigator({
   LoginStack,
   LinksStack,
   SettingsStack,
-  PracticeStack
+  ContactDirectoriesStack
+  // PracticeStack
 })
 
 tabNavigator.path = ''
