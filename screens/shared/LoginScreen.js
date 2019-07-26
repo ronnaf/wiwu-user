@@ -15,6 +15,9 @@ import { Col, Row, Grid } from 'react-native-easy-grid'
 import { loginUser } from '../../actions/user/loginUser.action'
 import { images } from '../../assets/index'
 import Spacer from '../../components/Spacer'
+import commonColor from '../../native-base-theme/variables/commonColor'
+
+const { contentPadding } = commonColor
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
@@ -22,7 +25,7 @@ const LoginScreen = props => {
   console.log('[!] LoginScreen - current -', current)
 
   return (
-    <Container style={{ padding: 16, backgroundColor: '#f6f1ee' }}>
+    <Container style={{ padding: contentPadding, backgroundColor: '#f6f1ee' }}>
       <Grid>
         <Row size={2.5}>
           <Col style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
