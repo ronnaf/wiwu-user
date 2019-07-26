@@ -1,21 +1,15 @@
 import React from 'react'
-import {
-  Container,
-  Button,
-  Text,
-  Form,
-  Item as FormItem,
-  Input,
-  Footer
-} from 'native-base'
+import { Container, Button, Text, Form } from 'native-base'
 import { Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 import { loginUser } from '../../actions/user/loginUser.action'
 import { images } from '../../assets/index'
+import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
 import commonColor from '../../native-base-theme/variables/commonColor'
+import GenericInput from '../../components/GenericInput'
 
 const { contentPadding } = commonColor
 
@@ -25,7 +19,7 @@ const LoginScreen = props => {
   console.log('[!] LoginScreen - current -', current)
 
   return (
-    <Container style={{ padding: contentPadding, backgroundColor: '#f6f1ee' }}>
+    <Container style={{ padding: contentPadding }}>
       <Grid>
         <Row size={2.5}>
           <Col style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
@@ -59,32 +53,32 @@ const LoginScreen = props => {
                 setFieldTouched
               }) => (
                 <Form>
-                  <FormItem regular>
-                    <Input
-                      name='username'
-                      placeholder='Email'
-                      onChangeText={handleChange('username')}
-                      onBlur={handleBlur('username')}
-                      autoCapitalize='none'
-                      value={values.username}
-                    />
-                  </FormItem>
-                  <Spacer height={8} />
-                  <FormItem regular>
-                    <Input
-                      name='password'
-                      type='password'
-                      placeholder='Password'
-                      onChangeText={handleChange('password')}
-                      onBlur={handleBlur('password')}
-                      value={values.password}
-                      autoCapitalize='none'
-                      secureTextEntry={true}
-                    />
-                  </FormItem>
+                  <GenericInput
+                    name='username'
+                    placeholder='Email'
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={values.username}
+                  />
+                  <GenericInput
+                    name='password'
+                    placeholder='Password'
+                    handleChange={handleChange}
+                    handleBlur={handleBlur}
+                    value={values.password}
+                    secureTextEntry={true}
+                  />
                   <Spacer height={48} />
                   <Button onPress={handleSubmit} full primary>
                     <Text>Login</Text>
+                  </Button>
+                  <Spacer height={16} />
+                  <Button
+                    onPress={() => NavigationService.navigate('Signup')}
+                    full
+                    transparent
+                    small>
+                    <Text>Register instead</Text>
                   </Button>
                 </Form>
               )}
