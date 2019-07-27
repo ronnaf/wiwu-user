@@ -1,4 +1,4 @@
-import { GET_CONTACTS } from './contactDirectory.constants'
+import { GET_CONTACTS } from './contact.constants'
 import { firestore } from '../../firebase'
 
 export function getContacts() {

@@ -24,7 +24,7 @@ const innerCircle = middleCircle - 80
 
 const UserHome = () => {
   return (
-    <Container style={{ backgroundColor: '#f6f1ee' }}>
+    <Container>
       <Header>
         <Left>
           <Button transparent>

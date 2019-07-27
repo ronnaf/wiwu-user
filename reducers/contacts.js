@@ -2,7 +2,7 @@ import {
   GET_CONTACTS,
   EDIT_CONTACT,
   DELETE_CONTACT
-} from '../actions/contactDirectory/contactDirectory.constants'
+} from '../actions/contact/contact.constants'
 
 const initialState = {
   contacts: []

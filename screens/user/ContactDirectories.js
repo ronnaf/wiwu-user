@@ -1,15 +1,19 @@
 import React from 'react'
+import { StyleSheet, Dimensions } from 'react-native'
 import {
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  TextInput,
-  View,
+  Container,
+  Header,
+  Left,
+  Icon,
+  Body,
+  Right,
+  Content,
   Button
-} from 'react-native'
-
+} from 'native-base'
 import Table from 'react-native-simple-table'
-let tableData = [
+import UserFooter from '../../components/UserFooter'
+
+const tableData = [
   {
     name: 'Police Station 1 - City Proper',
     address: 'Gen. Luna St., Iloilo City',
@@ -158,12 +162,23 @@ const tableHead = [
   }
 ]
 
-export default function ContactDirectoriesScreen() {
+const ContactDirectories = props => {
   return (
-    <View style={styles.container}>
-      <TextInput placeholder='Input search' />
-      <Button title='Search' />
-      <ScrollView style={styles.container}>
+    <Container>
+      <Header>
+        <Left>
+          <Button transparent>
+            <Icon name='menu' />
+          </Button>
+        </Left>
+        <Body />
+        <Right>
+          <Button transparent>
+            <Icon name='contact' />
+          </Button>
+        </Right>
+      </Header>
+      <Content padder>
         <Table
           columns={tableHead}
           dataSource={tableData}
@@ -171,13 +186,10 @@ export default function ContactDirectoriesScreen() {
           height={500}
           bodyContainerStyle={styles.text}
         />
-      </ScrollView>
-    </View>
+      </Content>
+      <UserFooter active={'contacts'} />
+    </Container>
   )
-}
-
-ContactDirectoriesScreen.navigationOptions = {
-  title: 'Contact Directories'
 }
 
 const styles = StyleSheet.create({
@@ -199,3 +211,5 @@ const styles = StyleSheet.create({
     borderColor: '#c8e1ff'
   }
 })
+
+export default ContactDirectories

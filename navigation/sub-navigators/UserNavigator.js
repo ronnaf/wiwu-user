@@ -1,6 +1,7 @@
 import { createSwitchNavigator } from 'react-navigation'
 import UserHome from '../../screens/user/UserHome'
 import UserMaps from '../../screens/user/UserMaps'
+import ContactDirectories from '../../screens/user/ContactDirectories'
 
 const UserNavigator = createSwitchNavigator(
   {
@@ -9,10 +10,14 @@ const UserNavigator = createSwitchNavigator(
     },
     UserMaps: {
       screen: UserMaps
+    },
+    UserContactDirectories: {
+      screen: ContactDirectories
     }
   },
   {
-    headerMode: 'none'
+    headerMode: 'none',
+    initialRouteName: 'UserContactDirectories'
   }
 )
 

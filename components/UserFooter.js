@@ -20,7 +20,9 @@ const UserFooter = ({ active = 'home' }) => {
           onPress={() => NavigationService.navigate('UserMaps')}>
           <Icon name='map' />
         </Button>
-        <Button active={active === 'contacts'}>
+        <Button
+          active={active === 'contacts'}
+          onPress={() => NavigationService.navigate('UserContactDirectories')}>
           <Icon name='contacts' />
         </Button>
       </FooterTab>
