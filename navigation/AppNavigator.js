@@ -26,7 +26,7 @@ export default createAppContainer(
       }
     },
     {
-      initialRouteName: 'User'
+      initialRouteName: 'Auth'
     }
   )
 )

@@ -16,8 +16,7 @@ const UserNavigator = createSwitchNavigator(
     }
   },
   {
-    headerMode: 'none',
-    initialRouteName: 'UserContactDirectories'
+    headerMode: 'none'
   }
 )
 

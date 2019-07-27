@@ -8,7 +8,8 @@ import {
   Body,
   Right,
   Content,
-  Button
+  Button,
+  Title
 } from 'native-base'
 import Table from 'react-native-simple-table'
 import UserFooter from '../../components/UserFooter'
@@ -171,7 +172,9 @@ const ContactDirectories = props => {
             <Icon name='menu' />
           </Button>
         </Left>
-        <Body />
+        <Body style={{ flex: 3 }}>
+          <Title>Emergency Contacts</Title>
+        </Body>
         <Right>
           <Button transparent>
             <Icon name='contact' />

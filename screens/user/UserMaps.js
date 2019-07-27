@@ -1,7 +1,16 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { Constants, MapView } from 'expo'
-import { Container, Header, Left, Button, Icon, Body, Right } from 'native-base'
+import {
+  Container,
+  Header,
+  Left,
+  Button,
+  Icon,
+  Body,
+  Right,
+  Title
+} from 'native-base'
 import UserFooter from '../../components/UserFooter'
 
 const UserMaps = props => {
@@ -25,7 +34,9 @@ const UserMaps = props => {
             <Icon name='menu' />
           </Button>
         </Left>
-        <Body />
+        <Body style={{ flex: 3 }}>
+          <Title>Emergency Locations</Title>
+        </Body>
         <Right>
           <Button transparent>
             <Icon name='contact' />

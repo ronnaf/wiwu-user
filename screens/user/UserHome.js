@@ -7,7 +7,8 @@ import {
   Header,
   Left,
   Body,
-  Right
+  Right,
+  Title
 } from 'native-base'
 import { View, Dimensions, TouchableOpacity } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
@@ -31,7 +32,9 @@ const UserHome = () => {
             <Icon name='menu' />
           </Button>
         </Left>
-        <Body />
+        <Body style={{ flex: 3 }}>
+          <Title>Home</Title>
+        </Body>
         <Right>
           <Button transparent>
             <Icon name='contact' />
