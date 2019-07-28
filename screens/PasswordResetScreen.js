@@ -1,5 +1,5 @@
 import React from 'react'
-import { Constants } from 'expo'
+import Constants from 'expo-constants'
 import { Formik } from 'formik'
 import { changePassword } from '../actions/user/changePassword.action'
 import { useDispatch } from 'react-redux'

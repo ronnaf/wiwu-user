@@ -2,7 +2,7 @@
  * NOT IN USE
  */
 import React from 'react'
-import { Constants } from 'expo'
+import Constants from 'expo-constants'
 import {
   Container,
   Header,
