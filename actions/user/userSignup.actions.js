@@ -1,6 +1,7 @@
 import { auth, firestore } from '../../firebase'
 import { SIGNUP } from './user.constants'
 import { statuses, roles } from '../../constants/User'
+import NavigationService from '../../navigation/NavigationService'
 
 export function signup(email, password, firstName, lastName, phoneNumber) {
   return async dispatch => {
@@ -10,7 +11,6 @@ export function signup(email, password, firstName, lastName, phoneNumber) {
       const data = {
         firstName,
         lastName,
-        email,
         phoneNumber,
         emergencies: [],
         role: roles.USER,
@@ -20,13 +20,15 @@ export function signup(email, password, firstName, lastName, phoneNumber) {
         .collection('users')
         .doc(uid)
         .set(data)
+      // TODO: handle redirect upon verification
+      await auth.currentUser.sendEmailVerification()
       dispatch({
         type: SIGNUP,
         payload: { email: auth.currentUser.email }
       })
-      // redirect to next screen
+      NavigationService.navigate('Login')
     } catch (e) {
-      // handle error (toast)
+      // TODO: handle error (toast)
       console.log(e)
     }
   }
