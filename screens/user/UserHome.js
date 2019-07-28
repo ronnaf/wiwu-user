@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef, useEffect } from 'react'
 import {
   Container,
   Text,
@@ -10,9 +10,10 @@ import {
   Right,
   Title
 } from 'native-base'
-import { View, Dimensions, TouchableOpacity } from 'react-native'
+import { Dimensions, TouchableOpacity } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
+import Lottie from 'lottie-react-native'
 import Spacer from '../../components/Spacer'
 import commonColor from '../../native-base-theme/variables/commonColor'
 import UserFooter from '../../components/UserFooter'
@@ -24,6 +25,12 @@ const middleCircle = outerCircle - 80
 const innerCircle = middleCircle - 80
 
 const UserHome = () => {
+  const lottieRef = useRef(null)
+
+  useEffect(() => {
+    lottieRef.current.play()
+  })
+
   return (
     <Container>
       <Header>
@@ -42,43 +49,24 @@ const UserHome = () => {
         </Right>
       </Header>
       <Grid style={{ margin: contentPadding }}>
-        <Row size={3.5} style={{ alignItems: 'flex-end' }}>
+        <Row size={3.5} style={{ alignItems: 'center' }}>
+          <Lottie ref={lottieRef} source={require('../../assets/call.json')} />
           <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <View
+            <TouchableOpacity
               style={{
-                height: outerCircle,
-                width: outerCircle,
-                borderRadius: outerCircle / 2,
-                backgroundColor: '#f6ece8',
+                height: innerCircle,
+                width: innerCircle,
+                borderRadius: innerCircle / 2,
+                backgroundColor: '#f5d5d3',
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>
-              <View
-                style={{
-                  height: middleCircle,
-                  width: middleCircle,
-                  borderRadius: middleCircle / 2,
-                  backgroundColor: '#f5e3e1',
-                  justifyContent: 'center',
-                  alignItems: 'center'
-                }}>
-                <TouchableOpacity
-                  style={{
-                    height: innerCircle,
-                    width: innerCircle,
-                    borderRadius: innerCircle / 2,
-                    backgroundColor: '#f5d5d3',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  }}>
-                  <Icon
-                    type='FontAwesome5'
-                    name='phone'
-                    style={{ fontSize: 112, color: '#dd0000' }}
-                  />
-                </TouchableOpacity>
-              </View>
-            </View>
+              <Icon
+                type='FontAwesome5'
+                name='phone'
+                style={{ fontSize: 112, color: '#dd0000' }}
+              />
+            </TouchableOpacity>
           </Col>
         </Row>
         <Row size={1.25}>
