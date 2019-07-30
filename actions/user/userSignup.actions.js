@@ -3,6 +3,7 @@ import { SIGNUP, SCREEN_LOADING } from './user.constants'
 import { statuses, roles } from '../../constants/User'
 import NavigationService from '../../navigation/NavigationService'
 import { createAction } from 'redux-actions'
+import ShowToast from '../helper/toast.helper'
 
 export function signup(email, password, firstName, lastName, phoneNumber) {
   return async dispatch => {
@@ -28,9 +29,8 @@ export function signup(email, password, firstName, lastName, phoneNumber) {
       NavigationService.navigate('Login')
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
-      // TODO: handle error (toast)
       dispatch(createAction(SCREEN_LOADING)(false))
-      console.log(e)
+      ShowToast(e.message)
     }
   }
 }
