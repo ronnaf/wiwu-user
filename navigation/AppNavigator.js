@@ -1,12 +1,15 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-
+import React, { Fragment } from 'react'
+import { useSelector } from 'react-redux'
 // import MainTabNavigator from './MainTabNavigator'
 import AuthNavigator from './sub-navigators/AuthNavigator'
 import SignupNavigator from './sub-navigators/SignupNavigator'
 import UserNavigator from './sub-navigators/UserNavigator'
 import ResponderNavigator from './sub-navigators/ResponderNavigator'
+import NavigationService from '../navigation/NavigationService'
+import Spinner from 'react-native-loading-spinner-overlay'
 
-export default createAppContainer(
+const Navigator = createAppContainer(
   createSwitchNavigator(
     {
       // You could add another route here for authentication.
@@ -30,3 +33,19 @@ export default createAppContainer(
     }
   )
 )
+
+const AppNavigator = () => {
+  const isLoading = useSelector(state => state.user.isLoading)
+  return (
+    <Fragment>
+      <Spinner visible={isLoading} textContent={'Loading...'} />
+      <Navigator
+        ref={navigatorRef => {
+          NavigationService.setTopLevelNavigator(navigatorRef)
+        }}
+      />
+    </Fragment>
+  )
+}
+
+export default AppNavigator

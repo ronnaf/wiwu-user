@@ -8,9 +8,7 @@ import { Provider } from 'react-redux'
 import { StyleProvider } from 'native-base'
 import getTheme from './native-base-theme/components'
 import commonColor from './native-base-theme/variables/commonColor'
-import NavigationService from './navigation/NavigationService'
 import AppNavigator from './navigation/AppNavigator'
-
 import configureStore from './configureStore'
 const store = configureStore()
 
@@ -31,11 +29,7 @@ export default function App(props) {
         <Provider store={store}>
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-            <AppNavigator
-              ref={navigatorRef => {
-                NavigationService.setTopLevelNavigator(navigatorRef)
-              }}
-            />
+            <AppNavigator />
           </View>
         </Provider>
       </StyleProvider>

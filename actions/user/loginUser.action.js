@@ -1,15 +1,18 @@
 import { auth } from '../../firebase'
-import { LOGIN } from './user.constants'
+import { LOGIN, SCREEN_LOADING } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
+import { createAction } from 'redux-actions'
 
 export function loginUser(email, password) {
   return async dispatch => {
-    // TODO add try catch
-    await auth.signInWithEmailAndPassword(email, password)
-    dispatch({
-      type: LOGIN,
-      payload: { email: auth.currentUser.email }
-    })
-    NavigationService.navigate('UserHome')
+    try {
+      dispatch(createAction(SCREEN_LOADING)(true))
+      await auth.signInWithEmailAndPassword(email, password)
+      dispatch(createAction(LOGIN)({ email: auth.currentUser.email }))
+      NavigationService.navigate('UserHome')
+      dispatch(createAction(SCREEN_LOADING)(false))
+    } catch (e) {
+      dispatch(createAction(SCREEN_LOADING)(false))
+    }
   }
 }

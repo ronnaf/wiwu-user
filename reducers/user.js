@@ -2,12 +2,14 @@ import {
   LOGIN,
   LOGOUT,
   SIGNUP,
-  CHANGE_PASSWORD
+  CHANGE_PASSWORD,
+  SCREEN_LOADING
 } from '../actions/user/user.constants.js'
 
 const initialState = {
   // master account
-  current: {}
+  current: {},
+  isLoading: false
 }
 
 export default function reducer(state = initialState, action) {
@@ -29,6 +31,11 @@ export default function reducer(state = initialState, action) {
     case CHANGE_PASSWORD:
       return {
         ...initialState
+      }
+    case SCREEN_LOADING:
+      return {
+        ...state,
+        isLoading: action.payload
       }
     default:
       return state

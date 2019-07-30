@@ -5,15 +5,12 @@ import { changePassword } from '../actions/user/changePassword.action'
 import { useDispatch } from 'react-redux'
 import {
   Container,
-  Header,
   Button,
   Text,
-  Body,
   Form,
   Item as FormItem,
   Input,
-  Label,
-  Title
+  Label
 } from 'native-base'
 
 const PasswordResetScreen = props => {
@@ -23,10 +20,8 @@ const PasswordResetScreen = props => {
       <Formik
         initialValues={{ username: '' }}
         onSubmit={({ username }, { setSubmitting }) => {
-          setTimeout(() => {
-            setSubmitting(false)
-          }, 400)
           dispatch(changePassword(username))
+          setSubmitting(false)
         }}>
         {({
           values,

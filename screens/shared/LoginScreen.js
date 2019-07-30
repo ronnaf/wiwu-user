@@ -36,10 +36,8 @@ const LoginScreen = props => {
             <Formik
               initialValues={{ username: '', password: '' }}
               onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
-                  setSubmitting(false)
-                }, 400)
                 dispatch(loginUser(values.username, values.password))
+                setSubmitting(false)
               }}>
               {({
                 values,
