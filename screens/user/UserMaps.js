@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
-import { Constants, MapView } from 'expo'
+import MapView from 'react-native-maps'
+import Constants from 'expo-constants'
 import {
   Container,
   Header,
