@@ -16,6 +16,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import Spacer from '../../components/Spacer'
 import commonColor from '../../native-base-theme/variables/commonColor'
 import UserFooter from '../../components/UserFooter'
+import NavigationService from '../../navigation/NavigationService'
 
 const { contentPadding } = commonColor
 const { width } = Dimensions.get('window')
@@ -110,7 +111,9 @@ const UserHome = () => {
           <Col>
             <Row style={{ marginBottom: 8 }}>
               <Col>
-                <TouchableOpacity style={{ flex: 1 }}>
+                <TouchableOpacity
+                  style={{ flex: 1 }}
+                  onPress={() => NavigationService.navigate('UserRequest')}>
                   <LinearGradient
                     style={{
                       flex: 1,
@@ -135,7 +138,9 @@ const UserHome = () => {
                 </TouchableOpacity>
               </Col>
               <Col>
-                <TouchableOpacity style={{ flex: 1 }}>
+                <TouchableOpacity
+                  style={{ flex: 1 }}
+                  onPress={() => NavigationService.navigate('UserRequest')}>
                   <LinearGradient
                     style={{
                       flex: 1,
@@ -162,7 +167,9 @@ const UserHome = () => {
             </Row>
             <Row>
               <Col>
-                <TouchableOpacity style={{ flex: 1 }}>
+                <TouchableOpacity
+                  style={{ flex: 1 }}
+                  onPress={() => NavigationService.navigate('UserRequest')}>
                   <LinearGradient
                     style={{
                       flex: 1,
@@ -187,7 +194,9 @@ const UserHome = () => {
                 </TouchableOpacity>
               </Col>
               <Col>
-                <TouchableOpacity style={{ flex: 1 }}>
+                <TouchableOpacity
+                  style={{ flex: 1 }}
+                  onPress={() => NavigationService.navigate('UserRequest')}>
                   <LinearGradient
                     style={{
                       flex: 1,
