@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, Button, Text, Form } from 'native-base'
 import { Image } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
@@ -10,14 +10,35 @@ import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
 import commonColor from '../../native-base-theme/variables/commonColor'
 import GenericInput from '../../components/GenericInput'
+import * as SecureStore from 'expo-secure-store'
+import jwtDecode from 'jwt-decode'
+import { LOGIN } from '../../actions/user/user.constants'
+import { createAction } from 'redux-actions'
 
 const { contentPadding } = commonColor
 
+// TODO SEPAK
+const checkToken = async dispatch => {
+  const data = jwtDecode(await SecureStore.getItemAsync('USER_TOKEN'))
+  if (Date.now() <= data.exp * 1000) {
+    dispatch(
+      createAction(LOGIN)({
+        email: data.email,
+        uid: data.user_id
+      })
+    )
+    NavigationService.navigate('UserHome')
+  } else {
+    SecureStore.deleteItemAsync('USER_TOKEN')
+  }
+}
 const LoginScreen = props => {
   const dispatch = useDispatch()
   const current = useSelector(state => state.user.current)
-  console.log('[!] LoginScreen - current -', current)
-
+  useEffect(() => {
+    checkToken(dispatch)
+  }, [])
+  console.log(current)
   return (
     <Container style={{ padding: contentPadding }}>
       <Grid>

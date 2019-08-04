@@ -23,6 +23,7 @@
     "expo-web-browser": "^5.0.0",
     "firebase": "^6.2.4",
     "formik": "^1.5.8",
+    "jwt-decode": "^2.2.0",
     "lottie-react-native": "~2.6.1",
     "native-base": "^2.12.1",
     "react": "16.8.3",

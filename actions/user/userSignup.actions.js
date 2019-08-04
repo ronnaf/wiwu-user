@@ -25,7 +25,7 @@ export function signup(email, password, firstName, lastName, phoneNumber) {
         .set(data)
       // TODO: handle redirect upon verification
       await auth.currentUser.sendEmailVerification()
-      dispatch(createAction(SIGNUP)({ email: auth.currentUser.email }))
+      dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
       NavigationService.navigate('Login')
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
