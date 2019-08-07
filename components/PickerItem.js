@@ -35,4 +35,5 @@ PickerItem.propTypes = {
   answers: PropTypes.array.isRequired,
   setFieldValue: PropTypes.func.isRequired
 }
+
 export default PickerItem

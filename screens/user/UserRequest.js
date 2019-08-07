@@ -15,7 +15,7 @@ import {
 import { Formik } from 'formik'
 import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
-import PickerItem from '../../components/PickerItems'
+import PickerItem from '../../components/PickerItem'
 
 // NOTE: Dummy Data
 const items = [
