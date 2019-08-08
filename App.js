@@ -1,7 +1,6 @@
-import { AppLoading } from 'expo'
+import React, { useState, useEffect } from 'react'
 import { Asset } from 'expo-asset'
 import * as Font from 'expo-font'
-import React, { useState } from 'react'
 import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
@@ -13,17 +12,24 @@ import configureStore from './configureStore'
 const store = configureStore()
 
 export default function App(props) {
-  const [isLoadingComplete, setLoadingComplete] = useState(false)
+  const [fontLoaded, setFontLoaded] = useState(false)
+  // const [isLoadingComplete, setLoadingComplete] = useState(false)
 
-  if (!isLoadingComplete && !props.skipLoadingScreen) {
-    return (
-      <AppLoading
-        startAsync={loadResourcesAsync}
-        onError={handleLoadingError}
-        onFinish={() => handleFinishLoading(setLoadingComplete)}
-      />
-    )
-  } else {
+  useEffect(async () => {
+    await loadResourcesAsync()
+    setFontLoaded(true)
+  }, [])
+
+  // if (!isLoadingComplete && !props.skipLoadingScreen) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={loadResourcesAsync}
+  //       onError={handleLoadingError}
+  //       onFinish={() => handleFinishLoading(setLoadingComplete)}
+  //     />
+  //   )
+  // } else {
+  if (fontLoaded) {
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Provider store={store}>
@@ -34,7 +40,10 @@ export default function App(props) {
         </Provider>
       </StyleProvider>
     )
+  } else {
+    return <View />
   }
+  // }
 }
 
 async function loadResourcesAsync() {
