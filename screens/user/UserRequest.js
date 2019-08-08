@@ -13,10 +13,9 @@ import {
   Text
 } from 'native-base'
 import { Formik } from 'formik'
-// import { useDispatch } from 'react-redux'
 import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
-import PickerItems from '../../components/PickerItems'
+import PickerItem from '../../components/PickerItem'
 
 // NOTE: Dummy Data
 const items = [
@@ -32,11 +31,10 @@ const items = [
   }
 ]
 
-const UserRequestScreen = () => {
-  // const dispatch = useDispatch()
+const UserRequest = () => {
   return (
     <Container>
-      <Header hasTabs>
+      <Header>
         <Left>
           <Button
             transparent
@@ -50,12 +48,7 @@ const UserRequestScreen = () => {
         <Right />
       </Header>
       <Content padder>
-        <Formik
-          initialValues={{}}
-          validationSchema={{}}
-          onSubmit={values => {
-            // NOTE: dispatch(createRequest())
-          }}>
+        <Formik initialValues={{}} onSubmit={values => {}}>
           {({
             values,
             errors,
@@ -64,10 +57,20 @@ const UserRequestScreen = () => {
             handleBlur,
             handleSubmit,
             isSubmitting,
-            isValidating
+            isValidating,
+            setFieldValue
           }) => (
             <Form>
-              <PickerItems items={items} />
+              {items.map(item => {
+                return (
+                  <PickerItem
+                    question={item.question}
+                    answers={item.answers}
+                    setFieldValue={setFieldValue}
+                    key={`picker.${items.indexOf(item)}`}
+                  />
+                )
+              })}
               <Spacer height={48} />
               <Button
                 onPress={handleSubmit}
@@ -78,7 +81,9 @@ const UserRequestScreen = () => {
               </Button>
               <Spacer height={16} />
               <Button
-                onPress={() => NavigationService.navigate('AddInfo')}
+                onPress={() =>
+                  NavigationService.navigate('UserRequestAdd', { values })
+                }
                 full
                 transparent
                 small>
@@ -92,4 +97,4 @@ const UserRequestScreen = () => {
   )
 }
 
-export default UserRequestScreen
+export default UserRequest
