@@ -8,6 +8,7 @@ import UserNavigator from './sub-navigators/UserNavigator'
 import ResponderNavigator from './sub-navigators/ResponderNavigator'
 import NavigationService from '../navigation/NavigationService'
 import Spinner from 'react-native-loading-spinner-overlay'
+import { Root } from 'native-base'
 
 const Navigator = createAppContainer(
   createSwitchNavigator(
@@ -39,11 +40,13 @@ const AppNavigator = () => {
   return (
     <Fragment>
       <Spinner visible={isLoading} textContent={'Loading...'} />
-      <Navigator
-        ref={navigatorRef => {
-          NavigationService.setTopLevelNavigator(navigatorRef)
-        }}
-      />
+      <Root>
+        <Navigator
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef)
+          }}
+        />
+      </Root>
     </Fragment>
   )
 }

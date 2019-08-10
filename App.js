@@ -11,6 +11,8 @@ import AppNavigator from './navigation/AppNavigator'
 import configureStore from './configureStore'
 const store = configureStore()
 
+console.disableYellowBox = true
+
 export default function App(props) {
   const [fontLoaded, setFontLoaded] = useState(false)
   // const [isLoadingComplete, setLoadingComplete] = useState(false)

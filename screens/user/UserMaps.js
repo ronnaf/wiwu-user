@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, Linking, Alert, AppState } from 'react-native'
+import { View, StyleSheet, AppState } from 'react-native'
 import MapView from 'react-native-maps'
 import Constants from 'expo-constants'
-import * as Location from 'expo-location'
 import {
+  Toast,
   Container,
   Header,
   Left,
@@ -14,59 +14,7 @@ import {
   Title
 } from 'native-base'
 import UserFooter from '../../components/UserFooter'
-
-const askForLocation = async (locationChange, mapRegionChange) => {
-  await Location.requestPermissionsAsync()
-  await Location.enableNetworkProviderAsync()
-  await Location.hasServicesEnabledAsync()
-  if (!(await Location.hasServicesEnabledAsync())) {
-    Alert.alert(
-      '',
-      'For a better experience, turn on device location',
-      [
-        {
-          text: 'CANCEL',
-          onPress: () => {}
-        },
-        {
-          text: 'OK',
-          onPress: () => {
-            Linking.openURL('app-settings:')
-          }
-        }
-      ],
-      { cancelable: false }
-    )
-  }
-  if (await Location.hasServicesEnabledAsync()) {
-    const {
-      coords: { latitude, longitude }
-    } = await Location.getCurrentPositionAsync({
-      accuracy: Location.Accuracy.BestForNavigation
-    })
-    locationChange({ latitude, longitude })
-    mapRegionChange({
-      latitude,
-      longitude,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421
-    })
-    Location.watchPositionAsync(
-      {
-        accuracy: Location.Accuracy.BestForNavigation
-      },
-      ({ coords: { latitude, longitude } }) => {
-        locationChange({ latitude, longitude })
-        mapRegionChange({
-          latitude,
-          longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
-        })
-      }
-    )
-  }
-}
+import * as Location from 'expo-location'
 
 const UserMaps = props => {
   const [appState, changeAppState] = useState('active')
@@ -86,24 +34,68 @@ const UserMaps = props => {
   })
 
   const _handleAppStateChange = async nextAppState => {
-    if (
-      ref.current.match(/inactive|background/) &&
-      nextAppState === 'active' &&
-      (await Location.hasServicesEnabledAsync())
-    ) {
-      askForLocation(locationChange, mapRegionChange)
+    if (ref.current.match(/inactive|background/) && nextAppState === 'active') {
+      await navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude } = position.coords
+          locationChange({
+            latitude,
+            longitude
+          })
+          mapRegionChange({
+            latitude,
+            longitude,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421
+          })
+        },
+        error =>
+          Toast.show({
+            text: error.message,
+            buttonText: 'Okay'
+          }),
+        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+      )
     }
     changeAppState(nextAppState)
   }
-
+  const checkStatus = async () => {
+    console.log(await Location.hasServicesEnabledAsync())
+    if (!(await Location.hasServicesEnabledAsync())) {
+      props.navigation.navigate('UserHome')
+      Toast.show({
+        position: 'top',
+        text: 'Turn on location',
+        buttonText: 'Okay'
+      })
+    }
+  }
+  checkStatus()
   useEffect(() => {
-    askForLocation(locationChange, mapRegionChange)
     AppState.addEventListener('change', _handleAppStateChange)
+    navigator.geolocation.watchPosition(
+      position => {
+        const { latitude, longitude } = position.coords
+        locationChange({
+          latitude,
+          longitude
+        })
+        mapRegionChange({
+          latitude,
+          longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        })
+      },
+      e => {
+        console.log(e)
+      },
+      { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+    )
     return function cleanup() {
       AppState.removeEventListener('change', _handleAppStateChange)
     }
   }, [])
-
   return (
     <Container>
       <Header>
