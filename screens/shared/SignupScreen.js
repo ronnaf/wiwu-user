@@ -14,7 +14,7 @@ import {
 } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch } from 'react-redux'
-import { registrationSchema } from '../../constants/Schemas'
+import { signupSchema } from '../../constants/Schemas'
 import { signup } from '../../actions/user/userSignup.actions'
 import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
@@ -46,7 +46,7 @@ const SignupScreen = () => {
             password: '',
             phoneNumber: ''
           }}
-          validationSchema={registrationSchema}
+          validationSchema={signupSchema}
           onSubmit={values => {
             dispatch(
               signup(

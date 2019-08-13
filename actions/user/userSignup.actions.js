@@ -3,6 +3,7 @@ import { SIGNUP, SCREEN_LOADING } from './user.constants'
 import { statuses, roles } from '../../constants/User'
 import NavigationService from '../../navigation/NavigationService'
 import { createAction } from 'redux-actions'
+import ShowToast from '../helper/toast.helper'
 
 export function signup(email, password, firstName, lastName, phoneNumber) {
   return async dispatch => {
@@ -24,13 +25,12 @@ export function signup(email, password, firstName, lastName, phoneNumber) {
         .set(data)
       // TODO: handle redirect upon verification
       await auth.currentUser.sendEmailVerification()
-      dispatch(createAction(SIGNUP)({ email: auth.currentUser.email }))
+      dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
       NavigationService.navigate('Login')
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
-      // TODO: handle error (toast)
       dispatch(createAction(SCREEN_LOADING)(false))
-      console.log(e)
+      ShowToast(e.message)
     }
   }
 }

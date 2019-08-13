@@ -51,8 +51,9 @@ git checkout -b name-here/dev
 ##### IMPORTANT: Please only use [yarn](https://yarnpkg.com/en/) as the package manager to prevent conflicts.
 
 ## Adding New Packages
+
 - Check first if package is present in Expo SDK
-- To install a package from Expo SDK, follow `Bare Workflow` installation instructions 
+- To install a package from Expo SDK, follow `Bare Workflow` installation instructions
 
 ## Style Guide
 
