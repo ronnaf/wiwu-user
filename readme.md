@@ -19,12 +19,27 @@ git clone git@gitlab.com:team-weee-wooo/wiwu-user.git
 cd wiwu-user
 ```
 
-Install dependencies & run:
+Install dependencies:
 
 ```bash
 yarn
-yarn start
+
+# install ios dependencies
+cd ios
+pod install
 ```
+
+Start project:
+
+```bash
+# ios
+yarn ios
+
+# android
+yarn android
+```
+
+##### NOTE: `yarn android` doesn't work, open `android` folder as a project in Android Studio
 
 Starting development:
 
@@ -34,6 +49,11 @@ git checkout -b name-here/dev
 ```
 
 ##### IMPORTANT: Please only use [yarn](https://yarnpkg.com/en/) as the package manager to prevent conflicts.
+
+## Adding New Packages
+
+- Check first if package is present in Expo SDK
+- To install a package from Expo SDK, follow `Bare Workflow` installation instructions
 
 ## Style Guide
 
