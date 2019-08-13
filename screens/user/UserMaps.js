@@ -60,7 +60,6 @@ const UserMaps = props => {
     changeAppState(nextAppState)
   }
   const checkStatus = async () => {
-    console.log(await Location.hasServicesEnabledAsync())
     if (!(await Location.hasServicesEnabledAsync())) {
       props.navigation.navigate('UserHome')
       Toast.show({
