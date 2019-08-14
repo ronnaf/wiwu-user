@@ -13,7 +13,7 @@
         android:layout_height="45dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/goodmorning" />
+        app:srcCompat="@drawable/fire" />
 
     <TextView
         android:id="@+id/charm_name"

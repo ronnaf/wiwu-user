@@ -13,6 +13,6 @@
         android:layout_centerVertical="true"
         android:layout_weight="1"
         android:background="#01a0bc"
-        android:src="@drawable/favicon_white"
-        app:srcCompat="@drawable/favicon_white" />
+        android:src="@drawable/wiwu"
+        app:srcCompat="@drawable/wiwu" />
 </RelativeLayout>

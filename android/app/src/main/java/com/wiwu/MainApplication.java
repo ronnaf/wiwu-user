@@ -42,9 +42,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new BackgroundTimerPackage(),
-            new MapsPackage(),
-            new LottiePackage(),
+          new BackgroundTimerPackage(),
+          new MapsPackage(),
+          new LottiePackage(),
+          new BackgroundTaskBridgePackage(),
           new ReanimatedPackage(),
           new RNGestureHandlerPackage(),
           new ModuleRegistryAdapter(mModuleRegistryProvider)
