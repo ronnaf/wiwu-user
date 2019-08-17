@@ -9,6 +9,7 @@ export function signup(email, password, firstName, lastName, phoneNumber) {
   return async dispatch => {
     try {
       dispatch(createAction(SCREEN_LOADING)(true))
+
       await auth.createUserWithEmailAndPassword(email, password)
       const uid = await auth.currentUser.uid
       const data = {
@@ -25,6 +26,7 @@ export function signup(email, password, firstName, lastName, phoneNumber) {
         .set(data)
       // TODO: handle redirect upon verification
       await auth.currentUser.sendEmailVerification()
+
       dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
       NavigationService.navigate('Login')
       dispatch(createAction(SCREEN_LOADING)(false))

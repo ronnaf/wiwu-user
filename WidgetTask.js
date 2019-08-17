@@ -5,14 +5,19 @@ const { BackgroundTaskBridge } = NativeModules
 
 const charms = [
   {
-    id: 'uuid1',
-    name: 'First',
-    cover: 'goodmorning'
+    id: 'fire',
+    name: 'Fire',
+    cover: 'fire'
   },
   {
-    id: 'uuid2',
-    name: 'Second',
-    cover: 'night'
+    id: 'medical',
+    name: 'Medical',
+    cover: 'ambulance'
+  },
+  {
+    id: 'crime',
+    name: 'Police',
+    cover: 'policeman'
   }
 ]
 

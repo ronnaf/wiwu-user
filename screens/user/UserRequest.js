@@ -13,6 +13,7 @@ import {
   Text
 } from 'native-base'
 import { Formik } from 'formik'
+
 import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
 import PickerItem from '../../components/PickerItem'
@@ -38,7 +39,7 @@ const UserRequest = () => {
         <Left>
           <Button
             transparent
-            onPress={() => NavigationService.navigate('UserHome')}>
+            onPress={() => NavigationService.navigate('Home')}>
             <Icon name='arrow-back' />
           </Button>
         </Left>

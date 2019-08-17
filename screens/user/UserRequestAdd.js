@@ -15,6 +15,7 @@ import {
 } from 'native-base'
 import { Formik } from 'formik'
 import PropTypes from 'prop-types'
+
 import NavigationService from '../../navigation/NavigationService'
 import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
@@ -30,7 +31,7 @@ const UserRequestAdd = props => {
         <Left>
           <Button
             transparent
-            onPress={() => NavigationService.navigate('UserHome')}>
+            onPress={() => NavigationService.navigate('Home')}>
             <Icon name='arrow-back' />
           </Button>
         </Left>

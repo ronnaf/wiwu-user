@@ -2,19 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { View, StyleSheet, AppState } from 'react-native'
 import MapView from 'react-native-maps'
 import Constants from 'expo-constants'
-import {
-  Toast,
-  Container,
-  Header,
-  Left,
-  Button,
-  Icon,
-  Body,
-  Right,
-  Title
-} from 'native-base'
-import UserFooter from '../../components/UserFooter'
+import { Toast, Container } from 'native-base'
 import * as Location from 'expo-location'
+
+import GenericHeader from '../../components/GenericHeader'
 
 const UserMaps = props => {
   const [appState, changeAppState] = useState('active')
@@ -59,9 +50,10 @@ const UserMaps = props => {
     }
     changeAppState(nextAppState)
   }
+
   const checkStatus = async () => {
     if (!(await Location.hasServicesEnabledAsync())) {
-      props.navigation.navigate('UserHome')
+      props.navigation.navigate('Home')
       Toast.show({
         position: 'top',
         text: 'Turn on location',
@@ -69,7 +61,9 @@ const UserMaps = props => {
       })
     }
   }
+
   checkStatus()
+
   useEffect(() => {
     AppState.addEventListener('change', _handleAppStateChange)
     navigator.geolocation.watchPosition(
@@ -95,23 +89,10 @@ const UserMaps = props => {
       AppState.removeEventListener('change', _handleAppStateChange)
     }
   }, [])
+
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name='menu' />
-          </Button>
-        </Left>
-        <Body style={{ flex: 3 }}>
-          <Title>Emergency Locations</Title>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon name='contact' />
-          </Button>
-        </Right>
-      </Header>
+      <GenericHeader title='Maps' openDrawer={props.navigation.openDrawer} />
       <View style={styles.container}>
         <MapView
           style={{ alignSelf: 'stretch', height: '100%' }}
@@ -121,7 +102,6 @@ const UserMaps = props => {
           <MapView.Marker coordinate={location} />
         </MapView>
       </View>
-      <UserFooter active='map' />
     </Container>
   )
 }

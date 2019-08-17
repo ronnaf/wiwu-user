@@ -1,22 +1,13 @@
 import React, { useRef, useEffect } from 'react'
-import {
-  Container,
-  Text,
-  Icon,
-  Button,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title
-} from 'native-base'
+import { Container, Text, Icon } from 'native-base'
 import { Dimensions, TouchableOpacity } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
 import Lottie from 'lottie-react-native'
+
 import Spacer from '../../components/Spacer'
+import GenericHeader from '../../components/GenericHeader'
 import commonColor from '../../native-base-theme/variables/commonColor'
-import UserFooter from '../../components/UserFooter'
 import NavigationService from '../../navigation/NavigationService'
 
 const { contentPadding } = commonColor
@@ -25,30 +16,16 @@ const outerCircle = width - 32
 const middleCircle = outerCircle - 80
 const innerCircle = middleCircle - 80
 
-const UserHome = () => {
+const UserHome = props => {
   const lottieRef = useRef(null)
 
   useEffect(() => {
     lottieRef.current.play()
-  })
+  }, [])
 
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name='menu' />
-          </Button>
-        </Left>
-        <Body style={{ flex: 3 }}>
-          <Title>Home</Title>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon name='contact' />
-          </Button>
-        </Right>
-      </Header>
+      <GenericHeader title='Home' openDrawer={props.navigation.openDrawer} />
       <Grid style={{ margin: contentPadding }}>
         <Row size={3.5} style={{ alignItems: 'center' }}>
           <Lottie ref={lottieRef} source={require('../../assets/call.json')} />
@@ -212,7 +189,6 @@ const UserHome = () => {
           </Col>
         </Row>
       </Grid>
-      <UserFooter active='home' />
     </Container>
   )
 }

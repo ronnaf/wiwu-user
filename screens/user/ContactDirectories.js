@@ -1,18 +1,9 @@
 import React from 'react'
 import { StyleSheet, Dimensions } from 'react-native'
-import {
-  Container,
-  Header,
-  Left,
-  Icon,
-  Body,
-  Right,
-  Content,
-  Button,
-  Title
-} from 'native-base'
+import { Container, Content } from 'native-base'
 import Table from 'react-native-simple-table'
-import UserFooter from '../../components/UserFooter'
+
+import GenericHeader from '../../components/GenericHeader'
 
 const tableData = [
   {
@@ -166,21 +157,10 @@ const tableHead = [
 const ContactDirectories = props => {
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button transparent>
-            <Icon name='menu' />
-          </Button>
-        </Left>
-        <Body style={{ flex: 3 }}>
-          <Title>Emergency Contacts</Title>
-        </Body>
-        <Right>
-          <Button transparent>
-            <Icon name='contact' />
-          </Button>
-        </Right>
-      </Header>
+      <GenericHeader
+        title='Contact Directory'
+        openDrawer={props.navigation.openDrawer}
+      />
       <Content padder>
         <Table
           columns={tableHead}
@@ -190,7 +170,6 @@ const ContactDirectories = props => {
           bodyContainerStyle={styles.text}
         />
       </Content>
-      <UserFooter active={'contacts'} />
     </Container>
   )
 }

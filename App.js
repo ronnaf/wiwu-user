@@ -13,13 +13,17 @@ const store = configureStore()
 
 console.disableYellowBox = true
 
+const onMount = async setFontLoaded => {
+  await loadResourcesAsync()
+  setFontLoaded(true)
+}
+
 export default function App(props) {
   const [fontLoaded, setFontLoaded] = useState(false)
   // const [isLoadingComplete, setLoadingComplete] = useState(false)
 
-  useEffect(async () => {
-    await loadResourcesAsync()
-    setFontLoaded(true)
+  useEffect(() => {
+    onMount(setFontLoaded)
   }, [])
 
   // if (!isLoadingComplete && !props.skipLoadingScreen) {

@@ -21,9 +21,9 @@
             android:adjustViewBounds="true"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
-            android:src="@drawable/favicon_white"
+            android:src="@drawable/wiwu"
             android:visibility="visible"
-            app:srcCompat="@drawable/favicon_white" />
+            app:srcCompat="@drawable/wiwu" />
 
         <TextView
             android:id="@+id/textView"
@@ -31,7 +31,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:paddingLeft="5dp"
-            android:text="WIWU WIDGET"
+            android:text="WIWU"
             android:textColor="#FCFCFC"
             android:textSize="14sp" />
 
