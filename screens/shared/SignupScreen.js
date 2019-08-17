@@ -14,6 +14,7 @@ import {
 } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch } from 'react-redux'
+
 import { signupSchema } from '../../constants/Schemas'
 import { signup } from '../../actions/user/userSignup.actions'
 import GenericInput from '../../components/GenericInput'
@@ -22,6 +23,7 @@ import NavigationService from '../../navigation/NavigationService'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
+
   return (
     <Container>
       <Header>
