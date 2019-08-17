@@ -53,6 +53,7 @@ public class BackgroundTaskBridge extends ReactContextBaseJavaModule {
     public void initializeWidgetBridge(ReadableArray starredCharms) {
         RemoteViews widgetView = new RemoteViews(this.getReactApplicationContext().getPackageName(), R.layout.appwidget);
         widgetView.removeAllViews(R.id.charms_layout);
+
         for (int i = 0; i < starredCharms.size(); i++) {
             ReadableMap charm = starredCharms.getMap(i);
             switch (i) {
@@ -96,10 +97,10 @@ public class BackgroundTaskBridge extends ReactContextBaseJavaModule {
     }
 
     private void registerTask(String action, ReadableMap charm, RemoteViews widgetView, Integer button) {
-        Intent intent = new Intent();
-        intent.putExtra("id", charm.getString("id"));
-        intent.setAction(action);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getReactApplicationContext(), 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        Intent launchActivity = new Intent(this.getReactApplicationContext(), MainActivity.class);
+        // intent.putExtra("id", charm.getString("id"));
+        // intent.setAction(action);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this.getReactApplicationContext(), 0, launchActivity, 0);
         widgetView.setOnClickPendingIntent(button, pendingIntent);
     }
 
