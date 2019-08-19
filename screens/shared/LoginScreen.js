@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux'
 import { Formik } from 'formik'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 
-import { loginUser, checkToken } from '../../actions/user/loginUser.action'
+import { loginUser, checkUser } from '../../actions/user/loginUser.action'
+import { auth } from '../../firebase'
 
 import { images } from '../../assets/index'
 import NavigationService from '../../navigation/NavigationService'
@@ -20,7 +21,9 @@ const LoginScreen = props => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    checkToken(dispatch)
+    auth.onAuthStateChanged(user => {
+      checkUser(dispatch)
+    })
   }, [])
 
   return (
