@@ -32,3 +32,17 @@ export const signupSchema = Yup.object().shape({
     })
     .required('Required')
 })
+
+export const LoginSchema = Yup.object().shape({
+  username: Yup.string().required('Required'),
+  password: Yup.string().required('Required')
+})
+
+const phoneRegex = /^(09|\+639)\d{9}$/
+
+export const EditSchema = Yup.object().shape({
+  phone: Yup.string()
+    .matches(phoneRegex, 'Phone number is not valid')
+    .required('Required')
+})
+//email firstName lastName phone

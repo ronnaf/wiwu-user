@@ -34,21 +34,22 @@ export function loginUser(email, password) {
 }
 
 export const checkToken = async dispatch => {
-  const token = await SecureStore.getItemAsync('USER_TOKEN')
+  NavigationService.navigate('UserSettings')
+  // const token = await SecureStore.getItemAsync('USER_TOKEN')
 
-  if (token) {
-    const data = jwtDecode(token)
+  // if (token) {
+  //   const data = jwtDecode(token)
 
-    if (Date.now() <= data.exp * 1000) {
-      dispatch(
-        createAction(LOGIN)({
-          email: data.email,
-          uid: data.user_id
-        })
-      )
-      NavigationService.navigate('Home')
-    } else {
-      await SecureStore.deleteItemAsync('USER_TOKEN')
-    }
-  }
+  //   if (Date.now() <= data.exp * 1000) {
+  //     dispatch(
+  //       createAction(LOGIN)({
+  //         email: data.email,
+  //         uid: data.user_id
+  //       })
+  //     )
+  //     NavigationService.navigate('Home')
+  //   } else {
+  //     await SecureStore.deleteItemAsync('USER_TOKEN')
+  //   }
+  // }
 }
