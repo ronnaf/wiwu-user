@@ -4,6 +4,7 @@ import { Container, Content } from 'native-base'
 import Table from 'react-native-simple-table'
 
 import GenericHeader from '../../components/GenericHeader'
+import Footer from '../../components/Footer'
 
 const tableData = [
   {
@@ -157,10 +158,7 @@ const tableHead = [
 const ContactDirectories = props => {
   return (
     <Container>
-      <GenericHeader
-        title='Contact Directory'
-        openDrawer={props.navigation.openDrawer}
-      />
+      <GenericHeader title='Contact Directory' />
       <Content padder>
         <Table
           columns={tableHead}
@@ -170,6 +168,7 @@ const ContactDirectories = props => {
           bodyContainerStyle={styles.text}
         />
       </Content>
+      <Footer active='contacts' />
     </Container>
   )
 }

@@ -1,37 +1,31 @@
-import HomeScreen from '../../screens/user/UserHome'
-import Maps from '../../screens/user/UserMaps'
-import Directory from '../../screens/user/ContactDirectories'
-import SideBar from '../../components/Sidebar'
+import { createSwitchNavigator } from 'react-navigation'
+import UserHome from '../../screens/user/UserHome'
+import UserMaps from '../../screens/user/UserMaps'
+import ContactDirectories from '../../screens/user/ContactDirectories'
+import UserRequest from '../../screens/user/UserRequest'
+import UserRequestAdd from '../../screens/user/UserRequestAdd'
 
-import { createDrawerNavigator } from 'react-navigation'
-
-const UserRouter = createDrawerNavigator(
+const UserNavigator = createSwitchNavigator(
   {
     Home: {
-      screen: HomeScreen,
-      navigationOptions: ({ navigation }) => ({
-        title: 'Home'
-      })
+      screen: UserHome
     },
-    Maps: {
-      screen: Maps,
-      navigationOptions: ({ navigation }) => ({
-        title: 'Maps'
-      })
+    UserMaps: {
+      screen: UserMaps
     },
-    Directory: {
-      screen: Directory,
-      navigationOptions: ({ navigation }) => ({
-        title: 'Directory'
-      })
+    UserContactDirectories: {
+      screen: ContactDirectories
+    },
+    UserRequest: {
+      screen: UserRequest
+    },
+    UserRequestAdd: {
+      screen: UserRequestAdd
     }
   },
   {
-    contentComponent: SideBar,
-    drawerPosition: 'left',
-    drawerType: 'slide',
-    useNativeAnimations: true,
-    initialRouteName: 'Home'
+    headerMode: 'none'
   }
 )
-export default UserRouter
+
+export default UserNavigator

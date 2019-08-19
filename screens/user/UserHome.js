@@ -9,6 +9,7 @@ import Spacer from '../../components/Spacer'
 import GenericHeader from '../../components/GenericHeader'
 import commonColor from '../../native-base-theme/variables/commonColor'
 import NavigationService from '../../navigation/NavigationService'
+import Footer from '../../components/Footer'
 
 const { contentPadding } = commonColor
 const { width } = Dimensions.get('window')
@@ -25,7 +26,7 @@ const UserHome = props => {
 
   return (
     <Container>
-      <GenericHeader title='Home' openDrawer={props.navigation.openDrawer} />
+      <GenericHeader title='Home' />
       <Grid style={{ margin: contentPadding }}>
         <Row size={3.5} style={{ alignItems: 'center' }}>
           <Lottie ref={lottieRef} source={require('../../assets/call.json')} />
@@ -189,6 +190,7 @@ const UserHome = props => {
           </Col>
         </Row>
       </Grid>
+      <Footer active='home' />
     </Container>
   )
 }

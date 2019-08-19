@@ -6,6 +6,7 @@ import { Toast, Container } from 'native-base'
 import * as Location from 'expo-location'
 
 import GenericHeader from '../../components/GenericHeader'
+import Footer from '../../components/Footer'
 
 const UserMaps = props => {
   const [appState, changeAppState] = useState('active')
@@ -92,7 +93,7 @@ const UserMaps = props => {
 
   return (
     <Container>
-      <GenericHeader title='Maps' openDrawer={props.navigation.openDrawer} />
+      <GenericHeader title='Maps' />
       <View style={styles.container}>
         <MapView
           style={{ alignSelf: 'stretch', height: '100%' }}
@@ -102,6 +103,7 @@ const UserMaps = props => {
           <MapView.Marker coordinate={location} />
         </MapView>
       </View>
+      <Footer active='map' />
     </Container>
   )
 }

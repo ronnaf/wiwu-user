@@ -6,7 +6,7 @@ const GenericHeader = props => {
     <Header>
       <Left>
         <Button transparent>
-          <Icon name='menu' onPress={() => props.openDrawer()} />
+          <Icon name='menu' />
         </Button>
       </Left>
       <Body style={{ flex: 3 }}>
