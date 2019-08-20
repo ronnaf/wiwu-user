@@ -8,9 +8,8 @@ import ShowToast from '../helper/toast.helper'
 
 export function signup(user) {
   return async dispatch => {
-    const { email, password, firstName, lastName, phoneNumber } = user
-
     try {
+      const { email, password, firstName, lastName, phoneNumber } = user
       dispatch(createAction(SCREEN_LOADING)(true))
 
       await auth.createUserWithEmailAndPassword(email, password)
