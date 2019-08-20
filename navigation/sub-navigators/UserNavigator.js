@@ -6,14 +6,10 @@ import ContactDirectories from '../../screens/user/ContactDirectories'
 import UserRequest from '../../screens/user/UserRequest'
 import UserRequestAdd from '../../screens/user/UserRequestAdd'
 import UserSettings from '../../screens/user/UserSettings'
-import UnverifiedScreen from '../../screens/user/UnverifiedScreen'
 
 const UserNavigator = createSwitchNavigator({
-  Home: {
+  UserHome: {
     screen: UserHome
-  },
-  Unverified: {
-    screen: UnverifiedScreen
   },
   UserSettings: {
     screen: UserSettings

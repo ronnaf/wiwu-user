@@ -54,7 +54,7 @@ const UserMaps = props => {
 
   const checkStatus = async () => {
     if (!(await Location.hasServicesEnabledAsync())) {
-      props.navigation.navigate('Home')
+      props.navigation.navigate('UserHome')
       Toast.show({
         position: 'top',
         text: 'Turn on location',

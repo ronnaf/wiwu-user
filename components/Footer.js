@@ -9,7 +9,7 @@ const UserFooter = ({ active = 'home' }) => {
       <FooterTab>
         <Button
           active={active === 'home'}
-          onPress={() => NavigationService.navigate('Home')}>
+          onPress={() => NavigationService.navigate('UserHome')}>
           <Icon name='home' />
         </Button>
         <Button active={active === 'notifications'}>

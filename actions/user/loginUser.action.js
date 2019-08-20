@@ -58,7 +58,7 @@ export const checkUser = async dispatch => {
     )
 
     NavigationService.navigate(
-      currentUser.emailVerified ? 'Home' : 'Unverified'
+      currentUser.emailVerified ? 'UserHome' : 'Unverified'
     )
   }
 

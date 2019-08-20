@@ -31,7 +31,7 @@ const UserRequestAdd = props => {
         <Left>
           <Button
             transparent
-            onPress={() => NavigationService.navigate('Home')}>
+            onPress={() => NavigationService.navigate('UserHome')}>
             <Icon name='arrow-back' />
           </Button>
         </Left>

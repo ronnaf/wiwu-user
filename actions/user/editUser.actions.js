@@ -28,7 +28,7 @@ export function editUser(user) {
         .update(data)
 
       dispatch(createAction(EDIT)(user))
-      NavigationService.navigate('Home')
+      NavigationService.navigate('UserHome')
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))

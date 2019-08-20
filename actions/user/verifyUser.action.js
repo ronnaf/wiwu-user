@@ -10,10 +10,10 @@ export const verifyUser = async () => {
     const user = auth.currentUser
 
     if (user.emailVerified) {
-      NavigationService.navigate('Home')
+      NavigationService.navigate('UserHome')
     } else {
       ShowToast('User is not verified')
     }
-    NavigationService.navigate(user.emailVerified ? 'Home' : 'Unverified')
+    NavigationService.navigate(user.emailVerified ? 'UserHome' : 'Unverified')
   }
 }

@@ -12,7 +12,7 @@ const GenericHeader = props => {
           {props.title === 'Settings' && (
             <Icon
               name='arrow-back'
-              onPress={() => NavigationService.navigate('Home')}
+              onPress={() => NavigationService.navigate('UserHome')}
             />
           )}
           {props.title !== 'Settings' && <Icon name='menu' />}
