@@ -1,5 +1,9 @@
 import * as Yup from 'yup'
 
+const phoneRegex = /^(09|\+639)\d{9}$/
+const nameRegex = /^[A-Za-z]+$/
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*]).{8,}$/
+
 export const signupSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, 'Too Short!')
@@ -14,21 +18,36 @@ export const signupSchema = Yup.object().shape({
     .required('Required'),
   password: Yup.string()
     .min(8, 'Too Short! Must be atleast 8 characters!')
-    .test(
-      'isStrong',
-      `Password must contain a lowercase letter, an uppercase letter, a number and one of the following characters: !@#$&*`,
-      value => {
-        const regex = new RegExp(
-          '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*]).{8,}$'
-        )
-        return regex.test(value)
-      }
+    .matches(
+      passwordRegex,
+      'Password must contain a lowercase letter, an uppercase letter, a number and one of the following characters: !@#$&*'
     )
     .required('Required!'),
-  phoneNumber: Yup.number()
-    .test('isPhoneNumber', 'Must be a valid 10 digit phone number!', value => {
-      const regex = new RegExp('^(?=.*[0-9]{10}$)')
-      return regex.test(value)
-    })
+  phoneNumber: Yup.string()
+    .matches(phoneRegex, 'Must be a valid 11 digit phone number!')
+    .required('Required')
+})
+
+export const LoginSchema = Yup.object().shape({
+  username: Yup.string().required('Required'),
+  password: Yup.string().required('Required')
+})
+
+export const EditSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid Email')
+    .required('Required'),
+  firstName: Yup.string()
+    .matches(nameRegex, 'Only letters allowed')
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  lastName: Yup.string()
+    .matches(nameRegex, 'Only letters allowed')
+    .min(2, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Required'),
+  phoneNumber: Yup.string()
+    .matches(phoneRegex, 'Must be a valid 11 digit phone number!')
     .required('Required')
 })

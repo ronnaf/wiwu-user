@@ -4,28 +4,26 @@ import { Image } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { Formik } from 'formik'
 import { Col, Row, Grid } from 'react-native-easy-grid'
-import * as Yup from 'yup'
 
-import { loginUser, checkToken } from '../../actions/user/loginUser.action'
+import { loginUser, checkUser } from '../../actions/user/loginUser.action'
+import { auth } from '../../firebase'
 
 import { images } from '../../assets/index'
 import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
 import commonColor from '../../native-base-theme/variables/commonColor'
 import GenericInput from '../../components/GenericInput'
+import { LoginSchema } from '../../constants/Schemas'
 
 const { contentPadding } = commonColor
-
-const LoginSchema = Yup.object().shape({
-  username: Yup.string().required('Required'),
-  password: Yup.string().required('Required')
-})
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    checkToken(dispatch)
+    auth.onAuthStateChanged(user => {
+      checkUser(dispatch)
+    })
   }, [])
 
   return (
@@ -61,7 +59,6 @@ const LoginScreen = props => {
                 setFieldValue,
                 setFieldTouched
               }) => {
-                console.log(errors)
                 return (
                   <Form>
                     <GenericInput

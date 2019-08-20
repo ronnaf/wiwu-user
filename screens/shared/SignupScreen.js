@@ -49,16 +49,19 @@ const SignupScreen = () => {
             phoneNumber: ''
           }}
           validationSchema={signupSchema}
-          onSubmit={values => {
+          onSubmit={(values, { setSubmitting }) => {
+            const { email, password, firstName, lastName, phoneNumber } = values
+
             dispatch(
-              signup(
-                values.email,
-                values.password,
-                values.firstName,
-                values.lastName,
-                values.phoneNumber
-              )
+              signup({
+                email,
+                password,
+                firstName,
+                lastName,
+                phoneNumber
+              })
             )
+            setSubmitting(false)
           }}>
           {({
             values,
@@ -67,70 +70,68 @@ const SignupScreen = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
-            isValidating
-          }) => (
-            <Form>
-              <GenericInput
-                label='First Name'
-                name='firstName'
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                value={values.firstName}
-                placeholder='e.g. - John'
-                error={errors.firstName && touched.firstName}
-                errorMessage={errors.firstName}
-              />
-              <GenericInput
-                label='Last Name'
-                name='lastName'
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                value={values.lastName}
-                placeholder='e.g. - Doe'
-                error={errors.lastName && touched.lastName}
-                errorMessage={errors.lastName}
-              />
-              <GenericInput
-                label='Email'
-                name='email'
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                value={values.email}
-                placeholder='e.g. - johndoe@gmail.com'
-                error={errors.email && touched.email}
-                errorMessage={errors.email}
-              />
-              <GenericInput
-                label='Password'
-                name='password'
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                value={values.password}
-                placeholder='e.g. - *********'
-                error={errors.password && touched.password}
-                errorMessage={errors.password}
-                secureTextEntry={true}
-              />
-              <GenericInput
-                label='Phone Number'
-                name='phoneNumber'
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                value={values.phoneNumber}
-                placeholder='e.g. - +639123456789'
-                error={errors.phoneNumber && touched.phoneNumber}
-                errorMessage={errors.phoneNumber}
-              />
-              <Spacer height={48} />
-              <Button
-                onPress={handleSubmit}
-                disabled={isSubmitting || isValidating}
-                full>
-                <Text>Submit</Text>
-              </Button>
-            </Form>
-          )}
+            isSubmitting
+          }) => {
+            return (
+              <Form>
+                <GenericInput
+                  label='First Name'
+                  name='firstName'
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  value={values.firstName}
+                  placeholder='e.g. - John'
+                  error={errors.firstName && touched.firstName}
+                  errorMessage={errors.firstName}
+                />
+                <GenericInput
+                  label='Last Name'
+                  name='lastName'
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  value={values.lastName}
+                  placeholder='e.g. - Doe'
+                  error={errors.lastName && touched.lastName}
+                  errorMessage={errors.lastName}
+                />
+                <GenericInput
+                  label='Email'
+                  name='email'
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  value={values.email}
+                  placeholder='e.g. - johndoe@gmail.com'
+                  error={errors.email && touched.email}
+                  errorMessage={errors.email}
+                />
+                <GenericInput
+                  label='Password'
+                  name='password'
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  value={values.password}
+                  placeholder='e.g. - *********'
+                  error={errors.password && touched.password}
+                  errorMessage={errors.password}
+                  secureTextEntry={true}
+                />
+                <GenericInput
+                  label='Phone Number'
+                  name='phoneNumber'
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  value={values.phoneNumber}
+                  placeholder='e.g. - +639123456789'
+                  error={errors.phoneNumber && touched.phoneNumber}
+                  errorMessage={errors.phoneNumber}
+                />
+                <Spacer height={48} />
+                <Button onPress={handleSubmit} disabled={isSubmitting} full>
+                  <Text>Submit</Text>
+                </Button>
+              </Form>
+            )
+          }}
         </Formik>
       </Content>
     </Container>

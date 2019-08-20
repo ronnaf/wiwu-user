@@ -39,9 +39,10 @@ const Navigator = createAppContainer(
 
 const AppNavigator = () => {
   const isLoading = useSelector(state => state.user.isLoading)
+
   return (
     <Fragment>
-      <Spinner visible={isLoading} textContent={'Loading...'} />
+      <Spinner visible={isLoading} />
       <Root>
         <Navigator
           ref={navigatorRef => {
