@@ -1,4 +1,4 @@
-import { auth, persistence } from '../../firebase'
+import { auth, persistence, firestore } from '../../firebase'
 import { LOGIN, SCREEN_LOADING } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
 import ShowToast from '../helper/toast.helper'
@@ -13,10 +13,17 @@ export function loginUser(email, password) {
       await auth.setPersistence(persistence.LOCAL)
       await auth.signInWithEmailAndPassword(email, password)
 
+      const currentUser = auth.currentUser
+      const user = await firestore
+        .collection('users')
+        .doc(currentUser.uid)
+        .get()
+      const data = user.data()
+
       dispatch(
         createAction(LOGIN)({
-          email: auth.currentUser.email,
-          uid: auth.currentUser.uid
+          ...data,
+          email: currentUser.email
         })
       )
       NavigationService.navigate('User')
@@ -30,18 +37,30 @@ export function loginUser(email, password) {
 
 export const checkUser = async dispatch => {
   // To refresh token every login
+  dispatch(createAction(SCREEN_LOADING)(true))
+
   if (auth.currentUser) {
     await auth.currentUser.getIdToken(true)
     await auth.currentUser.reload()
-    const user = auth.currentUser
+
+    const currentUser = auth.currentUser
+    const user = await firestore
+      .collection('users')
+      .doc(currentUser.uid)
+      .get()
+    const data = user.data()
 
     dispatch(
       createAction(LOGIN)({
-        email: user.email,
-        uid: user.uid
+        ...data,
+        email: currentUser.email
       })
     )
 
-    NavigationService.navigate(user.emailVerified ? 'Home' : 'Unverified')
+    NavigationService.navigate(
+      currentUser.emailVerified ? 'Home' : 'Unverified'
+    )
   }
+
+  dispatch(createAction(SCREEN_LOADING)(false))
 }

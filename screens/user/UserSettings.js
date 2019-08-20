@@ -2,9 +2,10 @@ import React from 'react'
 import { View, Image } from 'react-native'
 import { Text, Form, Button } from 'native-base'
 import { Formik } from 'formik'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { logout } from '../../actions/user/logout.action'
+import { editUser } from '../../actions/user/editUser.actions'
 import { EditSchema } from '../../constants/Schemas'
 
 import GenericHeader from '../../components/GenericHeader'
@@ -14,6 +15,9 @@ import GenericUser from '../../assets/images/generic-user.png'
 
 const UserSettings = props => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user.current)
+
+  const { firstName, lastName, phoneNumber, email } = user
 
   return (
     <View>
@@ -36,13 +40,16 @@ const UserSettings = props => {
 
       <Formik
         initialValues={{
-          email: '',
-          firstName: '',
-          lastName: '',
-          phone: ''
+          email,
+          firstName,
+          lastName,
+          phoneNumber
         }}
-        validate={EditSchema}
-        onSubmit={values => console.log(values)}>
+        validationSchema={EditSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          dispatch(editUser(values))
+          setSubmitting(false)
+        }}>
         {({
           values,
           errors,
@@ -54,7 +61,6 @@ const UserSettings = props => {
           setFieldValue,
           setFieldTouched
         }) => {
-          console.log(/^(09|\+639)\d{9}$/.test(values.phone), errors)
           return (
             <Form>
               <GenericInput
@@ -62,28 +68,37 @@ const UserSettings = props => {
                 placeholder='Email'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.email}
+                disabled={true}
+                error={!!errors.email}
+                errorMessage={errors.email}
               />
               <GenericInput
                 name='firstName'
                 placeholder='Firstname'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.firstName}
+                error={!!errors.firstName}
+                errorMessage={errors.firstName}
               />
               <GenericInput
                 name='lastName'
                 placeholder='Lastname'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.lastName}
+                error={!!errors.lastName}
+                errorMessage={errors.lastName}
               />
               <GenericInput
-                name='phone'
+                name='phoneNumber'
                 placeholder='Phone'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.phoneNumber}
+                error={!!errors.phoneNumber}
+                errorMessage={errors.phoneNumber}
               />
 
               <Button onPress={handleSubmit} full primary>

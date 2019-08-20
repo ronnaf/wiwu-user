@@ -2,6 +2,7 @@ import {
   LOGIN,
   LOGOUT,
   SIGNUP,
+  EDIT,
   CHANGE_PASSWORD,
   SCREEN_LOADING
 } from '../actions/user/user.constants.js'
@@ -23,6 +24,13 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         current: action.payload
+      }
+    case EDIT:
+      return {
+        ...state,
+        current: {
+          ...action.payload
+        }
       }
     case LOGOUT:
       return {

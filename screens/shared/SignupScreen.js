@@ -49,9 +49,8 @@ const SignupScreen = () => {
             phoneNumber: ''
           }}
           validationSchema={signupSchema}
-          onSubmit={(values, { resetForm }) => {
+          onSubmit={(values, { setSubmitting }) => {
             const { email, password, firstName, lastName, phoneNumber } = values
-            const reset = resetForm.bind(this)
 
             dispatch(
               signup({
@@ -59,10 +58,10 @@ const SignupScreen = () => {
                 password,
                 firstName,
                 lastName,
-                phoneNumber,
-                reset
+                phoneNumber
               })
             )
+            setSubmitting(false)
           }}>
           {({
             values,

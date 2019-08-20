@@ -1,5 +1,6 @@
 export const LOGIN = 'LOGIN'
 export const LOGOUT = 'LOGOUT'
 export const SIGNUP = 'SIGNUP'
+export const EDIT = 'EDIT'
 export const CHANGE_PASSWORD = 'CHANGE_PASSWORD'
 export const SCREEN_LOADING = 'SCREEN_LOADING'
