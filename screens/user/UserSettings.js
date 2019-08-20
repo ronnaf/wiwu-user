@@ -41,8 +41,11 @@ const UserSettings = props => {
           lastName: '',
           phone: ''
         }}
-        validate={EditSchema}
-        onSubmit={values => console.log(values)}>
+        validationSchema={EditSchema}
+        onSubmit={(values, { setSubmitting }) => {
+          console.log(values)
+          setSubmitting(false)
+        }}>
         {({
           values,
           errors,
@@ -54,7 +57,6 @@ const UserSettings = props => {
           setFieldValue,
           setFieldTouched
         }) => {
-          console.log(/^(09|\+639)\d{9}$/.test(values.phone), errors)
           return (
             <Form>
               <GenericInput
@@ -62,28 +64,36 @@ const UserSettings = props => {
                 placeholder='Email'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.email}
+                error={!!errors.email}
+                errorMessage={errors.email}
               />
               <GenericInput
                 name='firstName'
                 placeholder='Firstname'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.firstName}
+                error={!!errors.firstName}
+                errorMessage={errors.firstName}
               />
               <GenericInput
                 name='lastName'
                 placeholder='Lastname'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.lastName}
+                error={!!errors.lastName}
+                errorMessage={errors.lastName}
               />
               <GenericInput
                 name='phone'
                 placeholder='Phone'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.username}
+                value={values.phone}
+                error={!!errors.phone}
+                errorMessage={errors.phone}
               />
 
               <Button onPress={handleSubmit} full primary>

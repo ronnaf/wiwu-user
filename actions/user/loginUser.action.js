@@ -30,6 +30,8 @@ export function loginUser(email, password) {
 
 export const checkUser = async dispatch => {
   // To refresh token every login
+  dispatch(createAction(SCREEN_LOADING)(true))
+
   if (auth.currentUser) {
     await auth.currentUser.getIdToken(true)
     await auth.currentUser.reload()
@@ -44,4 +46,6 @@ export const checkUser = async dispatch => {
 
     NavigationService.navigate(user.emailVerified ? 'Home' : 'Unverified')
   }
+
+  dispatch(createAction(SCREEN_LOADING)(false))
 }
