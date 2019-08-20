@@ -53,13 +53,10 @@ const UserSettings = props => {
         {({
           values,
           errors,
-          touched,
           handleChange,
           handleBlur,
           handleSubmit,
-          isSubmitting,
-          setFieldValue,
-          setFieldTouched
+          isSubmitting
         }) => {
           return (
             <Form>
@@ -107,7 +104,11 @@ const UserSettings = props => {
 
               <Spacer height={4} />
 
-              <Button onPress={() => dispatch(logout())} full danger>
+              <Button
+                onPress={() => dispatch(logout())}
+                full
+                danger
+                disabled={isSubmitting}>
                 <Text>Logout</Text>
               </Button>
             </Form>

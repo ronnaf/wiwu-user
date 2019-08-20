@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions'
 
+import { capitalize } from '../helper/capitalize.helper'
 import { auth, firestore } from '../../firebase'
 import { SCREEN_LOADING, EDIT } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
@@ -10,13 +11,21 @@ export function editUser(user) {
     try {
       dispatch(createAction(SCREEN_LOADING)(true))
 
+      user.firstName = capitalize(user.firstName)
+      user.lastName = capitalize(user.lastName)
+
       const uid = await auth.currentUser.uid
-      delete user.email
+      // dont send email field
+      const data = {
+        firstName: user.firstName,
+        lastName: user.lastName,
+        phoneNumber: user.phoneNumber
+      }
 
       await firestore
         .collection('users')
         .doc(uid)
-        .update(user)
+        .update(data)
 
       dispatch(createAction(EDIT)(user))
       NavigationService.navigate('Home')

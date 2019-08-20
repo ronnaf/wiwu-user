@@ -29,6 +29,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         current: {
+          ...state.current,
           ...action.payload
         }
       }
