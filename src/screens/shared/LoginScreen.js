@@ -18,13 +18,14 @@ import { LoginSchema } from '../../constants/Schemas'
 const { contentPadding } = commonColor
 
 const LoginScreen = props => {
-  const dispatch = useDispatch()
+  // wat if offline. i think magamit ta redux persist para diri -R
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      checkUser(dispatch)
-    })
-  }, [])
+  // useEffect(() => {
+  //   auth.onAuthStateChanged(user => {
+  //     checkUser(dispatch)
+  //   })
+  // }, [])
 
   return (
     <Container style={{ padding: contentPadding }}>
