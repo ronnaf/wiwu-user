@@ -28,8 +28,12 @@ const UserHome = props => {
     <Container>
       <GenericHeader title='Home' />
       <Grid style={{ margin: contentPadding }}>
-        <Row size={3.5} style={{ alignItems: 'center' }}>
-          <Lottie ref={lottieRef} source={require('../../assets/call.json')} />
+        <Row size={3} style={{ alignItems: 'center' }}>
+          <Lottie
+            style={{ marginTop: -40, marginBottom: -40 }}
+            ref={lottieRef}
+            source={require('../../assets/call.json')}
+          />
           <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
               style={{
@@ -48,7 +52,7 @@ const UserHome = props => {
             </TouchableOpacity>
           </Col>
         </Row>
-        <Row size={1.25}>
+        <Row size={1.5}>
           <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text
               style={{
@@ -73,7 +77,7 @@ const UserHome = props => {
             </Text>
           </Col>
         </Row>
-        <Row size={1.5}>
+        <Row size={2}>
           <Col>
             <Row style={{ marginBottom: 8 }}>
               <Col>

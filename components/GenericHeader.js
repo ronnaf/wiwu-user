@@ -1,15 +1,16 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Icon, Button, Header, Left, Body, Right, Title } from 'native-base'
 
 const GenericHeader = props => {
   return (
-    <Header>
+    <Header style={{ elevation: 0 }}>
       <Left>
         <Button transparent>
           <Icon name='menu' />
         </Button>
       </Left>
-      <Body style={{ flex: 3 }}>
+      <Body>
         <Title>{props.title}</Title>
       </Body>
       <Right>
@@ -19,6 +20,10 @@ const GenericHeader = props => {
       </Right>
     </Header>
   )
+}
+
+GenericHeader.propTypes = {
+  title: PropTypes.string.isRequired
 }
 
 export default GenericHeader

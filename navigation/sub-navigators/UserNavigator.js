@@ -5,27 +5,22 @@ import ContactDirectories from '../../screens/user/ContactDirectories'
 import UserRequest from '../../screens/user/UserRequest'
 import UserRequestAdd from '../../screens/user/UserRequestAdd'
 
-const UserNavigator = createSwitchNavigator(
-  {
-    Home: {
-      screen: UserHome
-    },
-    UserMaps: {
-      screen: UserMaps
-    },
-    UserContactDirectories: {
-      screen: ContactDirectories
-    },
-    UserRequest: {
-      screen: UserRequest
-    },
-    UserRequestAdd: {
-      screen: UserRequestAdd
-    }
+const UserNavigator = createSwitchNavigator({
+  Home: {
+    screen: UserHome
   },
-  {
-    headerMode: 'none'
+  UserMaps: {
+    screen: UserMaps
+  },
+  UserContactDirectories: {
+    screen: ContactDirectories
+  },
+  UserRequest: {
+    screen: UserRequest
+  },
+  UserRequestAdd: {
+    screen: UserRequestAdd
   }
-)
+})
 
 export default UserNavigator
