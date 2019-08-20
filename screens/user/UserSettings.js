@@ -2,9 +2,10 @@ import React from 'react'
 import { View, Image } from 'react-native'
 import { Text, Form, Button } from 'native-base'
 import { Formik } from 'formik'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { logout } from '../../actions/user/logout.action'
+import { editUser } from '../../actions/user/editUser.actions'
 import { EditSchema } from '../../constants/Schemas'
 
 import GenericHeader from '../../components/GenericHeader'
@@ -14,6 +15,9 @@ import GenericUser from '../../assets/images/generic-user.png'
 
 const UserSettings = props => {
   const dispatch = useDispatch()
+  const user = useSelector(state => state.user.current)
+
+  const { firstName, lastName, phoneNumber, email } = user
 
   return (
     <View>
@@ -36,14 +40,14 @@ const UserSettings = props => {
 
       <Formik
         initialValues={{
-          email: '',
-          firstName: '',
-          lastName: '',
-          phone: ''
+          email,
+          firstName,
+          lastName,
+          phoneNumber
         }}
         validationSchema={EditSchema}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values)
+          dispatch(editUser(values))
           setSubmitting(false)
         }}>
         {({
@@ -65,6 +69,7 @@ const UserSettings = props => {
                 handleChange={handleChange}
                 handleBlur={handleBlur}
                 value={values.email}
+                disabled={true}
                 error={!!errors.email}
                 errorMessage={errors.email}
               />
@@ -87,13 +92,13 @@ const UserSettings = props => {
                 errorMessage={errors.lastName}
               />
               <GenericInput
-                name='phone'
+                name='phoneNumber'
                 placeholder='Phone'
                 handleChange={handleChange}
                 handleBlur={handleBlur}
-                value={values.phone}
-                error={!!errors.phone}
-                errorMessage={errors.phone}
+                value={values.phoneNumber}
+                error={!!errors.phoneNumber}
+                errorMessage={errors.phoneNumber}
               />
 
               <Button onPress={handleSubmit} full primary>

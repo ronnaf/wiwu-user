@@ -47,7 +47,7 @@ export const EditSchema = Yup.object().shape({
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
-  phone: Yup.string()
+  phoneNumber: Yup.string()
     .matches(phoneRegex, 'Must be a valid 11 digit phone number!')
     .required('Required')
 })

@@ -8,10 +8,10 @@ import ShowToast from '../helper/toast.helper'
 
 export function signup(user) {
   return async dispatch => {
-    const { email, password, firstName, lastName, phoneNumber, reset } = user
+    const { email, password, firstName, lastName, phoneNumber } = user
 
     try {
-      // dispatch(createAction(SCREEN_LOADING)(true))
+      dispatch(createAction(SCREEN_LOADING)(true))
 
       await auth.createUserWithEmailAndPassword(email, password)
       const uid = await auth.currentUser.uid
@@ -32,11 +32,10 @@ export function signup(user) {
 
       dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
       NavigationService.navigate('Unverified')
-      // dispatch(createAction(SCREEN_LOADING)(false))
+      dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
       ShowToast(e.message)
-      reset()
     }
   }
 }
