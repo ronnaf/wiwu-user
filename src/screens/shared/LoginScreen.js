@@ -19,7 +19,7 @@ const { contentPadding } = commonColor
 
 const LoginScreen = props => {
   // wat if offline. i think magamit ta redux persist para diri -R
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   // useEffect(() => {
   //   auth.onAuthStateChanged(user => {
