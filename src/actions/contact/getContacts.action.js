@@ -1,6 +1,6 @@
 import { GET_CONTACTS } from './contact.constants'
 import { SCREEN_LOADING } from '../user/user.constants'
-import { firestore } from '../../firebase'
+import { firestore } from '../../../firebase'
 import { createAction } from 'react-redux'
 
 export function getContacts() {

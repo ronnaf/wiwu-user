@@ -1,10 +1,10 @@
 import { createAction } from 'redux-actions'
 
-import { capitalize } from '../helper/capitalize.helper'
+import { capitalize } from '../helpers/capitalize.helper'
 import { auth, firestore } from '../../firebase'
 import { SCREEN_LOADING, EDIT } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helper/toast.helper'
+import ShowToast from '../helpers/toast.helper'
 
 export function editUser(user) {
   return async dispatch => {

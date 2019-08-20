@@ -11,7 +11,7 @@ import { auth } from '../../firebase'
 import { images } from '../../assets/index'
 import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
-import commonColor from '../../native-base-theme/variables/commonColor'
+import commonColor from '../../../native-base-theme/variables/commonColor'
 import GenericInput from '../../components/GenericInput'
 import { LoginSchema } from '../../constants/Schemas'
 

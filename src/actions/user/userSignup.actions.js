@@ -4,7 +4,7 @@ import { auth, firestore } from '../../firebase'
 import { SIGNUP, SCREEN_LOADING } from './user.constants'
 import { statuses, roles } from '../../constants/User'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helper/toast.helper'
+import ShowToast from '../helpers/toast.helper'
 
 export function signup(user) {
   return async dispatch => {

@@ -5,8 +5,8 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
 import { StyleProvider } from 'native-base'
-import getTheme from './native-base-theme/components'
-import commonColor from './native-base-theme/variables/commonColor'
+import getTheme from '../native-base-theme/components'
+import commonColor from '../native-base-theme/variables/commonColor'
 import AppNavigator from './navigation/AppNavigator'
 import configureStore from './configureStore'
 const store = configureStore()
@@ -63,8 +63,8 @@ async function loadResourcesAsync() {
       ...Ionicons.font,
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
-      Roboto: require('native-base/Fonts/Roboto.ttf'),
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+      Roboto: require('../node_modules/native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('../node_modules/native-base/Fonts/Roboto_medium.ttf'),
       'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
       'dosis-bold': require('./assets/fonts/Dosis-Bold.ttf'),
       'dosis-extrabold': require('./assets/fonts/Dosis-ExtraBold.ttf'),

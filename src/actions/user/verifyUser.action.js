@@ -1,6 +1,6 @@
 import { auth } from '../../firebase'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helper/toast.helper'
+import ShowToast from '../helpers/toast.helper'
 
 export const verifyUser = async () => {
   if (auth.currentUser) {

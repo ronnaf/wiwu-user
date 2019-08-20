@@ -5,7 +5,7 @@ import {
   EDIT,
   CHANGE_PASSWORD,
   SCREEN_LOADING
-} from '../actions/user/user.constants.js'
+} from '../actions/user/user.constants'
 
 const initialState = {
   // master account

@@ -1,7 +1,7 @@
 import { auth, persistence, firestore } from '../../firebase'
 import { LOGIN, SCREEN_LOADING } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helper/toast.helper'
+import ShowToast from '../helpers/toast.helper'
 
 import { createAction } from 'redux-actions'
 

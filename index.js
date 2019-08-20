@@ -1,6 +1,6 @@
 import { AppRegistry } from 'react-native'
-import App from './App'
-import WidgetTask from './WidgetTask'
+import App from './src/App'
+import WidgetTask from './src/WidgetTask'
 
 AppRegistry.registerComponent('wiwu', () => App)
 AppRegistry.registerHeadlessTask('WidgetTask', () => WidgetTask)

@@ -7,7 +7,7 @@ import Lottie from 'lottie-react-native'
 
 import Spacer from '../../components/Spacer'
 import GenericHeader from '../../components/GenericHeader'
-import commonColor from '../../native-base-theme/variables/commonColor'
+import commonColor from '../../../native-base-theme/variables/commonColor'
 import NavigationService from '../../navigation/NavigationService'
 import Footer from '../../components/Footer'
 
