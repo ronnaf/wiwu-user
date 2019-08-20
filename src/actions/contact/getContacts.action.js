@@ -3,6 +3,7 @@ import { SCREEN_LOADING } from '../user/user.constants'
 import { firestore } from '../../../firebase'
 import { createAction } from 'react-redux'
 
+// TODO: refactor
 export function getContacts() {
   return async dispatch => {
     try {

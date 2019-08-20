@@ -4,7 +4,7 @@ import { auth, firestore } from '../../firebase'
 import { SIGNUP, SCREEN_LOADING } from './user.constants'
 import { statuses, roles } from '../../constants/User'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helpers/toast.helper'
+import showToast from '../../helpers/toast.helper'
 
 export function signup(user) {
   return async dispatch => {
@@ -34,7 +34,7 @@ export function signup(user) {
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
-      ShowToast(e.message)
+      showToast(e.message)
     }
   }
 }

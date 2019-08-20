@@ -1,7 +1,7 @@
 import { auth, persistence, firestore } from '../../firebase'
 import { LOGIN, SCREEN_LOADING } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helpers/toast.helper'
+import showToast from '../../helpers/toast.helper'
 
 import { createAction } from 'redux-actions'
 
@@ -30,7 +30,7 @@ export function loginUser(email, password) {
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
-      ShowToast(e.message)
+      showToast(e.message)
     }
   }
 }

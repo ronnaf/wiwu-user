@@ -1,7 +1,7 @@
 import { auth } from '../../firebase'
 import { CHANGE_PASSWORD, SCREEN_LOADING } from './user.constants'
 import { createAction } from 'react-redux'
-import ShowToast from '../helpers/toast.helper'
+import showToast from '../../helpers/toast.helper'
 
 export function changePassword(email) {
   return async dispatch => {
@@ -14,7 +14,7 @@ export function changePassword(email) {
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
-      ShowToast(e.message)
+      showToast(e.message)
     }
   }
 }

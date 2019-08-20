@@ -1,10 +1,10 @@
 import { createAction } from 'redux-actions'
 
-import { capitalize } from '../helpers/capitalize.helper'
+import { capitalize } from '../../helpers/capitalize.helper'
 import { auth, firestore } from '../../firebase'
 import { SCREEN_LOADING, EDIT } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helpers/toast.helper'
+import showToast from '../../helpers/toast.helper'
 
 export function editUser(user) {
   return async dispatch => {
@@ -29,7 +29,7 @@ export function editUser(user) {
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
-      ShowToast(e.message)
+      showToast(e.message)
     }
   }
 }

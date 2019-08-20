@@ -1,6 +1,6 @@
 import { auth } from '../../firebase'
 import NavigationService from '../../navigation/NavigationService'
-import ShowToast from '../helpers/toast.helper'
+import showToast from '../../helpers/toast.helper'
 
 export const verifyUser = async () => {
   if (auth.currentUser) {
@@ -12,7 +12,7 @@ export const verifyUser = async () => {
     if (user.emailVerified) {
       NavigationService.navigate('UserHome')
     } else {
-      ShowToast('User is not verified')
+      showToast('User is not verified')
     }
     NavigationService.navigate(user.emailVerified ? 'UserHome' : 'Unverified')
   }

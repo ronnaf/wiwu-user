@@ -2,7 +2,7 @@ import { auth } from '../../firebase'
 import { LOGOUT, SCREEN_LOADING } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
 import { createAction } from 'redux-actions'
-import ShowToast from '../helpers/toast.helper'
+import showToast from '../../helpers/toast.helper'
 
 export function logout() {
   return async dispatch => {
@@ -16,7 +16,7 @@ export function logout() {
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
-      ShowToast(e.message)
+      showToast(e.message)
     }
   }
 }
