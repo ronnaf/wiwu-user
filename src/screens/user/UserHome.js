@@ -26,7 +26,7 @@ const UserHome = props => {
 
   return (
     <Container>
-      <GenericHeader title='Home' />
+      <GenericHeader title='Home' type='drawer' />
       <Grid style={{ margin: contentPadding }}>
         <Row size={3} style={{ alignItems: 'center' }}>
           <Lottie

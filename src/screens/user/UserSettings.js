@@ -21,7 +21,7 @@ const UserSettings = props => {
 
   return (
     <View>
-      <GenericHeader title='Settings' />
+      <GenericHeader title='Settings' type='back' />
 
       <Spacer height={8} />
       <View

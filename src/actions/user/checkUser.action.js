@@ -13,7 +13,7 @@ export function checkUser() {
       auth.onAuthStateChanged(async user => {
         if (user) {
           await user.getIdToken(true)
-          // await user.reload() // dont know why it gets stuck here
+          await user.reload()
 
           const userDocument = await firestore
             .collection('users')

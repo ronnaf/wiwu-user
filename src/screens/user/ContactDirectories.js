@@ -158,7 +158,7 @@ const tableHead = [
 const ContactDirectories = props => {
   return (
     <Container>
-      <GenericHeader title='Contact Directory' />
+      <GenericHeader title='Contact Directory' type='drawer' />
       <Content padder>
         <Table
           columns={tableHead}

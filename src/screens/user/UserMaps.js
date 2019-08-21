@@ -93,7 +93,7 @@ const UserMaps = props => {
 
   return (
     <Container>
-      <GenericHeader title='Maps' />
+      <GenericHeader title='Maps' type='drawer' />
       <View style={styles.container}>
         <MapView
           style={{ alignSelf: 'stretch', height: '100%' }}

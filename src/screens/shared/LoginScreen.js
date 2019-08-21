@@ -21,9 +21,9 @@ const LoginScreen = props => {
   const dispatch = useDispatch()
 
   // wat if offline. i think magamit ta redux persist para diri -R
-  useEffect(() => {
-    dispatch(checkUser())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(checkUser())
+  // }, [])
 
   return (
     <Container style={{ padding: contentPadding }}>
