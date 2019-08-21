@@ -1,6 +1,10 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import React, { Fragment } from 'react'
-import { useSelector } from 'react-redux'
+import React, { Fragment, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { NetInfo } from 'react-native'
+import { createAction } from 'redux-actions'
+
+import { NET_INFO } from '../actions/user/user.constants'
 
 // import MainTabNavigator from './MainTabNavigator'
 import AuthNavigator from './sub-navigators/AuthNavigator'
@@ -39,6 +43,26 @@ const Navigator = createAppContainer(
 
 const AppNavigator = () => {
   const isLoading = useSelector(state => state.user.isLoading)
+  const dispatch = useDispatch()
+
+  // placed inside so I dont have to pass dispatch as parameter
+  const handleFirstConnectivityChange = connectionInfo => {
+    dispatch(createAction(NET_INFO)(connectionInfo))
+    NetInfo.removeEventListener(
+      'connectionChange',
+      handleFirstConnectivityChange
+    )
+  }
+
+  const getConnection = async () => {
+    const connectionInfo = await NetInfo.getConnectionInfo()
+    dispatch(createAction(NET_INFO)(connectionInfo))
+    NetInfo.addEventListener('connectionChange', handleFirstConnectivityChange)
+  }
+
+  useEffect(() => {
+    getConnection(dispatch)
+  }, [])
 
   return (
     <Fragment>

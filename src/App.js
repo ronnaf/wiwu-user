@@ -20,21 +20,11 @@ const onMount = async setFontLoaded => {
 
 export default function App(props) {
   const [fontLoaded, setFontLoaded] = useState(false)
-  // const [isLoadingComplete, setLoadingComplete] = useState(false)
 
   useEffect(() => {
     onMount(setFontLoaded)
   }, [])
 
-  // if (!isLoadingComplete && !props.skipLoadingScreen) {
-  //   return (
-  //     <AppLoading
-  //       startAsync={loadResourcesAsync}
-  //       onError={handleLoadingError}
-  //       onFinish={() => handleFinishLoading(setLoadingComplete)}
-  //     />
-  //   )
-  // } else {
   if (fontLoaded) {
     return (
       <StyleProvider style={getTheme(commonColor)}>
@@ -49,7 +39,6 @@ export default function App(props) {
   } else {
     return <View />
   }
-  // }
 }
 
 async function loadResourcesAsync() {
@@ -77,15 +66,15 @@ async function loadResourcesAsync() {
   ])
 }
 
-function handleLoadingError(error: Error) {
-  // In this case, you might want to report the error to your error reporting
-  // service, for example Sentry
-  console.warn(error)
-}
+// function handleLoadingError(error: Error) {
+// In this case, you might want to report the error to your error reporting
+// service, for example Sentry
+//   console.warn(error)
+// }
 
-function handleFinishLoading(setLoadingComplete) {
-  setLoadingComplete(true)
-}
+// function handleFinishLoading(setLoadingComplete) {
+//   setLoadingComplete(true)
+// }
 
 const styles = StyleSheet.create({
   container: {

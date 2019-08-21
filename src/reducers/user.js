@@ -3,6 +3,7 @@ import {
   LOGOUT,
   SIGNUP,
   EDIT,
+  NET_INFO,
   CHANGE_PASSWORD,
   SCREEN_LOADING
 } from '../actions/user/user.constants'
@@ -10,6 +11,10 @@ import {
 const initialState = {
   // master account
   current: {},
+  netInfo: {
+    type: 'none',
+    effectiveType: 'unknown'
+  },
   isLoading: false
 }
 
@@ -45,6 +50,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         isLoading: action.payload
+      }
+    case NET_INFO:
+      return {
+        ...state,
+        netInfo: action.payload
       }
     default:
       return state
