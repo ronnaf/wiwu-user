@@ -34,33 +34,3 @@ export function loginUser(email, password) {
     }
   }
 }
-
-export const checkUser = async dispatch => {
-  // To refresh token every login
-  dispatch(createAction(SCREEN_LOADING)(true))
-
-  if (auth.currentUser) {
-    await auth.currentUser.getIdToken(true)
-    await auth.currentUser.reload()
-
-    const currentUser = auth.currentUser
-    const user = await firestore
-      .collection('users')
-      .doc(currentUser.uid)
-      .get()
-    const data = user.data()
-
-    dispatch(
-      createAction(LOGIN)({
-        ...data,
-        email: currentUser.email
-      })
-    )
-
-    NavigationService.navigate(
-      currentUser.emailVerified ? 'UserHome' : 'Unverified'
-    )
-  }
-
-  dispatch(createAction(SCREEN_LOADING)(false))
-}

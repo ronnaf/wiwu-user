@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux'
 import { Formik } from 'formik'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 
-import { loginUser, checkUser } from '../../actions/user/loginUser.action'
-import { auth } from '../../firebase'
+import { loginUser } from '../../actions/user/loginUser.action'
+import { checkUser } from '../../actions/user/checkUser.action'
 
 import { images } from '../../assets/index'
 import NavigationService from '../../navigation/NavigationService'
@@ -18,14 +18,12 @@ import { LoginSchema } from '../../constants/Schemas'
 const { contentPadding } = commonColor
 
 const LoginScreen = props => {
-  // wat if offline. i think magamit ta redux persist para diri -R
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(user => {
-  //     checkUser(dispatch)
-  //   })
-  // }, [])
+  // wat if offline. i think magamit ta redux persist para diri -R
+  useEffect(() => {
+    dispatch(checkUser())
+  }, [])
 
   return (
     <Container style={{ padding: contentPadding }}>
