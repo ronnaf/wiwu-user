@@ -16,6 +16,7 @@ import GenericUser from '../../assets/images/generic-user.png'
 const UserSettings = props => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.current)
+  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
 
   const { firstName, lastName, phoneNumber, email } = user
 
@@ -98,7 +99,7 @@ const UserSettings = props => {
                 errorMessage={errors.phoneNumber}
               />
 
-              <Button onPress={handleSubmit} full primary>
+              <Button onPress={handleSubmit} disabled={isOffline} full primary>
                 <Text>Submit</Text>
               </Button>
 
@@ -108,7 +109,7 @@ const UserSettings = props => {
                 onPress={() => dispatch(logout())}
                 full
                 danger
-                disabled={isSubmitting}>
+                disabled={isSubmitting || isOffline}>
                 <Text>Logout</Text>
               </Button>
             </Form>

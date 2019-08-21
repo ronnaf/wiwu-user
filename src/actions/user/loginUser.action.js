@@ -26,7 +26,9 @@ export function loginUser(email, password) {
           email: currentUser.email
         })
       )
-      NavigationService.navigate('User')
+
+      const nav = user.emailVerified ? 'UserHome' : 'Unverified'
+      NavigationService.navigate(nav)
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))

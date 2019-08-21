@@ -19,7 +19,7 @@ const { contentPadding } = commonColor
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
-  console.log(useSelector(e => e.user))
+  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
 
   // wat if offline. i think magamit ta redux persist para diri -R
   // dont comment out for development purposes, awat mag cge login
@@ -82,7 +82,11 @@ const LoginScreen = props => {
                       errorMessage={errors.password}
                     />
                     <Spacer height={48} />
-                    <Button onPress={handleSubmit} full primary>
+                    <Button
+                      onPress={handleSubmit}
+                      full
+                      primary
+                      disabled={isOffline}>
                       <Text>Login</Text>
                     </Button>
                     <Spacer height={16} />
