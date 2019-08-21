@@ -5,11 +5,14 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
 import { StyleProvider } from 'native-base'
+import { PersistGate } from 'redux-persist/integration/react'
+
 import getTheme from '../native-base-theme/components'
 import commonColor from '../native-base-theme/variables/commonColor'
 import AppNavigator from './navigation/AppNavigator'
 import configureStore from './configureStore'
-const store = configureStore()
+
+const { store, persistor } = configureStore()
 
 console.disableYellowBox = true
 
@@ -29,10 +32,12 @@ export default function App(props) {
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Provider store={store}>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-            <AppNavigator />
-          </View>
+          <PersistGate loading={null} persistor={persistor}>
+            <View style={styles.container}>
+              {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+              <AppNavigator />
+            </View>
+          </PersistGate>
         </Provider>
       </StyleProvider>
     )

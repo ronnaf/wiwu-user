@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Container, Button, Text, Form } from 'native-base'
 import { Image } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 
@@ -19,6 +19,7 @@ const { contentPadding } = commonColor
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
+  console.log(useSelector(e => e.user))
 
   // wat if offline. i think magamit ta redux persist para diri -R
   // dont comment out for development purposes, awat mag cge login
