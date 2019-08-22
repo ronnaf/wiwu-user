@@ -27,29 +27,35 @@ export function checkUser() {
 
       // Auto unsubscribes if no net so no need to worry
       auth.onAuthStateChanged(async user => {
-        if (user) {
-          await user.getIdToken(true)
-          await user.reload()
+        // function inside this listener will not be caught by outer try catch
+        try {
+          if (user) {
+            await user.getIdToken(true)
+            await user.reload()
 
-          const userDocument = await firestore
-            .collection('users')
-            .doc(user.uid)
-            .get()
-          const userData = userDocument.data()
+            const userDocument = await firestore
+              .collection('users')
+              .doc(user.uid)
+              .get()
+            const userData = userDocument.data()
 
-          dispatch(
-            createAction(LOGIN)({
-              ...userData,
-              email: user.email,
-              isVerified: user.emailVerified
-            })
-          )
+            dispatch(
+              createAction(LOGIN)({
+                ...userData,
+                email: user.email,
+                isVerified: user.emailVerified
+              })
+            )
 
-          const nav = user.emailVerified ? 'UserHome' : 'Unverified'
-          NavigationService.navigate(nav)
+            const nav = user.emailVerified ? 'UserHome' : 'Unverified'
+            NavigationService.navigate(nav)
+            dispatch(createAction(SCREEN_LOADING)(false))
+          } else {
+            throw new Error('User is not signed in!')
+          }
+        } catch (e) {
           dispatch(createAction(SCREEN_LOADING)(false))
-        } else {
-          throw new Error('No user is signed in!')
+          showToast(e.message)
         }
       })
     } catch (e) {
