@@ -15,7 +15,9 @@ const isIphoneX =
     deviceHeight === 896 ||
     deviceWidth === 896)
 
+// user defined colors
 const defaultBg = '#F5F1EE'
+const defaultGrey = '#6F706F'
 
 export default {
   platformStyle,
@@ -111,7 +113,7 @@ export default {
   checkboxTickColor: '#fff',
 
   // Color
-  brandPrimary: platform === 'ios' ? '#007aff' : '#3F51B5',
+  brandPrimary: '#007aff',
   brandInfo: '#62B1F6',
   brandSuccess: '#5cb85c',
   brandDanger: '#d9534f',
@@ -142,28 +144,28 @@ export default {
 
   // Footer
   footerHeight: 55,
-  footerDefaultBg: platform === 'ios' ? '#F8F8F8' : '#3F51B5',
+  footerDefaultBg: '#F8F8F8',
   footerPaddingBottom: 0,
 
   // FooterTab
-  tabBarTextColor: platform === 'ios' ? '#737373' : '#bfc6ea',
+  tabBarTextColor: '#737373',
   tabBarTextSize: platform === 'ios' ? 14 : 11,
-  activeTab: platform === 'ios' ? '#007aff' : '#fff',
+  activeTab: '#007aff',
   sTabBarActiveTextColor: '#007aff',
-  tabBarActiveTextColor: platform === 'ios' ? '#2874F0' : '#fff',
-  tabActiveBgColor: platform === 'ios' ? '#F8F8F8' : '#3F51B5',
+  tabBarActiveTextColor: '#2874F0',
+  tabActiveBgColor: '#F8F8F8',
 
   // Header
-  toolbarBtnColor: platform === 'ios' ? '#6F706F' : '#fff',
-  toolbarDefaultBg: platform === 'ios' ? defaultBg : '#3F51B5',
+  toolbarBtnColor: defaultGrey,
+  toolbarDefaultBg: defaultBg,
   toolbarHeight: platform === 'ios' ? 64 : 56,
   toolbarSearchIconSize: platform === 'ios' ? 20 : 23,
-  toolbarInputColor: platform === 'ios' ? '#CECDD2' : '#fff',
+  toolbarInputColor: '#CECDD2',
   searchBarHeight: platform === 'ios' ? 30 : 40,
   searchBarInputHeight: platform === 'ios' ? 30 : 50,
-  toolbarBtnTextColor: platform === 'ios' ? '#007aff' : '#fff',
+  toolbarBtnTextColor: '#007aff',
   iosStatusbar: 'dark-content',
-  toolbarDefaultBorder: platform === 'ios' ? defaultBg : '#3F51B5',
+  toolbarDefaultBorder: defaultBg,
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)
@@ -257,8 +259,8 @@ export default {
   titleFontfamily: platform === 'ios' ? 'System' : 'Roboto_medium',
   titleFontSize: platform === 'ios' ? 17 : 19,
   subTitleFontSize: platform === 'ios' ? 11 : 14,
-  subtitleColor: platform === 'ios' ? '#000' : '#fff',
-  titleFontColor: platform === 'ios' ? '#000' : '#fff',
+  subtitleColor: defaultGrey,
+  titleFontColor: defaultGrey,
 
   // Other
   borderRadiusBase: platform === 'ios' ? 5 : 2,
