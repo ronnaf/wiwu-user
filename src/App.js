@@ -5,11 +5,14 @@ import { Platform, StatusBar, StyleSheet, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import { Provider } from 'react-redux'
 import { StyleProvider } from 'native-base'
+import { PersistGate } from 'redux-persist/integration/react'
+
 import getTheme from '../native-base-theme/components'
 import commonColor from '../native-base-theme/variables/commonColor'
 import AppNavigator from './navigation/AppNavigator'
 import configureStore from './configureStore'
-const store = configureStore()
+
+const { store, persistor } = configureStore()
 
 console.disableYellowBox = true
 
@@ -20,36 +23,27 @@ const onMount = async setFontLoaded => {
 
 export default function App(props) {
   const [fontLoaded, setFontLoaded] = useState(false)
-  // const [isLoadingComplete, setLoadingComplete] = useState(false)
 
   useEffect(() => {
     onMount(setFontLoaded)
   }, [])
 
-  // if (!isLoadingComplete && !props.skipLoadingScreen) {
-  //   return (
-  //     <AppLoading
-  //       startAsync={loadResourcesAsync}
-  //       onError={handleLoadingError}
-  //       onFinish={() => handleFinishLoading(setLoadingComplete)}
-  //     />
-  //   )
-  // } else {
   if (fontLoaded) {
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Provider store={store}>
-          <View style={styles.container}>
-            {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-            <AppNavigator />
-          </View>
+          <PersistGate loading={null} persistor={persistor}>
+            <View style={styles.container}>
+              {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+              <AppNavigator />
+            </View>
+          </PersistGate>
         </Provider>
       </StyleProvider>
     )
   } else {
     return <View />
   }
-  // }
 }
 
 async function loadResourcesAsync() {
@@ -77,15 +71,15 @@ async function loadResourcesAsync() {
   ])
 }
 
-function handleLoadingError(error: Error) {
-  // In this case, you might want to report the error to your error reporting
-  // service, for example Sentry
-  console.warn(error)
-}
+// function handleLoadingError(error: Error) {
+// In this case, you might want to report the error to your error reporting
+// service, for example Sentry
+//   console.warn(error)
+// }
 
-function handleFinishLoading(setLoadingComplete) {
-  setLoadingComplete(true)
-}
+// function handleFinishLoading(setLoadingComplete) {
+//   setLoadingComplete(true)
+// }
 
 const styles = StyleSheet.create({
   container: {

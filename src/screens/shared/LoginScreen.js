@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Container, Button, Text, Form } from 'native-base'
 import { Image } from 'react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Formik } from 'formik'
 import { Col, Row, Grid } from 'react-native-easy-grid'
 
@@ -19,11 +19,13 @@ const { contentPadding } = commonColor
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
+  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
 
   // wat if offline. i think magamit ta redux persist para diri -R
-  // useEffect(() => {
-  //   dispatch(checkUser())
-  // }, [])
+  // dont comment out for development purposes, awat mag cge login
+  useEffect(() => {
+    dispatch(checkUser())
+  }, [])
 
   return (
     <Container style={{ padding: contentPadding }}>
@@ -80,7 +82,11 @@ const LoginScreen = props => {
                       errorMessage={errors.password}
                     />
                     <Spacer height={48} />
-                    <Button onPress={handleSubmit} full primary>
+                    <Button
+                      onPress={handleSubmit}
+                      full
+                      primary
+                      disabled={isOffline}>
                       <Text>Login</Text>
                     </Button>
                     <Spacer height={16} />

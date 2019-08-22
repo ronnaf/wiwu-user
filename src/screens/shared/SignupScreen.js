@@ -13,7 +13,7 @@ import {
   Text
 } from 'native-base'
 import { Formik } from 'formik'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { signupSchema } from '../../constants/Schemas'
 import { signup } from '../../actions/user/userSignup.actions'
@@ -23,6 +23,7 @@ import NavigationService from '../../navigation/NavigationService'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
+  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
 
   return (
     <Container>
@@ -126,7 +127,10 @@ const SignupScreen = () => {
                   errorMessage={errors.phoneNumber}
                 />
                 <Spacer height={48} />
-                <Button onPress={handleSubmit} disabled={isSubmitting} full>
+                <Button
+                  onPress={handleSubmit}
+                  disabled={isSubmitting || isOffline}
+                  full>
                   <Text>Submit</Text>
                 </Button>
               </Form>
