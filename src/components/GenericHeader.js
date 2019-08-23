@@ -1,7 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withNavigation } from 'react-navigation'
-import { Icon, Button, Header, Left, Body, Right, Title } from 'native-base'
+import {
+  Icon,
+  Button,
+  Header,
+  Left,
+  Body,
+  Right,
+  Title,
+  Segment
+} from 'native-base'
 
 /**
  * generic header
@@ -16,7 +25,7 @@ import { Icon, Button, Header, Left, Body, Right, Title } from 'native-base'
  * ```
  */
 const GenericHeader = props => {
-  const { navigation, title, type } = props
+  const { navigation, title, type, SegmentComponent, ...rest } = props
 
   let nav
   switch (type) {
@@ -32,14 +41,14 @@ const GenericHeader = props => {
   }
 
   return (
-    <Header style={{ elevation: 0 }}>
+    <Header style={{ elevation: 0 }} {...rest}>
       <Left>
         <Button transparent onPress={nav.action}>
           <Icon name={nav.icon} />
         </Button>
       </Left>
       <Body>
-        <Title>{title}</Title>
+        {SegmentComponent ? <SegmentComponent /> : <Title>{title}</Title>}
       </Body>
       <Right>
         <Button transparent>
@@ -53,7 +62,8 @@ const GenericHeader = props => {
 GenericHeader.propTypes = {
   title: PropTypes.string.isRequired,
   navigation: PropTypes.object.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  SegmentComponent: PropTypes.element
 }
 
 export default withNavigation(GenericHeader)
