@@ -29,30 +29,29 @@ export function checkUser() {
       auth.onAuthStateChanged(async user => {
         // function inside this listener will not be caught by outer try catch
         try {
-          if (!user) {
-            throw new Error('User is not signed in!')
+          if (user) {
+            dispatch(createAction(SCREEN_LOADING)(true))
+
+            await user.getIdToken(true)
+
+            const userDocument = await firestore
+              .collection('users')
+              .doc(user.uid)
+              .get()
+            const userData = userDocument.data()
+
+            dispatch(
+              createAction(LOGIN)({
+                ...userData,
+                email: user.email,
+                isVerified: user.emailVerified
+              })
+            )
+
+            const nav = user.emailVerified ? 'UserHome' : 'Unverified'
+            NavigationService.navigate(nav)
+            dispatch(createAction(SCREEN_LOADING)(false))
           }
-          console.log('checkuser')
-          await user.getIdToken(true)
-          // await user.reload()
-          console.log('checkuser2')
-          const userDocument = await firestore
-            .collection('users')
-            .doc(user.uid)
-            .get()
-          const userData = userDocument.data()
-
-          dispatch(
-            createAction(LOGIN)({
-              ...userData,
-              email: user.email,
-              isVerified: user.emailVerified
-            })
-          )
-
-          const nav = user.emailVerified ? 'UserHome' : 'Unverified'
-          NavigationService.navigate(nav)
-          dispatch(createAction(SCREEN_LOADING)(false))
         } catch (e) {
           dispatch(createAction(SCREEN_LOADING)(false))
           showToast(e.message)

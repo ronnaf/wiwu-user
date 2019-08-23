@@ -10,7 +10,12 @@ import {
 
 const initialState = {
   // master account
-  current: {},
+  current: {
+    homeCoordinates: {
+      latitude: 10.7202,
+      longitude: 122.5621
+    }
+  },
   netInfo: {
     type: 'none',
     effectiveType: 'unknown'
@@ -40,7 +45,8 @@ export default function reducer(state = initialState, action) {
       }
     case LOGOUT:
       return {
-        ...initialState
+        ...initialState,
+        netInfo: state.netInfo
       }
     case CHANGE_PASSWORD:
       return {

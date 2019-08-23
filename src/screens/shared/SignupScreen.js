@@ -10,7 +10,9 @@ import {
   Right,
   Content,
   Form,
-  Text
+  Text,
+  View,
+  Label
 } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
@@ -20,6 +22,7 @@ import { signup } from '../../actions/user/userSignup.actions'
 import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
 import NavigationService from '../../navigation/NavigationService'
+import Map from '../../components/Map'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
@@ -126,7 +129,11 @@ const SignupScreen = () => {
                   error={errors.phoneNumber && touched.phoneNumber}
                   errorMessage={errors.phoneNumber}
                 />
-                <Spacer height={48} />
+                <View style={{ height: 400 }}>
+                  <Label>Home Location</Label>
+                  <Map />
+                </View>
+                <Spacer height={24} />
                 <Button
                   onPress={handleSubmit}
                   disabled={isSubmitting || isOffline}
