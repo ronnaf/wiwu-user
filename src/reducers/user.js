@@ -11,6 +11,7 @@ import {
 const initialState = {
   // master account
   current: {
+    // added this so it wont conflict so that the userSettings map will have the users default home value
     homeCoordinates: {
       latitude: 10.7202,
       longitude: 122.5621
