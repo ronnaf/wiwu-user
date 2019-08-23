@@ -32,10 +32,10 @@ export function checkUser() {
           if (!user) {
             throw new Error('User is not signed in!')
           }
-
+          console.log('checkuser')
           await user.getIdToken(true)
-          await user.reload()
-
+          // await user.reload()
+          console.log('checkuser2')
           const userDocument = await firestore
             .collection('users')
             .doc(user.uid)
@@ -58,6 +58,7 @@ export function checkUser() {
           showToast(e.message)
         }
       })
+      dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
       showToast(e.message)
