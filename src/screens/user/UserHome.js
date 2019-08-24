@@ -29,11 +29,7 @@ const UserHome = props => {
       <GenericHeader title='Home' type='drawer' />
       <Grid style={{ margin: contentPadding }}>
         <Row size={3} style={{ alignItems: 'center' }}>
-          <Lottie
-            style={{ marginTop: -40, marginBottom: -40 }}
-            ref={lottieRef}
-            source={require('../../assets/call.json')}
-          />
+          <Lottie ref={lottieRef} source={require('../../assets/call.json')} />
           <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
               style={{
