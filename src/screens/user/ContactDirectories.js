@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
 import {
   Container,
@@ -14,15 +15,15 @@ import {
   Item,
   Segment,
   Button,
-  Title,
   View
 } from 'native-base'
 
 import GenericHeader from '../../components/GenericHeader'
 import Footer from '../../components/Footer'
-import { hospitals } from '../../constants/dummy-contacts.const'
+import { contacts } from '../../constants/dummy-contacts.const'
 
 const ContactDirectories = props => {
+  const dispatch = useDispatch()
   return (
     <Container>
       <GenericHeader
@@ -52,7 +53,7 @@ const ContactDirectories = props => {
       </View>
       <Content>
         <List>
-          {hospitals.map(hospital => (
+          {contacts.map(hospital => (
             <ListItem key={hospital.name} thumbnail>
               <Left />
               <Body>
