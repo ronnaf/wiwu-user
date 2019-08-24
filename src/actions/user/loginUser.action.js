@@ -1,8 +1,9 @@
 import { auth, persistence, firestore } from '../../firebase'
-import { LOGIN, SCREEN_LOADING } from './user.constants'
+import { LOGIN, SCREEN_LOADING, WIWU_USER_INFO } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
 
+import * as SecureStore from 'expo-secure-store'
 import { createAction } from 'redux-actions'
 
 export function loginUser(email, password) {
@@ -19,13 +20,14 @@ export function loginUser(email, password) {
         .doc(currentUser.uid)
         .get()
       const data = user.data()
+      const payload = {
+        ...data,
+        email: currentUser.email
+      }
 
-      dispatch(
-        createAction(LOGIN)({
-          ...data,
-          email: currentUser.email
-        })
-      )
+      await SecureStore.setItemAsync(WIWU_USER_INFO, JSON.stringify(payload))
+
+      dispatch(createAction(LOGIN)(payload))
 
       const nav = currentUser.emailVerified ? 'UserHome' : 'Unverified'
       NavigationService.navigate(nav)

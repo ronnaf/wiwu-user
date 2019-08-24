@@ -23,7 +23,7 @@ import GenericField from '../../components/GenericField'
 const UserSettings = props => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.current)
-  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
 
   const { firstName, lastName, phoneNumber, email } = user
 

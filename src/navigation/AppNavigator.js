@@ -42,7 +42,7 @@ const Navigator = createAppContainer(
 
 const AppNavigator = () => {
   const isLoading = useSelector(state => state.user.isLoading)
-  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
   const dispatch = useDispatch()
 
   // placed inside so I dont have to pass dispatch as parameter

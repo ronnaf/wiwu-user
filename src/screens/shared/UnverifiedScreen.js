@@ -10,7 +10,7 @@ import { auth } from '../../firebase'
 import Spacer from '../../components/Spacer'
 
 const UnverifiedScreen = props => {
-  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
   const email = 'jane.doe@gmail.com'
 
   return (

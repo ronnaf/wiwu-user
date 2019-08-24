@@ -19,7 +19,8 @@ const initialState = {
   },
   netInfo: {
     type: 'none',
-    effectiveType: 'unknown'
+    effectiveType: 'unknown',
+    isOffline: false
   },
   isLoading: false
 }
@@ -59,9 +60,18 @@ export default function reducer(state = initialState, action) {
         isLoading: action.payload
       }
     case NET_INFO:
+      const { type, effectiveType } = action.payload
+      const isOnline =
+        type === 'wifi' ||
+        (type === 'cellular' &&
+          (effectiveType === '3g' ||
+            effectiveType === '4g' ||
+            effectiveType === '5g'))
+      const payload = { ...action.payload, isOffline: !isOnline }
+
       return {
         ...state,
-        netInfo: action.payload
+        netInfo: payload
       }
     default:
       return state

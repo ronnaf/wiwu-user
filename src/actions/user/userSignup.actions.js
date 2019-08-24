@@ -1,7 +1,8 @@
 import { createAction } from 'redux-actions'
+import * as SecureStore from 'expo-secure-store'
 
 import { auth, firestore } from '../../firebase'
-import { SIGNUP, SCREEN_LOADING } from './user.constants'
+import { SIGNUP, SCREEN_LOADING, WIWU_USER_INFO } from './user.constants'
 import { statuses, roles } from '../../constants/User'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
@@ -40,6 +41,10 @@ export function signup(user) {
         .doc(uid)
         .set(data)
       await auth.currentUser.sendEmailVerification()
+
+      const payload = { email: auth.currentUser.email, uid }
+
+      await SecureStore(WIWU_USER_INFO, JSON.stringify(payload))
 
       dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
       NavigationService.navigate('Unverified')

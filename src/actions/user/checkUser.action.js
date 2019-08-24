@@ -1,7 +1,8 @@
 import { createAction } from 'redux-actions'
+import * as SecureStore from 'expo-secure-store'
 
 import { auth, firestore } from '../../firebase'
-import { LOGIN, SCREEN_LOADING } from './user.constants'
+import { LOGIN, SCREEN_LOADING, WIWU_USER_INFO } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
 
@@ -11,17 +12,17 @@ export function checkUser() {
     try {
       const {
         user: {
-          netInfo: {
-            type,
-            effectiveType // not sure if we should restrict use of this apps online features if 4g lang, too long mag load if indi
-          },
+          netInfo: { isOffline },
           current: { isVerified }
         }
       } = getState()
 
       dispatch(createAction(SCREEN_LOADING)(true))
 
-      if (type === 'offline' && isVerified) {
+      if (isOffline && isVerified) {
+        // if isVerified field is present, its safe to assume the SecureStore wont be null
+        const payload = await SecureStore.getItemAsync(WIWU_USER_INFO)
+        dispatch(createAction(LOGIN)(JSON.parse(payload)))
         NavigationService.navigate('UserHome')
       }
 
@@ -39,14 +40,18 @@ export function checkUser() {
               .doc(user.uid)
               .get()
             const userData = userDocument.data()
+            const payload = {
+              ...userData,
+              email: user.email,
+              isVerified: user.emailVerified
+            }
 
-            dispatch(
-              createAction(LOGIN)({
-                ...userData,
-                email: user.email,
-                isVerified: user.emailVerified
-              })
+            await SecureStore.setItemAsync(
+              WIWU_USER_INFO,
+              JSON.stringify(payload)
             )
+
+            dispatch(createAction(LOGIN)(payload))
 
             const nav = user.emailVerified ? 'UserHome' : 'Unverified'
             NavigationService.navigate(nav)
