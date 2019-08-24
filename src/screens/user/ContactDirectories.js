@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { StyleSheet } from 'react-native'
+import { createAction } from 'redux-actions'
 import {
   Container,
   Content,
@@ -20,10 +21,23 @@ import {
 
 import GenericHeader from '../../components/GenericHeader'
 import Footer from '../../components/Footer'
-import { contacts } from '../../constants/dummy-contacts.const'
+
+import { getContacts } from '../../actions/contact/getContacts.action'
+import {
+  EDIT_PIN_COORDINATES,
+  EDIT_REGION_COORDINATES
+} from '../../actions/map/map.constants'
 
 const ContactDirectories = props => {
+  const [activeTab, setActiveTab] = useState('medical')
   const dispatch = useDispatch()
+  const contacts = useSelector(state => state.contacts.list)
+  const activeList = contacts.filter(e => e.department === activeTab)
+
+  useEffect(() => {
+    dispatch(getContacts())
+  }, [])
+
   return (
     <Container>
       <GenericHeader
@@ -32,13 +46,27 @@ const ContactDirectories = props => {
         hasSegment
         SegmentComponent={() => (
           <Segment>
-            <Button first>
+            <Button
+              first
+              active={activeTab === 'police'}
+              onPress={() => {
+                setActiveTab('police')
+              }}>
               <Text>Police</Text>
             </Button>
-            <Button>
+            <Button
+              active={activeTab === 'fire'}
+              onPress={() => {
+                setActiveTab('fire')
+              }}>
               <Text>Fire</Text>
             </Button>
-            <Button last active>
+            <Button
+              last
+              active={activeTab === 'medical'}
+              onPress={() => {
+                setActiveTab('medical')
+              }}>
               <Text>Hospital</Text>
             </Button>
           </Segment>
@@ -53,13 +81,31 @@ const ContactDirectories = props => {
       </View>
       <Content>
         <List>
-          {contacts.map(hospital => (
-            <ListItem key={hospital.name} thumbnail>
+          {activeList.map(place => (
+            <ListItem
+              key={place.name}
+              thumbnail
+              onPress={() => {
+                const { latitude, longitude } = place.location
+                dispatch(
+                  createAction(EDIT_PIN_COORDINATES)({
+                    latitude,
+                    longitude
+                  })
+                )
+                dispatch(
+                  createAction(EDIT_REGION_COORDINATES)({
+                    latitude,
+                    longitude
+                  })
+                )
+                props.navigation.navigate('UserMaps')
+              }}>
               <Left />
               <Body>
-                <Text>{hospital.name}</Text>
+                <Text>{place.name}</Text>
                 <Text note numberOfLines={1}>
-                  {hospital.address}
+                  {place.address}
                 </Text>
               </Body>
               <Right>

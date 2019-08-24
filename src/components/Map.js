@@ -54,7 +54,6 @@ const Map = props => {
 
   useEffect(() => {
     if (!props.isUserSettings) {
-      getCurrentPosition()
       AppState.addEventListener('change', _handleAppStateChange)
       return function cleanup() {
         AppState.removeEventListener('change', _handleAppStateChange)
@@ -89,6 +88,7 @@ const Map = props => {
           renderDescription={row => row.description}
           onPress={(data, details = null) => {
             const { lat, lng } = details.geometry.location
+            console.log(`lat: ${lat}, lng: ${lng}`)
             dispatch(
               createAction(EDIT_PIN_COORDINATES)({
                 latitude: lat,
