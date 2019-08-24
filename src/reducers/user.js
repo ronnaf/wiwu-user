@@ -10,7 +10,13 @@ import {
 
 const initialState = {
   // master account
-  current: {},
+  current: {
+    // added this so it wont conflict so that the userSettings map will have the users default home value
+    homeCoordinates: {
+      latitude: 10.7202,
+      longitude: 122.5621
+    }
+  },
   netInfo: {
     type: 'none',
     effectiveType: 'unknown'
@@ -40,7 +46,8 @@ export default function reducer(state = initialState, action) {
       }
     case LOGOUT:
       return {
-        ...initialState
+        ...initialState,
+        netInfo: state.netInfo
       }
     case CHANGE_PASSWORD:
       return {
