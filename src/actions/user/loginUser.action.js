@@ -27,7 +27,7 @@ export function loginUser(email, password) {
         })
       )
 
-      const nav = user.emailVerified ? 'UserHome' : 'Unverified'
+      const nav = currentUser.emailVerified ? 'UserHome' : 'Unverified'
       NavigationService.navigate(nav)
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {

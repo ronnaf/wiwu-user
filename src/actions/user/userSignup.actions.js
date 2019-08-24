@@ -7,9 +7,15 @@ import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
 
 export function signup(user) {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     try {
       const { email, password, firstName, lastName, phoneNumber } = user
+      const {
+        map: {
+          coordinates: { latitude, longitude }
+        }
+      } = getState()
+
       dispatch(createAction(SCREEN_LOADING)(true))
 
       await auth.createUserWithEmailAndPassword(email, password)
@@ -19,10 +25,15 @@ export function signup(user) {
         firstName,
         lastName,
         phoneNumber,
+        homeCoordinates: {
+          latitude,
+          longitude
+        },
         emergencies: [],
         role: roles.USER,
         status: statuses.ACTIVE
       }
+
       await firestore
         .collection('users')
         .doc(uid)

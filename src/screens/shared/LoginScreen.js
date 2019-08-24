@@ -21,8 +21,6 @@ const LoginScreen = props => {
   const dispatch = useDispatch()
   const isOffline = useSelector(state => state.user.netInfo.type === 'none')
 
-  // wat if offline. i think magamit ta redux persist para diri -R
-  // dont comment out for development purposes, awat mag cge login
   useEffect(() => {
     dispatch(checkUser())
   }, [])

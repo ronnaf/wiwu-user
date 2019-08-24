@@ -16,5 +16,6 @@ const firebaseApp = firebase.initializeApp(firebaseConfig)
 const auth = firebaseApp.auth()
 const firestore = firebaseApp.firestore()
 const persistence = firebase.auth.Auth.Persistence
+
 // Initialize Firebase
 export { auth, firestore, persistence }
