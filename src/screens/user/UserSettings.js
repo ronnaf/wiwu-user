@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, Image } from 'react-native'
-import { Text, Form, Button, Container, Content } from 'native-base'
+import { Text, Form, Button, Container, Content, Label } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
@@ -15,6 +15,7 @@ import GenericHeader from '../../components/GenericHeader'
 import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
 import GenericUser from '../../assets/images/generic-user.png'
+import GenericField from '../../components/GenericField'
 
 const UserSettings = props => {
   const dispatch = useDispatch()
@@ -42,8 +43,10 @@ const UserSettings = props => {
             resizeMode='center'
             source={GenericUser}
           />
+          <Spacer height={8} />
+          <Text note>Tap to change</Text>
         </View>
-        <Spacer height={8} />
+        <Spacer height={32} />
 
         <Formik
           initialValues={{
@@ -69,7 +72,8 @@ const UserSettings = props => {
               <Form>
                 <GenericInput
                   name='email'
-                  placeholder='Email'
+                  label='Email'
+                  placeholder='e.g. - juan.delacruz@gmail.com'
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   value={values.email}
@@ -79,7 +83,8 @@ const UserSettings = props => {
                 />
                 <GenericInput
                   name='firstName'
-                  placeholder='Firstname'
+                  label='First Name'
+                  placeholder='e.g. - Juan'
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   value={values.firstName}
@@ -88,7 +93,8 @@ const UserSettings = props => {
                 />
                 <GenericInput
                   name='lastName'
-                  placeholder='Lastname'
+                  label='Last Name'
+                  placeholder='e.g. - dela Cruz'
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   value={values.lastName}
@@ -97,7 +103,8 @@ const UserSettings = props => {
                 />
                 <GenericInput
                   name='phoneNumber'
-                  placeholder='Phone'
+                  label='Phone Number'
+                  placeholder='e.g. - 09123456789'
                   handleChange={handleChange}
                   handleBlur={handleBlur}
                   value={values.phoneNumber}
@@ -105,26 +112,32 @@ const UserSettings = props => {
                   errorMessage={errors.phoneNumber}
                 />
 
-                <View style={{ height: 400 }}>
-                  <Map isUserSettings={true} />
-                </View>
+                <GenericField
+                  label='Home Location'
+                  CustomComponent={() => (
+                    <View style={{ height: 400 }}>
+                      <Map isUserSettings={true} />
+                    </View>
+                  )}
+                />
 
+                <Spacer height={48} />
                 <Button
                   onPress={handleSubmit}
                   disabled={isOffline}
-                  full
+                  block
                   primary>
-                  <Text>Submit</Text>
+                  <Text>Update Profile</Text>
                 </Button>
 
-                <Spacer height={4} />
-
+                <Spacer height={8} />
                 <Button
                   onPress={() => dispatch(logout())}
                   full
+                  transparent
                   danger
                   disabled={isSubmitting || isOffline}>
-                  <Text>Logout</Text>
+                  <Text>Log out from this device</Text>
                 </Button>
               </Form>
             )
