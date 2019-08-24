@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Modal, TouchableHighlight } from 'react-native'
 import { createAction } from 'redux-actions'
 import {
   Container,
@@ -30,6 +30,13 @@ import {
 
 const ContactDirectories = props => {
   const [activeTab, setActiveTab] = useState('medical')
+  const [isModalVisible, setModalVisibility] = useState(false)
+  const [modalContent, setModalContent] = useState({
+    address: '',
+    name: '',
+    numbers: []
+  })
+
   const dispatch = useDispatch()
   const contacts = useSelector(state => state.contacts.list)
   const activeList = contacts.filter(e => e.department === activeTab)
@@ -40,6 +47,46 @@ const ContactDirectories = props => {
 
   return (
     <Container>
+      <Modal
+        animationType={'fade'}
+        transparent={false}
+        visible={isModalVisible}>
+        <View style={{ marginTop: 22 }}>
+          <View>
+            {/* KAYA MO NI RONS */}
+            <Text>Name: {modalContent.name}</Text>
+            <Text>Address: {modalContent.address}</Text>
+            <Text>Numbers: {modalContent.numbers.join()}</Text>
+            <Button
+              onPress={() => {
+                const { latitude, longitude } = modalContent.location
+                dispatch(
+                  createAction(EDIT_PIN_COORDINATES)({
+                    latitude,
+                    longitude
+                  })
+                )
+                dispatch(
+                  createAction(EDIT_REGION_COORDINATES)({
+                    latitude,
+                    longitude
+                  })
+                )
+                setModalVisibility(false)
+                props.navigation.navigate('UserMaps')
+              }}>
+              <Text>Find in Maps</Text>
+            </Button>
+            <TouchableHighlight
+              onPress={() => {
+                setModalVisibility(false)
+              }}>
+              <Text>Hide Modal</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+      </Modal>
+
       <GenericHeader
         title='Responders'
         type='drawer'
@@ -86,20 +133,8 @@ const ContactDirectories = props => {
               key={place.name}
               thumbnail
               onPress={() => {
-                const { latitude, longitude } = place.location
-                dispatch(
-                  createAction(EDIT_PIN_COORDINATES)({
-                    latitude,
-                    longitude
-                  })
-                )
-                dispatch(
-                  createAction(EDIT_REGION_COORDINATES)({
-                    latitude,
-                    longitude
-                  })
-                )
-                props.navigation.navigate('UserMaps')
+                setModalContent(place)
+                setModalVisibility(true)
               }}>
               <Left />
               <Body>
