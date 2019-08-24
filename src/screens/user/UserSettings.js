@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react'
 import { View, Image } from 'react-native'
-import { Text, Form, Button, Container, Content, Label } from 'native-base'
+import { Text, Form, Button, Container, Content } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
 
-import { EDIT_COORDINATES } from '../../actions/map/map.constants'
+import {
+  EDIT_PIN_COORDINATES,
+  EDIT_REGION_COORDINATES
+} from '../../actions/map/map.constants'
 import { logout } from '../../actions/user/logout.action'
 import { editUser } from '../../actions/user/editUser.actions'
 import { EditSchema } from '../../constants/Schemas'
@@ -25,7 +28,8 @@ const UserSettings = props => {
   const { firstName, lastName, phoneNumber, email } = user
 
   useEffect(() => {
-    dispatch(createAction(EDIT_COORDINATES)(user.homeCoordinates))
+    dispatch(createAction(EDIT_PIN_COORDINATES)(user.homeCoordinates))
+    dispatch(createAction(EDIT_REGION_COORDINATES)(user.homeCoordinates))
   }, [])
 
   return (
