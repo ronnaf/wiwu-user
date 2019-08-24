@@ -31,6 +31,7 @@ export function signup(user) {
         },
         emergencies: [],
         role: roles.USER,
+        isVerified: false,
         status: statuses.ACTIVE
       }
 
