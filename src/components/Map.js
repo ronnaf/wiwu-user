@@ -4,6 +4,7 @@ import MapView from 'react-native-maps'
 import { Toast, Container, Button, Icon } from 'native-base'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAction } from 'redux-actions'
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 
 import { EDIT_COORDINATES } from '../actions/map/map.constants'
 
@@ -53,48 +54,105 @@ const Map = props => {
 
   return (
     <Container>
-      <View style={styles.container}>
-        <MapView
-          style={styles.mapStyle}
-          region={coordinates}
-          onRegionChangeComplete={e => createAction(EDIT_COORDINATES)(e)}
-          showsUserLocation
-          onPress={e =>
-            dispatch(createAction(EDIT_COORDINATES)(e.nativeEvent.coordinate))
-          }>
-          <MapView.Marker coordinate={coordinates} />
-        </MapView>
+      <MapView
+        style={styles.mapStyle}
+        region={coordinates}
+        onRegionChangeComplete={e =>
+          dispatch(createAction(EDIT_COORDINATES)(e))
+        }
+        showsUserLocation
+        showsBuilding={true}
+        mapType={'hybrid'}
+        onPress={e =>
+          dispatch(createAction(EDIT_COORDINATES)(e.nativeEvent.coordinate))
+        }>
+        <MapView.Marker coordinate={coordinates} />
+      </MapView>
+      <View style={styles.placesStyle}>
+        <GooglePlacesAutocomplete
+          placeholder='Search'
+          minLength={2}
+          autoFocus={false}
+          returnKeyType={'search'}
+          listViewDisplayed='true'
+          fetchDetails={true}
+          renderDescription={row => row.description}
+          onPress={(data, details = null) => {
+            const { lat, lng } = details.geometry.location
+            dispatch(
+              createAction(EDIT_COORDINATES)({ latitude: lat, longitude: lng })
+            )
+          }}
+          getDefaultValue={() => {
+            return ''
+          }}
+          query={{
+            key: 'AIzaSyBwvfQvIxe14wJMbOvSoAGLeaG3t5KSsfM',
+            language: 'en',
+            components: 'country:ph',
+            location: '10.7202, 122.5621',
+            radius: 40000, // 40 km within the city
+            strictbounds: true,
+            types: ['geocode', 'address', 'establishment']
+          }}
+          styles={{
+            poweredContainer: {
+              display: 'none'
+            },
+            row: {
+              backgroundColor: '#D5D5D5' // just change this later if the color looks ugly
+            },
+            textInputContainer: {
+              width: '100%'
+            },
+            description: {
+              fontWeight: 'bold'
+            },
+            predefinedPlacesDescription: {
+              color: '#1faadb'
+            }
+          }}
+          nearbyPlacesAPI='GooglePlacesSearch'
+          GooglePlacesSearchQuery={{
+            rankby: 'distance'
+          }}
+          GooglePlacesDetailsQuery={{
+            fields: 'formatted_address'
+          }}
+        />
       </View>
-      {/* Google maps get current position button isnt working */}
-      {/* Pls fix icon not centered, thanks */}
       <Button
         rounded
         primary
         onPress={getCurrentPosition}
         style={styles.buttonStyle}>
-        <Icon name='add' />
+        <Icon name='add' size={100} style={styles.iconStyle} />
       </Button>
     </Container>
   )
 }
 
 const styles = StyleSheet.create({
+  placesStyle: {
+    position: 'absolute',
+    top: 0,
+    width: '100%'
+  },
   mapStyle: {
+    height: '100%',
     alignSelf: 'stretch',
-    height: '100%'
+    width: '100%'
   },
   buttonStyle: {
     position: 'absolute',
-    bottom: 100,
+    bottom: 10,
     right: 15,
-    width: 50,
-    height: 50
+    width: 46,
+    height: 46
   },
-  container: {
-    flex: 1,
-    alignItems: 'center',
+  iconStyle: {
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1'
+    alignSelf: 'center'
   }
 })
 
