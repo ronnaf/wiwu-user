@@ -14,6 +14,7 @@ const AuthNavigator = createStackNavigator(
   },
   {
     headerMode: 'none'
+    // initialRouteName: 'Unverified'
   }
 )
 
