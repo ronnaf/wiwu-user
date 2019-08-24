@@ -48,7 +48,7 @@ const GenericHeader = props => {
           <Icon name={nav.icon} />
         </Button>
       </Left>
-      <Body style={styles.body}>
+      <Body style={SegmentComponent ? {} : styles.body}>
         {SegmentComponent ? <SegmentComponent /> : <Title>{title}</Title>}
       </Body>
       <Right>
