@@ -121,8 +121,6 @@ const Map = props => {
           }}
         />
       </View>
-      {/* Google maps get current position button isnt working */}
-      {/* Pls fix icon not centered, thanks */}
       <Button
         rounded
         primary
