@@ -48,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
           new BackgroundTaskBridgePackage(),
           new ReanimatedPackage(),
           new RNGestureHandlerPackage(),
+          new DirectSmsPackage(),
           new ModuleRegistryAdapter(mModuleRegistryProvider)
       );
     }

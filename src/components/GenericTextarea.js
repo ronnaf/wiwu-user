@@ -21,7 +21,11 @@ const GenericTextarea = ({
       {label && <Label style={styles.label}>{label}</Label>}
       <FormItem regular error={error}>
         {/* TODO: add onChange handler */}
-        <Textarea rowSpan={5} placeholder={placeholder} />
+        <Textarea
+          rowSpan={5}
+          placeholder={placeholder}
+          onChangeText={e => handleChange(e)}
+        />
         {error && <Icon name='close-circle' />}
       </FormItem>
       {error && <Text style={styles.error}>{errorMessage}</Text>}

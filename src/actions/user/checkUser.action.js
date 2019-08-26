@@ -13,55 +13,58 @@ export function checkUser() {
       const {
         user: {
           netInfo: { isOffline },
-          current: { isVerified }
+          current: { isEmailVerified }
         }
       } = getState()
 
       dispatch(createAction(SCREEN_LOADING)(true))
 
-      if (isOffline && isVerified) {
+      if (isOffline && isEmailVerified) {
         // if isVerified field is present, its safe to assume the SecureStore wont be null
         const payload = await SecureStore.getItemAsync(WIWU_USER_INFO)
         dispatch(createAction(LOGIN)(JSON.parse(payload)))
         NavigationService.navigate('UserHome')
+      } else if (!isOffline) {
+        // Auto unsubscribes if no net so no need to worry
+        auth.onAuthStateChanged(async user => {
+          // function inside this listener will not be caught by outer try catch
+          try {
+            if (user) {
+              dispatch(createAction(SCREEN_LOADING)(true))
+
+              await user.getIdToken(true)
+
+              const userDocument = await firestore
+                .collection('users')
+                .doc(user.uid)
+                .get()
+              const userData = userDocument.data()
+              const payload = {
+                ...userData,
+                emergencies: userData.emergencies.map(e => e.id),
+                email: user.email,
+                uid: user.uid,
+                isEmailVerified: user.emailVerified
+              }
+
+              await SecureStore.setItemAsync(
+                WIWU_USER_INFO,
+                JSON.stringify(payload)
+              )
+
+              dispatch(createAction(LOGIN)(payload))
+
+              const nav = user.emailVerified ? 'UserHome' : 'Unverified'
+              NavigationService.navigate(nav)
+              dispatch(createAction(SCREEN_LOADING)(false))
+            }
+          } catch (e) {
+            dispatch(createAction(SCREEN_LOADING)(false))
+            showToast(e.message)
+          }
+        })
       }
 
-      // Auto unsubscribes if no net so no need to worry
-      auth.onAuthStateChanged(async user => {
-        // function inside this listener will not be caught by outer try catch
-        try {
-          if (user) {
-            dispatch(createAction(SCREEN_LOADING)(true))
-
-            await user.getIdToken(true)
-
-            const userDocument = await firestore
-              .collection('users')
-              .doc(user.uid)
-              .get()
-            const userData = userDocument.data()
-            const payload = {
-              ...userData,
-              email: user.email,
-              isVerified: user.emailVerified
-            }
-
-            await SecureStore.setItemAsync(
-              WIWU_USER_INFO,
-              JSON.stringify(payload)
-            )
-
-            dispatch(createAction(LOGIN)(payload))
-
-            const nav = user.emailVerified ? 'UserHome' : 'Unverified'
-            NavigationService.navigate(nav)
-            dispatch(createAction(SCREEN_LOADING)(false))
-          }
-        } catch (e) {
-          dispatch(createAction(SCREEN_LOADING)(false))
-          showToast(e.message)
-        }
-      })
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))

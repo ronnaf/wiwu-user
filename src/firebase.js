@@ -18,4 +18,4 @@ const firestore = firebaseApp.firestore()
 const persistence = firebase.auth.Auth.Persistence
 
 // Initialize Firebase
-export { auth, firestore, persistence }
+export { auth, firestore, persistence, firebase }

@@ -4,6 +4,10 @@ import { Dimensions, TouchableOpacity } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
 import Lottie from 'lottie-react-native'
+import { useDispatch } from 'react-redux'
+import { createAction } from 'redux-actions'
+
+import { SET_SELECTED_DEPARTMENT } from '../../actions/emergency/emergency.constants'
 
 import Spacer from '../../components/Spacer'
 import GenericHeader from '../../components/GenericHeader'
@@ -17,8 +21,9 @@ const outerCircle = width - 32
 const middleCircle = outerCircle - 80
 const innerCircle = middleCircle - 80
 
-const UserHome = props => {
+const UserHome = () => {
   const lottieRef = useRef(null)
+  const dispatch = useDispatch()
 
   useEffect(() => {
     lottieRef.current.play()
@@ -79,7 +84,10 @@ const UserHome = props => {
               <Col>
                 <TouchableOpacity
                   style={{ flex: 1 }}
-                  onPress={() => NavigationService.navigate('UserRequest')}>
+                  onPress={() => {
+                    NavigationService.navigate('UserRequest')
+                    dispatch(createAction(SET_SELECTED_DEPARTMENT)('medical'))
+                  }}>
                   <LinearGradient
                     style={{
                       flex: 1,
@@ -106,7 +114,10 @@ const UserHome = props => {
               <Col>
                 <TouchableOpacity
                   style={{ flex: 1 }}
-                  onPress={() => NavigationService.navigate('UserRequest')}>
+                  onPress={() => {
+                    dispatch(createAction(SET_SELECTED_DEPARTMENT)('fire'))
+                    NavigationService.navigate('UserRequest')
+                  }}>
                   <LinearGradient
                     style={{
                       flex: 1,
@@ -135,7 +146,10 @@ const UserHome = props => {
               <Col>
                 <TouchableOpacity
                   style={{ flex: 1 }}
-                  onPress={() => NavigationService.navigate('UserRequest')}>
+                  onPress={() => {
+                    NavigationService.navigate('UserRequest')
+                    dispatch(createAction(SET_SELECTED_DEPARTMENT)('police'))
+                  }}>
                   <LinearGradient
                     style={{
                       flex: 1,

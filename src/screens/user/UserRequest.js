@@ -1,20 +1,39 @@
 import React, { Fragment, useState } from 'react'
-import { Container, Content, Form, Button, Text } from 'native-base'
+import { Container, Content, Form, Button, Text, Label } from 'native-base'
 import { Formik } from 'formik'
+import { View } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash'
 
-import GenericInput from '../../components/GenericInput'
+import { sendRequest } from '../../actions/emergency/sendRequest'
+
 import GenericHeader from '../../components/GenericHeader'
 import GenericPicker from '../../components/GenericPicker'
+import GenericInput from '../../components/GenericInput'
 import GenericTextarea from '../../components/GenericTextarea'
 import Spacer from '../../components/Spacer'
+import Map from '../../components/Map'
 
+// TODO: ADD CAMERA
 const UserRequest = () => {
+  const dispatch = useDispatch()
+
   const [isMoreFields, setMoreFields] = useState(false)
+  const department = useSelector(state => state.emergency.departmentSelected)
+
   return (
     <Container>
       <GenericHeader title='Emergency Request' type='back' />
       <Content padder>
-        <Formik initialValues={{}} onSubmit={values => {}}>
+        <Formik
+          initialValues={{
+            department,
+            role: 'I need help!',
+            description: '',
+            address: '',
+            comments: ''
+          }}
+          onSubmit={values => dispatch(sendRequest(values))}>
           {({
             values,
             errors,
@@ -27,30 +46,32 @@ const UserRequest = () => {
             setFieldValue
           }) => (
             <Form>
-              <GenericPicker
-                label='How urgent is your emergency?'
-                name='urgency'
-                placeholder='Select urgency'
-                items={['Low', 'Medium', 'High', 'Critical']}
+              <GenericInput
+                label='Emergency type'
+                name='department'
+                disabled={true}
                 handleChange={handleChange}
-                value={values.role}
+                handleBlur={handleBlur}
+                value={_.upperFirst(values.department)}
               />
               <GenericPicker
                 label='What is your role?'
                 name='role'
                 placeholder='Select role'
                 items={['I need help!', 'I am requesting for someone else!']}
-                handleChange={handleChange}
+                handleChange={e => setFieldValue('role', e)}
                 value={values.role}
               />
-
+              <Label>Emergency location</Label>
+              <View style={{ height: 400, marginBottom: 10 }}>
+                <Map />
+              </View>
               {isMoreFields && (
                 <Fragment>
-                  {/* change to textarea TODO: make generictextarea */}
                   <GenericTextarea
                     label='Emergency Description'
                     name='description'
-                    handleChange={handleChange}
+                    handleChange={e => setFieldValue('description', e)}
                     handleBlur={handleBlur}
                     value={values.description}
                     placeholder='Describe your emergency'
@@ -60,22 +81,12 @@ const UserRequest = () => {
                   <GenericTextarea
                     label='Address'
                     name='address'
-                    handleChange={handleChange}
+                    handleChange={e => setFieldValue('address', e)}
                     handleBlur={handleBlur}
                     value={values.address}
                     placeholder='e.g. - Lopez Jaena St., Jaro, Iloilo Ctiy'
                     error={errors.address && touched.address}
                     errorMessage={errors.address}
-                  />
-                  <GenericTextarea
-                    label='Additional Comments'
-                    name='comments'
-                    handleChange={handleChange}
-                    handleBlur={handleBlur}
-                    value={values.comments}
-                    placeholder='Add more to the description'
-                    error={errors.comments && touched.comments}
-                    errorMessage={errors.comments}
                   />
                 </Fragment>
               )}
@@ -89,7 +100,7 @@ const UserRequest = () => {
                 </Text>
               </Button>
               <Spacer height={48} />
-              <Button block>
+              <Button block onPress={handleSubmit}>
                 <Text>Submit Request</Text>
               </Button>
             </Form>

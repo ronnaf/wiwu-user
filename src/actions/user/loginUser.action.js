@@ -22,6 +22,8 @@ export function loginUser(email, password) {
       const data = user.data()
       const payload = {
         ...data,
+        emergencies: data.emergencies.map(e => e.id),
+        uid: currentUser.uid,
         email: currentUser.email
       }
 
