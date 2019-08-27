@@ -6,6 +6,7 @@ import { firestore, firebase } from '../../firebase'
 import showToast from '../../helpers/toast.helper'
 
 import { PermissionsAndroid, NativeModules } from 'react-native'
+import { SECRET_KEY } from 'react-native-dotenv'
 import { createAction } from 'redux-actions'
 import * as SecureStore from 'expo-secure-store'
 import SimpleCrypto from 'simple-crypto-js'
@@ -52,7 +53,7 @@ export function sendRequest(data) {
             }
           )
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            const simpleCrypto = new SimpleCrypto('WIWU_SECRET_MYSTERY_KEY') // should hide this in the future
+            const simpleCrypto = new SimpleCrypto(SECRET_KEY)
             DirectSms.sendDirectSms(
               '09177456123',
               simpleCrypto.encrypt(JSON.stringify(payload))
