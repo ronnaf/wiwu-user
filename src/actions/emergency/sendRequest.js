@@ -8,6 +8,7 @@ import showToast from '../../helpers/toast.helper'
 import { PermissionsAndroid, NativeModules } from 'react-native'
 import { createAction } from 'redux-actions'
 import * as SecureStore from 'expo-secure-store'
+import SimpleCrypto from 'simple-crypto-js'
 
 export function sendRequest(data) {
   return async (dispatch, getState) => {
@@ -51,7 +52,11 @@ export function sendRequest(data) {
             }
           )
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            DirectSms.sendDirectSms('09177456123', JSON.stringify(payload))
+            const simpleCrypto = new SimpleCrypto('WIWU_SECRET_MYSTERY_KEY') // should hide this in the future
+            DirectSms.sendDirectSms(
+              '09177456123',
+              simpleCrypto.encrypt(JSON.stringify(payload))
+            )
             showToast('Message has been sent', 'success')
             // TODO: save to localstorage to sync later when online
           } else {
