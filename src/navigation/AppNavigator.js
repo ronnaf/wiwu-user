@@ -7,6 +7,9 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import { Root, View, Text } from 'native-base'
 
 import { NET_INFO } from '../actions/user/user.constants'
+import { syncDb } from '../actions/emergency/syncDb.action'
+
+import { checkOnlineStatus } from '../helpers/checkOnlineStatus.helper'
 
 // import MainTabNavigator from './MainTabNavigator'
 import AuthNavigator from './sub-navigators/AuthNavigator'
@@ -47,12 +50,34 @@ const AppNavigator = () => {
 
   // placed inside so I dont have to pass dispatch as parameter
   const handleConnectivityChange = connectionInfo => {
-    dispatch(createAction(NET_INFO)(connectionInfo))
+    const isOnline = checkOnlineStatus(connectionInfo)
+
+    if (isOnline) {
+      dispatch(syncDb())
+    }
+
+    dispatch(
+      createAction(NET_INFO)({
+        ...connectionInfo,
+        isOffline: !isOnline
+      })
+    )
   }
 
   const getConnection = async () => {
     const connectionInfo = await NetInfo.getConnectionInfo()
-    dispatch(createAction(NET_INFO)(connectionInfo))
+    const isOnline = checkOnlineStatus(connectionInfo)
+
+    if (isOnline) {
+      dispatch(syncDb())
+    }
+
+    dispatch(
+      createAction(NET_INFO)({
+        ...connectionInfo,
+        isOffline: !isOnline
+      })
+    )
     NetInfo.addEventListener('connectionChange', handleConnectivityChange)
   }
 

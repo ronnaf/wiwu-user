@@ -1,4 +1,4 @@
-import { SEND_EMERGENCY } from './emergency.constants'
+import { WIWU_OFFLINE_EMERGENCY_ARRAY } from './emergency.constants'
 import { SCREEN_LOADING } from '../user/user.constants'
 
 import { firestore, firebase } from '../../firebase'
@@ -16,7 +16,7 @@ export function sendRequest(data) {
       const {
         user: {
           netInfo: isOffline,
-          current: { uid, firstName, lastName, email }
+          current: { uid }
         },
         map: { pinCoordinates }
       } = getState()
@@ -58,7 +58,24 @@ export function sendRequest(data) {
               simpleCrypto.encrypt(JSON.stringify(payload))
             )
             showToast('Message has been sent', 'success')
-            // TODO: save to localstorage to sync later when online
+
+            const emergencyArray = await SecureStore.getItemAsync(
+              WIWU_OFFLINE_EMERGENCY_ARRAY
+            )
+
+            if (emergencyArray) {
+              const arr = JSON.parse(emergencyArray)
+              arr.push(payload)
+              await SecureStore.setItemAsync(
+                WIWU_OFFLINE_EMERGENCY_ARRAY,
+                JSON.stringify(arr)
+              )
+            } else {
+              await SecureStore.setItemAsync(
+                WIWU_OFFLINE_EMERGENCY_ARRAY,
+                JSON.stringify([payload])
+              )
+            }
           } else {
             console.log('SMS permission denied')
           }
