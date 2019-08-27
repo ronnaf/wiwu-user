@@ -10,7 +10,9 @@ export function getContacts() {
     try {
       let data
       const {
-        user: { netInfo: isOffline }
+        user: {
+          netInfo: { isOffline }
+        }
       } = getState()
 
       dispatch(createAction(SCREEN_LOADING)(true))
@@ -21,6 +23,7 @@ export function getContacts() {
       } else {
         const contacts = await firestore.collection('contacts').get()
         data = contacts.docs.map(e => e.data())
+
         await SecureStore.setItemAsync(OFFLINE_CONTACTS, JSON.stringify(data))
       }
 
