@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, Image } from 'react-native'
-import { Text, Form, Button, Container, Content } from 'native-base'
+import { Text, Form, Button, Container, Content, Label } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
@@ -116,14 +116,14 @@ const UserSettings = props => {
                   errorMessage={errors.phoneNumber}
                 />
 
-                <GenericField
-                  label='Home Location'
-                  CustomComponent={() => (
-                    <View style={{ height: 400 }}>
-                      <Map isUserSettings={true} />
-                    </View>
-                  )}
-                />
+                {/*
+                 * Dont wrap map in generic input
+                 * It will re-render when typing
+                 */}
+                <Label>Home Location</Label>
+                <View style={{ height: 400 }}>
+                  <Map isUserSettings={true} />
+                </View>
 
                 <Spacer height={48} />
                 <Button

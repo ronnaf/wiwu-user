@@ -13,7 +13,7 @@ export function signup(user) {
       const { email, password, firstName, lastName, phoneNumber } = user
       const {
         map: {
-          coordinates: { latitude, longitude }
+          pinCoordinates: { latitude, longitude }
         }
       } = getState()
 
@@ -32,7 +32,7 @@ export function signup(user) {
         },
         emergencies: [],
         role: roles.USER,
-        isVerified: false,
+        isUserVerified: false, // this is for video verification not email verification
         status: statuses.ACTIVE
       }
 
@@ -44,7 +44,7 @@ export function signup(user) {
 
       const payload = { email: auth.currentUser.email, uid }
 
-      await SecureStore(WIWU_USER_INFO, JSON.stringify(payload))
+      await SecureStore.setItemAsync(WIWU_USER_INFO, JSON.stringify(payload))
 
       dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
       NavigationService.navigate('Unverified')

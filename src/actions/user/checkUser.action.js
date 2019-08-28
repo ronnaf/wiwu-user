@@ -20,7 +20,7 @@ export function checkUser() {
       dispatch(createAction(SCREEN_LOADING)(true))
 
       if (isOffline && isEmailVerified) {
-        // if isVerified field is present, its safe to assume the SecureStore wont be null
+        // if isEmailVerified field is present, its safe to assume the SecureStore wont be null
         const payload = await SecureStore.getItemAsync(WIWU_USER_INFO)
         dispatch(createAction(LOGIN)(JSON.parse(payload)))
         NavigationService.navigate('UserHome')

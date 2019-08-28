@@ -153,7 +153,7 @@ const Map = props => {
 }
 
 Map.propTypes = {
-  isUserSettings: PropTypes.bool.isRequired
+  isUserSettings: PropTypes.bool
 }
 
 const styles = StyleSheet.create({

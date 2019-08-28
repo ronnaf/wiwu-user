@@ -3,6 +3,7 @@ import {
   LOGOUT,
   SIGNUP,
   EDIT,
+  VERIFY,
   NET_INFO,
   CHANGE_PASSWORD,
   SCREEN_LOADING
@@ -43,6 +44,14 @@ export default function reducer(state = initialState, action) {
         current: {
           ...state.current,
           ...action.payload
+        }
+      }
+    case VERIFY:
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          isEmailVerified: action.payload
         }
       }
     case LOGOUT:

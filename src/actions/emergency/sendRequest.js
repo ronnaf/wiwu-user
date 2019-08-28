@@ -16,7 +16,7 @@ export function sendRequest(data) {
     try {
       const {
         user: {
-          netInfo: isOffline,
+          netInfo: { isOffline },
           current: { uid }
         },
         map: { pinCoordinates }
