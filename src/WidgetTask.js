@@ -24,6 +24,7 @@ const charms = [
 type TaskInfo = {
   id: string
 }
+
 export default async function widgetTask(taskData: TaskInfo) {
   const { id } = taskData || {}
   bgTimer.setTimeout(() => {

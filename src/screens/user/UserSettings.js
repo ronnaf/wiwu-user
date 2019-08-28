@@ -105,6 +105,7 @@ const UserSettings = props => {
                   error={!!errors.lastName}
                   errorMessage={errors.lastName}
                 />
+                {/* Maybe add data formatting for numbers like 0917-7456-123 */}
                 <GenericInput
                   name='phoneNumber'
                   label='Phone Number'
