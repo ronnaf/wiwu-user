@@ -79,6 +79,9 @@ const AppNavigator = () => {
       })
     )
     NetInfo.addEventListener('connectionChange', handleConnectivityChange)
+    return function cleanup() {
+      NetInfo.removeEventListener('connectionChange', handleConnectivityChange)
+    }
   }
 
   useEffect(() => {
