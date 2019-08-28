@@ -21,6 +21,7 @@ import {
   CardItem
 } from 'native-base'
 import Modal from 'react-native-modal'
+import PropTypes from 'prop-types'
 
 import GenericHeader from '../../components/GenericHeader'
 import Footer from '../../components/Footer'
@@ -159,6 +160,10 @@ const ContactDirectories = props => {
       <Footer active='contacts' />
     </Container>
   )
+}
+
+ContactDirectories.propTypes = {
+  navigation: PropTypes.object.isRequired
 }
 
 const styles = StyleSheet.create({

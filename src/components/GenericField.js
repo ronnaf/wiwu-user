@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { Fragment } from 'react'
 import { StyleSheet } from 'react-native'
-import PropTypes from 'prop-types'
 import { Label, Text } from 'native-base'
+
 import Spacer from './Spacer'
 
 // TODO: add documentation

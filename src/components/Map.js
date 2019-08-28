@@ -5,6 +5,7 @@ import { Toast, Container, Button, Icon } from 'native-base'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAction } from 'redux-actions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import PropTypes from 'prop-types'
 
 import {
   EDIT_PIN_COORDINATES,
@@ -149,6 +150,10 @@ const Map = props => {
       </Button>
     </Container>
   )
+}
+
+Map.propTypes = {
+  isUserSettings: PropTypes.bool.isRequired
 }
 
 const styles = StyleSheet.create({

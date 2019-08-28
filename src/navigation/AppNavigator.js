@@ -15,7 +15,6 @@ import { checkOnlineStatus } from '../helpers/checkOnlineStatus.helper'
 import AuthNavigator from './sub-navigators/AuthNavigator'
 import SignupNavigator from './sub-navigators/SignupNavigator'
 import UserNavigator from './sub-navigators/UserNavigator'
-import ResponderNavigator from './sub-navigators/ResponderNavigator'
 import NavigationService from './NavigationService'
 
 const Navigator = createAppContainer(
@@ -32,9 +31,6 @@ const Navigator = createAppContainer(
       },
       User: {
         screen: UserNavigator
-      },
-      Responder: {
-        screen: ResponderNavigator
       }
     },
     {

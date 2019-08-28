@@ -1,7 +1,6 @@
 import React from 'react'
 import Constants from 'expo-constants'
 import { Formik } from 'formik'
-import { changePassword } from '../actions/user/changePassword.action'
 import { useDispatch } from 'react-redux'
 import {
   Container,
@@ -12,6 +11,8 @@ import {
   Input,
   Label
 } from 'native-base'
+
+import { changePassword } from '../actions/user/changePassword.action'
 
 const PasswordResetScreen = props => {
   const dispatch = useDispatch()

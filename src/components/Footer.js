@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Footer, FooterTab, Button, Icon } from 'native-base'
+
 import NavigationService from '../navigation/NavigationService'
 
 const UserFooter = ({ active = 'home' }) => {

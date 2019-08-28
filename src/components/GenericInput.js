@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
 import { Label, Item as FormItem, Input, Icon, Text } from 'native-base'
+
 import Spacer from './Spacer'
 
 /**
