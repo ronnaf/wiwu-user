@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store'
 import { auth, firestore } from '../../firebase'
 import { SIGNUP, SCREEN_LOADING, WIWU_USER_INFO } from './user.constants'
 import { statuses, roles } from '../../constants/User'
+import { capitalize } from '../../helpers/capitalize.helper'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
 
@@ -23,8 +24,8 @@ export function signup(user) {
       const uid = await auth.currentUser.uid
 
       const data = {
-        firstName,
-        lastName,
+        firstName: capitalize(firstName),
+        lastName: capitalize(lastName),
         phoneNumber,
         homeCoordinates: {
           latitude,
