@@ -1,16 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { StyleSheet, Platform } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import {
-  Icon,
-  Button,
-  Header,
-  Left,
-  Body,
-  Right,
-  Title,
-  Segment
-} from 'native-base'
+import { Icon, Button, Header, Left, Body, Right, Title } from 'native-base'
 
 /**
  * generic header
@@ -47,7 +39,7 @@ const GenericHeader = props => {
           <Icon name={nav.icon} />
         </Button>
       </Left>
-      <Body>
+      <Body style={SegmentComponent ? {} : styles.body}>
         {SegmentComponent ? <SegmentComponent /> : <Title>{title}</Title>}
       </Body>
       <Right>
@@ -58,6 +50,19 @@ const GenericHeader = props => {
     </Header>
   )
 }
+
+const styles = StyleSheet.create({
+  body: {
+    ...Platform.select({
+      ios: {
+        flex: 3
+      },
+      android: {
+        flex: 1
+      }
+    })
+  }
+})
 
 GenericHeader.propTypes = {
   title: PropTypes.string.isRequired,

@@ -1,52 +1,38 @@
 import React, { Fragment } from 'react'
 import { StyleSheet } from 'react-native'
 import PropTypes from 'prop-types'
-import { Label, Item as FormItem, Input, Icon, Text } from 'native-base'
+import { Label, Item as FormItem, Icon, Text, Picker } from 'native-base'
 
 import Spacer from './Spacer'
 
-/**
- * Custom input component to be used instead of creating Form, Item and Input repeatedly.
- * @author [Ronna Mae Firmo](https://github.com/ronnamaeffirmo)
- *
- * Example Usage:
- * ```js
- * <GenericInput
- *  label='First Name'
- *  name='firstName'
- *  handleChange={handleChange}
- *  handleBlur={handleBlur}
- *  value={values.firstName}
- *  placeholder='e.g. - John'
- *  error={errors.firstName && touched.firstName}
- *  errorMessage={errors.firstName} />
- * ```
- */
-const GenericInput = ({
+const GenericPicker = ({
   label,
   name,
   placeholder,
   handleChange,
-  handleBlur,
   value,
   error,
   errorMessage,
+  items,
   ...rest
 }) => {
   return (
     <Fragment>
       {label && <Label style={styles.label}>{label}</Label>}
       <FormItem regular error={error}>
-        <Input
-          autoCapitalize='none'
+        <Picker
           {...rest}
           name={name}
+          mode='dropdown'
           placeholder={placeholder}
-          onChangeText={handleChange(name)}
-          onBlur={handleBlur(name)}
-          value={value}
-        />
-        {error && <Icon name='close-circle' />}
+          iosHeader={placeholder}
+          iosIcon={<Icon name='arrow-down' />}
+          selectedValue={value}
+          onValueChange={value => handleChange(value)}>
+          {items.map(item => (
+            <Picker.Item key={item} label={item} value={item} />
+          ))}
+        </Picker>
       </FormItem>
       {error && <Text style={styles.error}>{errorMessage}</Text>}
       <Spacer height={16} />
@@ -59,7 +45,7 @@ const styles = StyleSheet.create({
   error: { color: '#DB423A', fontSize: 13, marginTop: 5 }
 })
 
-GenericInput.propTypes = {
+GenericPicker.propTypes = {
   /**
    * Label of the field (optional)
    *
@@ -82,11 +68,6 @@ GenericInput.propTypes = {
   handleChange: PropTypes.func.isRequired,
 
   /**
-   * handleBlur function from formik (required)
-   */
-  handleBlur: PropTypes.func.isRequired,
-
-  /**
    * Value of the field (required)
    */
   value: PropTypes.any.isRequired,
@@ -99,7 +80,9 @@ GenericInput.propTypes = {
   /**
    * Error message if an error is thrown by the field
    */
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+
+  items: PropTypes.array.isRequired
 }
 
-export default GenericInput
+export default GenericPicker

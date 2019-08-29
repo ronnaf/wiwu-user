@@ -1,55 +1,39 @@
-import React from 'react'
-import {
-  Container,
-  Header,
-  Left,
-  Button,
-  Body,
-  Title,
-  Icon,
-  Right,
-  Content,
-  Form,
-  Text
-} from 'native-base'
+import React, { Fragment, useState } from 'react'
+import { Container, Content, Form, Button, Text, Label } from 'native-base'
 import { Formik } from 'formik'
+import { View } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import _ from 'lodash'
 
-import NavigationService from '../../navigation/NavigationService'
+import { sendRequest } from '../../actions/emergency/sendRequest'
+
+import GenericHeader from '../../components/GenericHeader'
+import GenericPicker from '../../components/GenericPicker'
+import GenericInput from '../../components/GenericInput'
+import GenericTextarea from '../../components/GenericTextarea'
 import Spacer from '../../components/Spacer'
-import PickerItem from '../../components/PickerItem'
+import Map from '../../components/Map'
 
-// NOTE: Dummy Data
-const items = [
-  {
-    key: 1,
-    question: 'How urgent is your emergency?',
-    answers: ['Low', 'Medium', 'High', 'Critical']
-  },
-  {
-    key: 2,
-    question: 'What is your role?',
-    answers: ['I need help!', 'I am requesting for someone else!']
-  }
-]
-
+// TODO: ADD CAMERA
 const UserRequest = () => {
+  const dispatch = useDispatch()
+
+  const [isMoreFields, setMoreFields] = useState(false)
+  const department = useSelector(state => state.emergency.departmentSelected)
+
   return (
     <Container>
-      <Header>
-        <Left>
-          <Button
-            transparent
-            onPress={() => NavigationService.navigate('UserHome')}>
-            <Icon name='arrow-back' />
-          </Button>
-        </Left>
-        <Body>
-          <Title>Emergency Request</Title>
-        </Body>
-        <Right />
-      </Header>
+      <GenericHeader title='Emergency Request' type='back' />
       <Content padder>
-        <Formik initialValues={{}} onSubmit={values => {}}>
+        <Formik
+          initialValues={{
+            department,
+            role: 'I need help!',
+            description: '',
+            address: '',
+            comments: ''
+          }}
+          onSubmit={values => dispatch(sendRequest(values))}>
           {({
             values,
             errors,
@@ -62,33 +46,62 @@ const UserRequest = () => {
             setFieldValue
           }) => (
             <Form>
-              {items.map(item => {
-                return (
-                  <PickerItem
-                    question={item.question}
-                    answers={item.answers}
-                    setFieldValue={setFieldValue}
-                    key={`picker.${items.indexOf(item)}`}
+              <GenericInput
+                label='Emergency type'
+                name='department'
+                disabled={true}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                value={_.upperFirst(values.department)}
+              />
+              <GenericPicker
+                label='What is your role?'
+                name='role'
+                placeholder='Select role'
+                items={['I need help!', 'I am requesting for someone else!']}
+                handleChange={e => setFieldValue('role', e)}
+                value={values.role}
+              />
+              <Label>Emergency location</Label>
+              <View style={{ height: 400, marginBottom: 10 }}>
+                <Map />
+              </View>
+              {isMoreFields && (
+                <Fragment>
+                  <GenericTextarea
+                    label='Emergency Description'
+                    name='description'
+                    handleChange={e => setFieldValue('description', e)}
+                    handleBlur={handleBlur}
+                    value={values.description}
+                    placeholder='Describe your emergency'
+                    error={errors.description && touched.description}
+                    errorMessage={errors.description}
                   />
-                )
-              })}
-              <Spacer height={48} />
+                  <GenericTextarea
+                    label='Address'
+                    name='address'
+                    handleChange={e => setFieldValue('address', e)}
+                    handleBlur={handleBlur}
+                    value={values.address}
+                    placeholder='e.g. - Lopez Jaena St., Jaro, Iloilo Ctiy'
+                    error={errors.address && touched.address}
+                    errorMessage={errors.address}
+                  />
+                </Fragment>
+              )}
+
               <Button
-                onPress={handleSubmit}
-                disabled={isSubmitting || isValidating}
-                full
-                primary>
-                <Text>Submit</Text>
-              </Button>
-              <Spacer height={16} />
-              <Button
-                onPress={() =>
-                  NavigationService.navigate('UserRequestAdd', { values })
-                }
-                full
+                block
                 transparent
-                small>
-                <Text>I want to add more info</Text>
+                onPress={() => setMoreFields(!isMoreFields)}>
+                <Text>
+                  I want {isMoreFields ? 'less' : 'to add more'} fields
+                </Text>
+              </Button>
+              <Spacer height={48} />
+              <Button block onPress={handleSubmit}>
+                <Text>Submit Request</Text>
               </Button>
             </Form>
           )}

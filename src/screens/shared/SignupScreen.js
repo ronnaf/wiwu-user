@@ -26,7 +26,7 @@ import Map from '../../components/Map'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
-  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
 
   return (
     <Container>

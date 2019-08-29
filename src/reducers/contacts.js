@@ -5,7 +5,7 @@ import {
 } from '../actions/contact/contact.constants'
 
 const initialState = {
-  contacts: []
+  list: []
 }
 
 export default function reducer(state = initialState, action) {
@@ -13,17 +13,17 @@ export default function reducer(state = initialState, action) {
     case GET_CONTACTS:
       return {
         ...state,
-        contacts: action.payload
+        list: action.payload
       }
     case EDIT_CONTACT:
       return {
         ...state,
-        contacts: action.payload
+        list: action.payload
       }
     case DELETE_CONTACT:
       return {
         ...state,
-        contacts: action.payload
+        list: action.payload
       }
     default:
       return state

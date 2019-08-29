@@ -5,12 +5,17 @@ import { Toast, Container, Button, Icon } from 'native-base'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAction } from 'redux-actions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
+import PropTypes from 'prop-types'
 
-import { EDIT_COORDINATES } from '../actions/map/map.constants'
+import {
+  EDIT_PIN_COORDINATES,
+  EDIT_REGION_COORDINATES
+} from '../actions/map/map.constants'
 
 const Map = props => {
   const [appState, changeAppState] = useState('active')
-  const coordinates = useSelector(state => state.map.coordinates)
+  const pinCoordinates = useSelector(state => state.map.pinCoordinates)
+  const regionCoordinates = useSelector(state => state.map.regionCoordinates)
   const dispatch = useDispatch()
   const ref = useRef()
   ref.current = appState
@@ -20,7 +25,13 @@ const Map = props => {
       position => {
         const { latitude, longitude } = position.coords
         dispatch(
-          createAction(EDIT_COORDINATES)({
+          createAction(EDIT_PIN_COORDINATES)({
+            latitude,
+            longitude
+          })
+        )
+        dispatch(
+          createAction(EDIT_REGION_COORDINATES)({
             latitude,
             longitude
           })
@@ -44,7 +55,6 @@ const Map = props => {
 
   useEffect(() => {
     if (!props.isUserSettings) {
-      getCurrentPosition()
       AppState.addEventListener('change', _handleAppStateChange)
       return function cleanup() {
         AppState.removeEventListener('change', _handleAppStateChange)
@@ -56,17 +66,17 @@ const Map = props => {
     <Container>
       <MapView
         style={styles.mapStyle}
-        region={coordinates}
+        region={regionCoordinates}
         onRegionChangeComplete={e =>
-          dispatch(createAction(EDIT_COORDINATES)(e))
+          dispatch(createAction(EDIT_REGION_COORDINATES)(e))
         }
         showsUserLocation
         showsBuilding={true}
         mapType={'hybrid'}
         onPress={e =>
-          dispatch(createAction(EDIT_COORDINATES)(e.nativeEvent.coordinate))
+          dispatch(createAction(EDIT_PIN_COORDINATES)(e.nativeEvent.coordinate))
         }>
-        <MapView.Marker coordinate={coordinates} />
+        <MapView.Marker coordinate={pinCoordinates} />
       </MapView>
       <View style={styles.placesStyle}>
         <GooglePlacesAutocomplete
@@ -79,8 +89,18 @@ const Map = props => {
           renderDescription={row => row.description}
           onPress={(data, details = null) => {
             const { lat, lng } = details.geometry.location
+            console.log(`lat: ${lat}, lng: ${lng}`)
             dispatch(
-              createAction(EDIT_COORDINATES)({ latitude: lat, longitude: lng })
+              createAction(EDIT_PIN_COORDINATES)({
+                latitude: lat,
+                longitude: lng
+              })
+            )
+            dispatch(
+              createAction(EDIT_REGION_COORDINATES)({
+                latitude: lat,
+                longitude: lng
+              })
             )
           }}
           getDefaultValue={() => {
@@ -130,6 +150,10 @@ const Map = props => {
       </Button>
     </Container>
   )
+}
+
+Map.propTypes = {
+  isUserSettings: PropTypes.bool
 }
 
 const styles = StyleSheet.create({

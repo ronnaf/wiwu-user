@@ -3,6 +3,7 @@ import {
   LOGOUT,
   SIGNUP,
   EDIT,
+  VERIFY,
   NET_INFO,
   CHANGE_PASSWORD,
   SCREEN_LOADING
@@ -19,7 +20,8 @@ const initialState = {
   },
   netInfo: {
     type: 'none',
-    effectiveType: 'unknown'
+    effectiveType: 'unknown',
+    isOffline: false
   },
   isLoading: false
 }
@@ -42,6 +44,14 @@ export default function reducer(state = initialState, action) {
         current: {
           ...state.current,
           ...action.payload
+        }
+      }
+    case VERIFY:
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          isEmailVerified: action.payload
         }
       }
     case LOGOUT:

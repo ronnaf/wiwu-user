@@ -1,9 +1,10 @@
+import { API_KEY } from 'react-native-dotenv'
 import * as firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBwvfQvIxe14wJMbOvSoAGLeaG3t5KSsfM',
+  apiKey: API_KEY,
   authDomain: 'weewoo-b9408.firebaseapp.com',
   databaseURL: 'https://weewoo-b9408.firebaseio.com',
   projectId: 'weewoo-b9408',
@@ -18,4 +19,4 @@ const firestore = firebaseApp.firestore()
 const persistence = firebase.auth.Auth.Persistence
 
 // Initialize Firebase
-export { auth, firestore, persistence }
+export { auth, firestore, persistence, firebase }

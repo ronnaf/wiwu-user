@@ -19,7 +19,7 @@ const { contentPadding } = commonColor
 
 const LoginScreen = props => {
   const dispatch = useDispatch()
-  const isOffline = useSelector(state => state.user.netInfo.type === 'none')
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
 
   useEffect(() => {
     dispatch(checkUser())

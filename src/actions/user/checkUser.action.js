@@ -1,7 +1,8 @@
 import { createAction } from 'redux-actions'
+import * as SecureStore from 'expo-secure-store'
 
 import { auth, firestore } from '../../firebase'
-import { LOGIN, SCREEN_LOADING } from './user.constants'
+import { LOGIN, SCREEN_LOADING, WIWU_USER_INFO } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
 
@@ -11,52 +12,59 @@ export function checkUser() {
     try {
       const {
         user: {
-          netInfo: {
-            type,
-            effectiveType // not sure if we should restrict use of this apps online features if 4g lang, too long mag load if indi
-          },
-          current: { isVerified }
+          netInfo: { isOffline },
+          current: { isEmailVerified }
         }
       } = getState()
 
       dispatch(createAction(SCREEN_LOADING)(true))
 
-      if (type === 'offline' && isVerified) {
+      if (isOffline && isEmailVerified) {
+        // if isEmailVerified field is present, its safe to assume the SecureStore wont be null
+        const payload = await SecureStore.getItemAsync(WIWU_USER_INFO)
+        dispatch(createAction(LOGIN)(JSON.parse(payload)))
         NavigationService.navigate('UserHome')
+      } else if (!isOffline) {
+        // Auto unsubscribes if no net so no need to worry
+        auth.onAuthStateChanged(async user => {
+          // function inside this listener will not be caught by outer try catch
+          try {
+            if (user) {
+              dispatch(createAction(SCREEN_LOADING)(true))
+
+              await user.getIdToken(true)
+
+              const userDocument = await firestore
+                .collection('users')
+                .doc(user.uid)
+                .get()
+              const userData = userDocument.data()
+              const payload = {
+                ...userData,
+                emergencies: userData.emergencies.map(e => e.id),
+                email: user.email,
+                uid: user.uid,
+                isEmailVerified: user.emailVerified
+              }
+
+              await SecureStore.setItemAsync(
+                WIWU_USER_INFO,
+                JSON.stringify(payload)
+              )
+
+              dispatch(createAction(LOGIN)(payload))
+
+              const nav = user.emailVerified ? 'UserHome' : 'Unverified'
+              NavigationService.navigate(nav)
+              dispatch(createAction(SCREEN_LOADING)(false))
+            }
+          } catch (e) {
+            dispatch(createAction(SCREEN_LOADING)(false))
+            showToast(e.message)
+          }
+        })
       }
 
-      // Auto unsubscribes if no net so no need to worry
-      auth.onAuthStateChanged(async user => {
-        // function inside this listener will not be caught by outer try catch
-        try {
-          if (user) {
-            dispatch(createAction(SCREEN_LOADING)(true))
-
-            await user.getIdToken(true)
-
-            const userDocument = await firestore
-              .collection('users')
-              .doc(user.uid)
-              .get()
-            const userData = userDocument.data()
-
-            dispatch(
-              createAction(LOGIN)({
-                ...userData,
-                email: user.email,
-                isVerified: user.emailVerified
-              })
-            )
-
-            const nav = user.emailVerified ? 'UserHome' : 'Unverified'
-            NavigationService.navigate(nav)
-            dispatch(createAction(SCREEN_LOADING)(false))
-          }
-        } catch (e) {
-          dispatch(createAction(SCREEN_LOADING)(false))
-          showToast(e.message)
-        }
-      })
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))

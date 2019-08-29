@@ -1,19 +1,35 @@
 import { auth } from '../../firebase'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
+import { SCREEN_LOADING, VERIFY } from '../user/user.constants'
+
+import { createAction } from 'redux-actions'
 
 export const verifyUser = async () => {
-  if (auth.currentUser) {
-    // To refresh token every login
-    await auth.currentUser.getIdToken(true)
-    await auth.currentUser.reload()
-    const user = auth.currentUser
+  return async dispatch => {
+    try {
+      dispatch(createAction(SCREEN_LOADING)(true))
 
-    if (user.emailVerified) {
-      NavigationService.navigate('UserHome')
-    } else {
-      showToast('User is not verified')
+      if (auth.currentUser) {
+        // To refresh token every login
+        await auth.currentUser.getIdToken(true)
+        const user = auth.currentUser
+
+        if (user.emailVerified) {
+          NavigationService.navigate('UserHome')
+          dispatch(createAction(VERIFY)(user.emailVerified))
+        } else {
+          showToast('User is not verified')
+        }
+        NavigationService.navigate(
+          user.emailVerified ? 'UserHome' : 'Unverified'
+        )
+      }
+
+      dispatch(createAction(SCREEN_LOADING)(false))
+    } catch (e) {
+      dispatch(createAction(SCREEN_LOADING)(false))
+      showToast(e.message)
     }
-    NavigationService.navigate(user.emailVerified ? 'UserHome' : 'Unverified')
   }
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
+import PropTypes from 'prop-types'
 
 import Colors from '../constants/Colors'
 
@@ -12,4 +13,9 @@ export default function TabBarIcon(props) {
       color={props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
     />
   )
+}
+
+TabBarIcon.propTypes = {
+  name: PropTypes.string.isRequired,
+  focused: PropTypes.bool.isRequired
 }

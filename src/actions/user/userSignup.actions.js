@@ -1,8 +1,10 @@
 import { createAction } from 'redux-actions'
+import * as SecureStore from 'expo-secure-store'
 
 import { auth, firestore } from '../../firebase'
-import { SIGNUP, SCREEN_LOADING } from './user.constants'
+import { SIGNUP, SCREEN_LOADING, WIWU_USER_INFO } from './user.constants'
 import { statuses, roles } from '../../constants/User'
+import { capitalize } from '../../helpers/capitalize.helper'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
 
@@ -12,7 +14,7 @@ export function signup(user) {
       const { email, password, firstName, lastName, phoneNumber } = user
       const {
         map: {
-          coordinates: { latitude, longitude }
+          pinCoordinates: { latitude, longitude }
         }
       } = getState()
 
@@ -22,8 +24,8 @@ export function signup(user) {
       const uid = await auth.currentUser.uid
 
       const data = {
-        firstName,
-        lastName,
+        firstName: capitalize(firstName),
+        lastName: capitalize(lastName),
         phoneNumber,
         homeCoordinates: {
           latitude,
@@ -31,6 +33,7 @@ export function signup(user) {
         },
         emergencies: [],
         role: roles.USER,
+        isUserVerified: false, // this is for video verification not email verification
         status: statuses.ACTIVE
       }
 
@@ -39,6 +42,10 @@ export function signup(user) {
         .doc(uid)
         .set(data)
       await auth.currentUser.sendEmailVerification()
+
+      const payload = { email: auth.currentUser.email, uid }
+
+      await SecureStore.setItemAsync(WIWU_USER_INFO, JSON.stringify(payload))
 
       dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
       NavigationService.navigate('Unverified')
