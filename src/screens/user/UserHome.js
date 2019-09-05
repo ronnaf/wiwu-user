@@ -176,7 +176,9 @@ const UserHome = () => {
               <Col>
                 <TouchableOpacity
                   style={{ flex: 1 }}
-                  onPress={() => NavigationService.navigate('UserRequest')}>
+                  onPress={() =>
+                    NavigationService.navigate('UserVerification')
+                  }>
                   <LinearGradient
                     style={{
                       flex: 1,

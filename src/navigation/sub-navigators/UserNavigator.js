@@ -5,6 +5,7 @@ import UserMaps from '../../screens/user/UserMaps'
 import ContactDirectories from '../../screens/user/ContactDirectories'
 import UserRequest from '../../screens/user/UserRequest'
 import UserSettings from '../../screens/user/UserSettings'
+import UserVerification from '../../screens/user/UserVerification'
 
 import Sidebar from '../../components/Sidebar'
 
@@ -24,6 +25,9 @@ const UserNavigator = createDrawerNavigator(
     },
     UserRequest: {
       screen: UserRequest
+    },
+    UserVerification: {
+      screen: UserVerification
     }
   },
   {

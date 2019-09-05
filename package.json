@@ -40,6 +40,7 @@
     "react-native-reanimated": "~1.1.0",
     "react-native-root-toast": "^3.1.2",
     "react-native-simple-table": "^0.0.3",
+    "react-native-twilio-video-webrtc": "https://github.com/blackuy/react-native-twilio-video-webrtc#5c2964d",
     "react-native-unimodules": "~0.5.2",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.1",
