@@ -26,7 +26,7 @@ export function sendRequest(data) {
 
       const payload = {
         ...data,
-        userId: uid,
+        userId: firestore.doc(`users/${uid}`),
         location: pinCoordinates,
         responderId: null,
         adminId: null,
