@@ -11,6 +11,7 @@ import GenericHeader from '../../components/GenericHeader'
 import GenericPicker from '../../components/GenericPicker'
 import GenericInput from '../../components/GenericInput'
 import GenericTextarea from '../../components/GenericTextarea'
+import GenericField from '../../components/GenericField'
 import Spacer from '../../components/Spacer'
 import Map from '../../components/Map'
 
@@ -62,10 +63,16 @@ const UserRequest = () => {
                 handleChange={e => setFieldValue('role', e)}
                 value={values.role}
               />
-              <Label>Emergency location</Label>
-              <View style={{ height: 400, marginBottom: 10 }}>
-                <Map />
-              </View>
+
+              <GenericField
+                label={'Emergency location'}
+                CustomComponent={
+                  <View style={{ height: 400 }}>
+                    <Map />
+                  </View>
+                }
+              />
+
               {isMoreFields && (
                 <Fragment>
                   <GenericTextarea

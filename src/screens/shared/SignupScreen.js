@@ -23,6 +23,7 @@ import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
 import NavigationService from '../../navigation/NavigationService'
 import Map from '../../components/Map'
+import GenericField from '../../components/GenericField'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
@@ -129,10 +130,16 @@ const SignupScreen = () => {
                   error={errors.phoneNumber && touched.phoneNumber}
                   errorMessage={errors.phoneNumber}
                 />
-                <View style={{ height: 400 }}>
-                  <Label>Home Location</Label>
-                  <Map />
-                </View>
+
+                <GenericField
+                  label={'Home location'}
+                  CustomComponent={
+                    <View style={{ height: 400 }}>
+                      <Map />
+                    </View>
+                  }
+                />
+
                 <Spacer height={24} />
                 <Button
                   onPress={handleSubmit}

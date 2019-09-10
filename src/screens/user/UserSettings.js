@@ -117,14 +117,14 @@ const UserSettings = props => {
                   errorMessage={errors.phoneNumber}
                 />
 
-                {/*
-                 * Dont wrap map in generic input
-                 * It will re-render when typing
-                 */}
-                <Label>Home Location</Label>
-                <View style={{ height: 400 }}>
-                  <Map isUserSettings={true} />
-                </View>
+                <GenericField
+                  label={'Home Location'}
+                  CustomComponent={
+                    <View style={{ height: 400 }}>
+                      <Map isUserSettings={true} />
+                    </View>
+                  }
+                />
 
                 <Spacer height={48} />
                 <Button
