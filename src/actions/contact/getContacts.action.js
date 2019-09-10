@@ -22,7 +22,12 @@ export function getContacts() {
         data = JSON.parse(contacts) || []
       } else {
         const contacts = await firestore.collection('contacts').get()
-        data = contacts.docs.map(e => e.data())
+        data = contacts.docs.map(e => {
+          return {
+            ...e.data(),
+            id: e.id
+          }
+        })
 
         await SecureStore.setItemAsync(OFFLINE_CONTACTS, JSON.stringify(data))
       }

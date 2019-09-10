@@ -12,7 +12,7 @@ export function editUser(user) {
       dispatch(createAction(SCREEN_LOADING)(true))
 
       // dont send email field
-      const uid = await auth.currentUser.uid
+      const uid = auth.currentUser.uid
       const data = {
         firstName: capitalize(user.firstName),
         lastName: capitalize(user.lastName),

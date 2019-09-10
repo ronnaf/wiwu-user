@@ -21,7 +21,7 @@ export function signup(user) {
       dispatch(createAction(SCREEN_LOADING)(true))
 
       await auth.createUserWithEmailAndPassword(email, password)
-      const uid = await auth.currentUser.uid
+      const uid = auth.currentUser.uid
 
       const data = {
         firstName: capitalize(firstName),
