@@ -71,6 +71,17 @@ export const launchMediaAsync = async (
 /**
  * shows ActionSheet with camera options
  *
+ * @example
+ * ```
+ * showCameraActionSheet(
+ *    setFieldValue,
+ *    'avatar',
+ *    'Take Photo',
+ *    'Select an Avatar',
+ *    ImagePicker.MediaTypeOptions.Images
+ * )
+ * ```
+ *
  * @param setFieldValue
  * @param fieldName
  * @param cameraButtonLabel
