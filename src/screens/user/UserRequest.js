@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react'
-import { Container, Content, Form, Button, Text, Label } from 'native-base'
+import { Container, Content, Form, Button, Text } from 'native-base'
 import { Formik } from 'formik'
 import { View, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
@@ -29,6 +29,7 @@ const UserRequest = () => {
       <GenericHeader title='Emergency Request' type='back' />
       <Content padder>
         <Formik
+          enableReinitialize={true}
           initialValues={{
             department,
             role: 'I need help!',
@@ -44,8 +45,6 @@ const UserRequest = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
-            isValidating,
             setFieldValue
           }) => (
             <Form>

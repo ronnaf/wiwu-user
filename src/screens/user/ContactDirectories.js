@@ -137,7 +137,7 @@ const ContactDirectories = props => {
         <List>
           {activeList.map(place => (
             <ListItem
-              key={place.name}
+              key={place.id}
               thumbnail
               onPress={() => {
                 setModalContent(place)

@@ -20,6 +20,12 @@ export function loginUser(email, password) {
         .doc(currentUser.uid)
         .get()
       const data = user.data()
+
+      if (data.status !== 'active') {
+        await auth.signOut()
+        throw new Error('User is not available. Please contact support!')
+      }
+
       const payload = {
         ...data,
         emergencies: data.emergencies.map(e => e.id),
