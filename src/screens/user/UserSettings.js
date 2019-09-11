@@ -12,6 +12,7 @@ import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
 import * as ImagePicker from 'expo-image-picker'
+import _ from 'lodash'
 
 import {
   EDIT_PIN_COORDINATES,
@@ -28,14 +29,13 @@ import GenericHeader from '../../components/GenericHeader'
 import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
 import GenericField from '../../components/GenericField'
-import showToast from '../../helpers/toast.helper'
 
 const UserSettings = props => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.user.current)
   const isOffline = useSelector(state => state.user.netInfo.isOffline)
 
-  const { firstName, lastName, phoneNumber, email } = user
+  const { firstName, lastName, phoneNumber, email, avatar } = user
 
   useEffect(() => {
     dispatch(createAction(EDIT_PIN_COORDINATES)(user.homeCoordinates))
@@ -51,7 +51,8 @@ const UserSettings = props => {
             email,
             firstName,
             lastName,
-            phoneNumber
+            phoneNumber,
+            avatar
           }}
           validationSchema={EditSchema}
           onSubmit={(values, { setSubmitting }) => {
@@ -90,7 +91,7 @@ const UserSettings = props => {
                       style={{ height: 200, width: 200, borderRadius: 100 }}
                       resizeMode='cover'
                       source={
-                        values.avatar
+                        !_.isEmpty(values.avatar)
                           ? { uri: values.avatar }
                           : images.defaultAvatar
                       }
