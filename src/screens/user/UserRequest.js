@@ -1,11 +1,13 @@
 import React, { Fragment, useState } from 'react'
 import { Container, Content, Form, Button, Text } from 'native-base'
 import { Formik } from 'formik'
-import { View } from 'react-native'
+import { View, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import * as ImagePicker from 'expo-image-picker'
 import _ from 'lodash'
 
 import { sendRequest } from '../../actions/emergency/sendRequest'
+import { showCameraActionSheet } from '../../helpers/camera'
 
 import GenericHeader from '../../components/GenericHeader'
 import GenericPicker from '../../components/GenericPicker'
@@ -66,8 +68,42 @@ const UserRequest = () => {
               <GenericField
                 label={'Emergency location'}
                 CustomComponent={
-                  <View style={{ height: 400 }}>
+                  <View style={{ height: 300 }}>
                     <Map />
+                  </View>
+                }
+              />
+
+              <GenericField
+                label={'Photo/Video'}
+                CustomComponent={
+                  <View>
+                    {values.media && (
+                      <View>
+                        <Image
+                          style={{ height: 300, width: '100%' }}
+                          resizeMode='cover'
+                          source={{ uri: values.media }}
+                        />
+                        <Spacer height={8} />
+                      </View>
+                    )}
+                    <Button
+                      primary
+                      full
+                      bordered
+                      onPress={() =>
+                        showCameraActionSheet(
+                          setFieldValue,
+                          'media',
+                          'Take Photo/Video',
+                          'Choose an Attachment',
+                          ImagePicker.MediaTypeOptions.All
+                        )
+                      }
+                      title={'Attach photo or video'}>
+                      <Text>Attach photo or video</Text>
+                    </Button>
                   </View>
                 }
               />

@@ -24,6 +24,10 @@ import Spacer from '../../components/Spacer'
 import NavigationService from '../../navigation/NavigationService'
 import Map from '../../components/Map'
 import GenericField from '../../components/GenericField'
+import { Image, TouchableOpacity } from 'react-native'
+import { showCameraActionSheet } from '../../helpers/camera'
+import * as ImagePicker from 'expo-image-picker'
+import { images } from '../../assets/assets'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
@@ -75,10 +79,43 @@ const SignupScreen = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting
+            isSubmitting,
+            setFieldValue
           }) => {
             return (
               <Form>
+                {/* avatar pic is an exemption to use GenericField */}
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      showCameraActionSheet(
+                        setFieldValue,
+                        'avatar',
+                        'Take Photo',
+                        'Select an Avatar',
+                        ImagePicker.MediaTypeOptions.Images
+                      )
+                    }>
+                    <Image
+                      style={{ height: 200, width: 200, borderRadius: 100 }}
+                      resizeMode='cover'
+                      source={
+                        values.avatar
+                          ? { uri: values.avatar }
+                          : images.defaultAvatar
+                      }
+                    />
+                  </TouchableOpacity>
+                  <Spacer height={8} />
+                  <Text note>Tap to change</Text>
+                </View>
+                <Spacer height={32} />
+
                 <GenericInput
                   label='First Name'
                   name='firstName'

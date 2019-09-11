@@ -11,6 +11,9 @@ PODS:
   - EXFont (6.0.1):
     - UMCore
     - UMFontInterface
+  - EXImagePicker (6.0.0):
+    - UMCore
+    - UMFileSystemInterface
   - EXKeepAwake (6.0.0):
     - UMCore
   - EXLinearGradient (6.0.0):
@@ -124,6 +127,7 @@ DEPENDENCIES:
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
+  - EXImagePicker (from `../node_modules/expo-image-picker/ios`)
   - EXKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - EXLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - EXLocation (from `../node_modules/expo-location/ios`)
@@ -186,6 +190,9 @@ EXTERNAL SOURCES:
   EXFont:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-font/ios"
+  EXImagePicker:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-image-picker/ios"
   EXKeepAwake:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-keep-awake/ios"
@@ -269,6 +276,7 @@ SPEC CHECKSUMS:
   EXConstants: 5d81e84ca71b9a552529889cc798b4a04e9e22b3
   EXFileSystem: 091907902fcec9f9182b656fdead41a82f30986a
   EXFont: c862449210fc86aa11d24a202cb22c71a0d39609
+  EXImagePicker: ec641e97b73db0fb1ef58b818cffaf7ff6d3c96c
   EXKeepAwake: e7cb6516675052b12a7d23291e33078b4239653a
   EXLinearGradient: 40781b77e58f844c8dc4ad310dc9755b4d3792a7
   EXLocation: 4eb76115832f08b1e78003b335c210e18fa60424

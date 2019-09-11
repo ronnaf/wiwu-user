@@ -8,7 +8,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid'
 import { loginUser } from '../../actions/user/loginUser.action'
 import { checkUser } from '../../actions/user/checkUser.action'
 
-import { images } from '../../assets/index'
+import { images } from '../../assets/assets'
 import NavigationService from '../../navigation/NavigationService'
 import Spacer from '../../components/Spacer'
 import commonColor from '../../../native-base-theme/variables/commonColor'

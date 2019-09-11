@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react'
-import { View, Image } from 'react-native'
-import { Text, Form, Button, Container, Content, Label } from 'native-base'
+import { View, Image, TouchableOpacity } from 'react-native'
+import {
+  Text,
+  Form,
+  Button,
+  Container,
+  Content,
+  ActionSheet
+} from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
+import * as ImagePicker from 'expo-image-picker'
 
 import {
   EDIT_PIN_COORDINATES,
@@ -12,13 +20,15 @@ import {
 import { logout } from '../../actions/user/logout.action'
 import { editUser } from '../../actions/user/editUser.actions'
 import { EditSchema } from '../../constants/Schemas'
+import { images } from '../../assets/assets'
+import { showCameraActionSheet } from '../../helpers/camera'
 
 import Map from '../../components/Map'
 import GenericHeader from '../../components/GenericHeader'
 import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
-import GenericUser from '../../assets/images/generic-user.png'
 import GenericField from '../../components/GenericField'
+import showToast from '../../helpers/toast.helper'
 
 const UserSettings = props => {
   const dispatch = useDispatch()
@@ -36,22 +46,6 @@ const UserSettings = props => {
     <Container>
       <GenericHeader title='Settings' type='back' />
       <Content padder>
-        <View
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-          <Image
-            style={{ height: 200, width: 200 }}
-            resizeMode='center'
-            source={GenericUser}
-          />
-          <Spacer height={8} />
-          <Text note>Tap to change</Text>
-        </View>
-        <Spacer height={32} />
-
         <Formik
           initialValues={{
             email,
@@ -70,10 +64,43 @@ const UserSettings = props => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting
+            isSubmitting,
+            setFieldValue
           }) => {
             return (
               <Form>
+                {/* avatar pic is an exemption to use GenericField */}
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      showCameraActionSheet(
+                        setFieldValue,
+                        'avatar',
+                        'Take Photo',
+                        'Select an Avatar',
+                        ImagePicker.MediaTypeOptions.Images
+                      )
+                    }>
+                    <Image
+                      style={{ height: 200, width: 200, borderRadius: 100 }}
+                      resizeMode='cover'
+                      source={
+                        values.avatar
+                          ? { uri: values.avatar }
+                          : images.defaultAvatar
+                      }
+                    />
+                  </TouchableOpacity>
+                  <Spacer height={8} />
+                  <Text note>Tap to change</Text>
+                </View>
+                <Spacer height={32} />
+
                 <GenericInput
                   name='email'
                   label='Email'
