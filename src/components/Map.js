@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, AppState } from 'react-native'
+import { View, StyleSheet, AppState, Image } from 'react-native'
 import MapView from 'react-native-maps'
 import { Toast, Container, Button, Icon } from 'native-base'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAction } from 'redux-actions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import PropTypes from 'prop-types'
+
+import flag from '../../images/emergencyFlag.png'
 
 import {
   EDIT_PIN_COORDINATES,
@@ -16,6 +18,8 @@ const Map = props => {
   const [appState, changeAppState] = useState('active')
   const pinCoordinates = useSelector(state => state.map.pinCoordinates)
   const regionCoordinates = useSelector(state => state.map.regionCoordinates)
+
+  const pins = props.pins || []
   const dispatch = useDispatch()
   const ref = useRef()
   ref.current = appState
@@ -77,6 +81,12 @@ const Map = props => {
           dispatch(createAction(EDIT_PIN_COORDINATES)(e.nativeEvent.coordinate))
         }>
         <MapView.Marker coordinate={pinCoordinates} />
+        {pins.map((e, index) => (
+          // active emergencies
+          <MapView.Marker key={index} coordinate={e.location}>
+            <Image source={flag} style={{ width: 40, height: 40 }} />
+          </MapView.Marker>
+        ))}
       </MapView>
       <View style={styles.placesStyle}>
         <GooglePlacesAutocomplete
@@ -153,7 +163,8 @@ const Map = props => {
 }
 
 Map.propTypes = {
-  isUserSettings: PropTypes.bool
+  isUserSettings: PropTypes.bool,
+  pins: PropTypes.array
 }
 
 const styles = StyleSheet.create({
