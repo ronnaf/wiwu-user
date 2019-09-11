@@ -7,7 +7,7 @@ import * as ImagePicker from 'expo-image-picker'
 import _ from 'lodash'
 
 import { sendRequest } from '../../actions/emergency/sendRequest'
-import { showCameraActionSheet } from '../../helpers/camera'
+import { showCameraActionSheet } from '../../helpers/camera.helper'
 
 import GenericHeader from '../../components/GenericHeader'
 import GenericPicker from '../../components/GenericPicker'

@@ -11,7 +11,7 @@ import showToast from '../../helpers/toast.helper'
 export function signup(user) {
   return async (dispatch, getState) => {
     try {
-      const { email, password, firstName, lastName, phoneNumber } = user
+      const { email, password, firstName, lastName, phoneNumber, avatar } = user
       const {
         map: {
           pinCoordinates: { latitude, longitude }

@@ -9,7 +9,7 @@ import { Root, View, Text } from 'native-base'
 import { NET_INFO } from '../actions/user/user.constants'
 import { syncDb } from '../actions/emergency/syncDb.action'
 
-import { checkOnlineStatus } from '../helpers/checkOnlineStatus.helper'
+import { checkOnlineStatus } from '../helpers/online-status.helper'
 
 // import MainTabNavigator from './MainTabNavigator'
 import AuthNavigator from './sub-navigators/AuthNavigator'

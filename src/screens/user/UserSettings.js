@@ -22,7 +22,7 @@ import { logout } from '../../actions/user/logout.action'
 import { editUser } from '../../actions/user/editUser.actions'
 import { EditSchema } from '../../constants/Schemas'
 import { images } from '../../assets/assets'
-import { showCameraActionSheet } from '../../helpers/camera'
+import { showCameraActionSheet } from '../../helpers/camera.helper'
 
 import Map from '../../components/Map'
 import GenericHeader from '../../components/GenericHeader'

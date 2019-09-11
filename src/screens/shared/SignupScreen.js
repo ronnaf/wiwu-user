@@ -25,7 +25,7 @@ import NavigationService from '../../navigation/NavigationService'
 import Map from '../../components/Map'
 import GenericField from '../../components/GenericField'
 import { Image, TouchableOpacity } from 'react-native'
-import { showCameraActionSheet } from '../../helpers/camera'
+import { showCameraActionSheet } from '../../helpers/camera.helper'
 import * as ImagePicker from 'expo-image-picker'
 import { images } from '../../assets/assets'
 
