@@ -5,9 +5,6 @@ import { auth, firestore, storage, firebase } from '../../firebase'
 import { SCREEN_LOADING, EDIT } from './user.constants'
 import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
-import RNFetchBlob from 'rn-fetch-blob'
-import uuid from 'uuid/v4'
-import _ from 'lodash'
 import { uploadAsset } from '../../helpers/upload.helper'
 
 export function editUser(user) {
