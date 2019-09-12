@@ -27,6 +27,7 @@ export const askCameraPermission = async () => {
       return true
     }
   } catch (e) {
+    console.log('[!] error - askCameraPermission -', e)
     showToast(e.message, 'error')
     return false
   }
@@ -64,6 +65,7 @@ export const launchMediaAsync = async (
       setFieldValue(fieldName, response.uri)
     }
   } catch (e) {
+    console.log('[!] error - launchMediaAsync -', e)
     showToast(e.message, 'error')
   }
 }

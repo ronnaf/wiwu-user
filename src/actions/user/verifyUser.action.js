@@ -29,6 +29,7 @@ export const verifyUser = async () => {
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
+      console.log('[!] ERR - verifyUser -', e)
       showToast(e.message)
     }
   }

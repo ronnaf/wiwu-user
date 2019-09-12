@@ -9,11 +9,18 @@ import NavigationService from '../../navigation/NavigationService'
 import showToast from '../../helpers/toast.helper'
 import { uploadAsset } from '../../helpers/upload.helper'
 
-export function signup(user) {
+export function signup(values) {
   return async (dispatch, getState) => {
     try {
-      console.log('[!] 1 signup - start')
-      const { email, password, firstName, lastName, phoneNumber, avatar } = user
+      console.log('[!] 1 signup - start -', values)
+      const {
+        email,
+        password,
+        firstName,
+        lastName,
+        phoneNumber,
+        avatar
+      } = values
       const {
         map: {
           pinCoordinates: { latitude, longitude }
@@ -27,8 +34,12 @@ export function signup(user) {
       dispatch(createAction(SCREEN_LOADING)(true))
 
       console.log('[!] 2 signup - creating user...')
-      await auth.createUserWithEmailAndPassword(email, password)
-      const uid = auth.currentUser.uid
+      const response = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      )
+      const { uid } = response.user
+      console.log('[!] 2.5 signup - created user! -', response)
 
       console.log('[!] 3 signup - uploading asset...')
       await uploadAsset('avatars', 'image', avatar, async url => {
