@@ -5,11 +5,12 @@ import { firestore, firebase } from '../../firebase'
 
 import showToast from '../../helpers/toast.helper'
 
-import { PermissionsAndroid, NativeModules } from 'react-native'
+import { PermissionsAndroid, NativeModules, Platform } from 'react-native'
 import { SECRET_KEY } from 'react-native-dotenv'
 import { createAction } from 'redux-actions'
 import * as SecureStore from 'expo-secure-store'
 import SimpleCrypto from 'simple-crypto-js'
+import * as SMS from 'expo-sms'
 
 export function sendRequest(data) {
   return async (dispatch, getState) => {
@@ -26,7 +27,7 @@ export function sendRequest(data) {
 
       const payload = {
         ...data,
-        userId: firestore.doc(`users/${uid}`),
+        userId: isOffline ? uid : firestore.doc(`users/${uid}`),
         location: pinCoordinates,
         responderId: null,
         adminId: null,
@@ -34,51 +35,68 @@ export function sendRequest(data) {
         status: 'PENDING',
         date: new Date()
       }
+      const simpleCrypto = new SimpleCrypto(SECRET_KEY)
 
       // TODO: ADD CAMERA
       if (isOffline) {
         try {
-          // works only for android
-          const DirectSms = NativeModules.DirectSms
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.SEND_SMS,
-            {
-              title: 'Wiwu App Sms Permission',
-              message:
-                'Wiwu App needs access to your inbox ' +
-                'so you can send messages in background.',
-              buttonNeutral: 'Ask Me Later',
-              buttonNegative: 'Cancel',
-              buttonPositive: 'OK'
+          if (Platform.OS === 'android') {
+            // works only for android
+            const DirectSms = NativeModules.DirectSms
+            const granted = await PermissionsAndroid.request(
+              PermissionsAndroid.PERMISSIONS.SEND_SMS,
+              {
+                title: 'Wiwu App Sms Permission',
+                message:
+                  'Wiwu App needs access to your inbox ' +
+                  'so you can send messages in background.',
+                buttonNeutral: 'Ask Me Later',
+                buttonNegative: 'Cancel',
+                buttonPositive: 'OK'
+              }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+              DirectSms.sendDirectSms(
+                '09177456123',
+                simpleCrypto.encrypt(JSON.stringify(payload))
+              )
+              showToast('Message has been sent', 'success')
+            } else {
+              throw new Error('Cannot send SMS')
             }
-          )
-          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-            const simpleCrypto = new SimpleCrypto(SECRET_KEY)
-            DirectSms.sendDirectSms(
+          } else {
+            // TODO: test on real device
+            const isAvailable = await SMS.isAvailableAsync()
+
+            if (!isAvailable) {
+              throw new Error('Cannot send SMS')
+            }
+
+            await SMS.sendSMSAsync(
               '09177456123',
               simpleCrypto.encrypt(JSON.stringify(payload))
             )
+
             showToast('Message has been sent', 'success')
+          }
 
-            const emergencyArray = await SecureStore.getItemAsync(
-              WIWU_OFFLINE_EMERGENCY_ARRAY
+          const emergencyArray = await SecureStore.getItemAsync(
+            WIWU_OFFLINE_EMERGENCY_ARRAY
+          )
+          console.log(emergencyArray)
+
+          if (emergencyArray) {
+            const arr = JSON.parse(emergencyArray)
+            arr.push(payload)
+            await SecureStore.setItemAsync(
+              WIWU_OFFLINE_EMERGENCY_ARRAY,
+              JSON.stringify(arr)
             )
-
-            if (emergencyArray) {
-              const arr = JSON.parse(emergencyArray)
-              arr.push(payload)
-              await SecureStore.setItemAsync(
-                WIWU_OFFLINE_EMERGENCY_ARRAY,
-                JSON.stringify(arr)
-              )
-            } else {
-              await SecureStore.setItemAsync(
-                WIWU_OFFLINE_EMERGENCY_ARRAY,
-                JSON.stringify([payload])
-              )
-            }
           } else {
-            console.log('SMS permission denied')
+            await SecureStore.setItemAsync(
+              WIWU_OFFLINE_EMERGENCY_ARRAY,
+              JSON.stringify([payload])
+            )
           }
         } catch (err) {
           console.warn(err)

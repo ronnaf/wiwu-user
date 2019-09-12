@@ -27,6 +27,9 @@ PODS:
     - UMPermissionsInterface
   - EXSecureStore (6.0.0):
     - UMCore
+  - EXSMS (6.0.0):
+    - UMCore
+    - UMPermissionsInterface
   - EXSQLite (6.0.0):
     - UMCore
     - UMFileSystemInterface
@@ -141,6 +144,7 @@ DEPENDENCIES:
   - EXLocation (from `../node_modules/expo-location/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
   - EXSecureStore (from `../node_modules/expo-secure-store/ios`)
+  - EXSMS (from `../node_modules/expo-sms/ios`)
   - EXSQLite (from `../node_modules/expo-sqlite/ios`)
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
@@ -217,6 +221,9 @@ EXTERNAL SOURCES:
   EXSecureStore:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-secure-store/ios"
+  EXSMS:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-sms/ios"
   EXSQLite:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-sqlite/ios"
@@ -293,6 +300,7 @@ SPEC CHECKSUMS:
   EXLocation: 4eb76115832f08b1e78003b335c210e18fa60424
   EXPermissions: 99e52dc3e5f8e55153f1958004f6df2a30a1f2f5
   EXSecureStore: e929213a8a5e8c55cdd4615e52e283c11cba975e
+  EXSMS: cb30013923b89b795840634ba486a79f29eee368
   EXSQLite: 8dab6a5ab1b78be7925073d6071eb22095d4dda6
   EXWebBrowser: def838b95aa9d396f9ce71ace4e614ee16e7ee30
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
