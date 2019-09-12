@@ -5,6 +5,7 @@ import showToast from '../../helpers/toast.helper'
 
 import { createAction } from 'redux-actions'
 
+// not used due to added firebase listener
 export function getEmergencies() {
   return async dispatch => {
     try {
