@@ -5,7 +5,7 @@ import { SCREEN_LOADING, VERIFY } from '../user/user.constants'
 
 import { createAction } from 'redux-actions'
 
-export const verifyUser = async () => {
+export const verifyUser = () => {
   return async dispatch => {
     try {
       dispatch(createAction(SCREEN_LOADING)(true))
@@ -19,7 +19,7 @@ export const verifyUser = async () => {
           NavigationService.navigate('UserHome')
           dispatch(createAction(VERIFY)(user.emailVerified))
         } else {
-          showToast('User is not verified')
+          showToast('User is not verified', 'error')
         }
         NavigationService.navigate(
           user.emailVerified ? 'UserHome' : 'Unverified'
