@@ -51,9 +51,10 @@
     "redux-thunk": "^2.3.0",
     "simple-crypto-js": "^2.2.0",
     "styled-components": "^4.3.2",
-    "yup": "^0.27.0",
     "prop-types": "latest",
-    "lodash": "latest"
+    "lodash": "latest",
+    "uuid": "^3.3.3",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",

@@ -42,6 +42,7 @@ export function loginUser(email, password) {
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
+      console.log('[!] error - loginUser -', e)
       showToast(e.message)
     }
   }

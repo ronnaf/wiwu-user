@@ -21,6 +21,7 @@ export function checkUser() {
 
       if (isOffline && isEmailVerified) {
         // if isEmailVerified field is present, its safe to assume the SecureStore wont be null
+
         const payloadJSON = await SecureStore.getItemAsync(WIWU_USER_INFO)
         const payload = JSON.parse(payloadJSON)
 
@@ -30,15 +31,15 @@ export function checkUser() {
         }
 
         dispatch(createAction(LOGIN)(payload))
+        dispatch(createAction(SCREEN_LOADING)(false))
         NavigationService.navigate('UserHome')
       } else if (!isOffline) {
-        // Auto unsubscribes if no net so no need to worry
-        auth.onAuthStateChanged(async user => {
+        // auto unsubscribes if no net so no need to worry
+
+        const unsubscribe = auth.onAuthStateChanged(async user => {
           // function inside this listener will not be caught by outer try catch
           try {
             if (user) {
-              dispatch(createAction(SCREEN_LOADING)(true))
-
               await user.getIdToken(true)
               const userDocument = await firestore
                 .collection('users')
@@ -67,22 +68,26 @@ export function checkUser() {
                 JSON.stringify(payload)
               )
 
+              unsubscribe()
               dispatch(createAction(LOGIN)(payload))
-
+              dispatch(createAction(SCREEN_LOADING)(false))
               const nav = user.emailVerified ? 'UserHome' : 'Unverified'
               NavigationService.navigate(nav)
+            } else {
+              console.log('[!] checkUser - there is no user...')
+              unsubscribe()
               dispatch(createAction(SCREEN_LOADING)(false))
             }
           } catch (e) {
             dispatch(createAction(SCREEN_LOADING)(false))
+            console.log('[!] error - checkUser onAuthStateChanged -', e)
             showToast(e.message)
           }
         })
       }
-
-      dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
+      console.log('[!] error - checkUser -', e)
       showToast(e.message)
     }
   }

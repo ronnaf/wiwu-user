@@ -11,8 +11,7 @@ import {
   Content,
   Form,
   Text,
-  View,
-  Label
+  View
 } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,9 +24,10 @@ import NavigationService from '../../navigation/NavigationService'
 import Map from '../../components/Map'
 import GenericField from '../../components/GenericField'
 import { Image, TouchableOpacity } from 'react-native'
-import { showCameraActionSheet } from '../../helpers/camera'
+import { showCameraActionSheet } from '../../helpers/camera.helper'
 import * as ImagePicker from 'expo-image-picker'
 import { images } from '../../assets/assets'
+import _ from 'lodash'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
@@ -55,21 +55,12 @@ const SignupScreen = () => {
             firstName: '',
             lastName: '',
             password: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            avatar: ''
           }}
           validationSchema={signupSchema}
           onSubmit={(values, { setSubmitting }) => {
-            const { email, password, firstName, lastName, phoneNumber } = values
-
-            dispatch(
-              signup({
-                email,
-                password,
-                firstName,
-                lastName,
-                phoneNumber
-              })
-            )
+            dispatch(signup(values))
             setSubmitting(false)
           }}>
           {({
@@ -105,7 +96,7 @@ const SignupScreen = () => {
                       style={{ height: 200, width: 200, borderRadius: 100 }}
                       resizeMode='cover'
                       source={
-                        values.avatar
+                        !_.isEmpty(values.avatar)
                           ? { uri: values.avatar }
                           : images.defaultAvatar
                       }
