@@ -3,8 +3,6 @@ package com.wiwu;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.RNFetchBlob.RNFetchBlobPackage;
-import org.reactnative.camera.RNCameraPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
@@ -44,8 +42,6 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNFetchBlobPackage(),
-            new RNCameraPackage(),
           new BackgroundTimerPackage(),
           new MapsPackage(),
           new LottiePackage(),

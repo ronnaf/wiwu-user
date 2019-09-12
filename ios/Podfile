@@ -37,8 +37,6 @@ target 'wiwu' do
 
   pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
 
-  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
-
   target 'wiwuTests' do
     inherit! :search_paths
   end

@@ -55,7 +55,8 @@
     "simple-crypto-js": "^2.2.0",
     "styled-components": "^4.3.2",
     "uuid": "^3.3.3",
-    "yup": "^0.27.0"
+    "yup": "^0.27.0",
+    "expo-linear-gradient": "latest"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.2",
