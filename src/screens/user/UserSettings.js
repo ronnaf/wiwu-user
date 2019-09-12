@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, Image, TouchableOpacity } from 'react-native'
-import {
-  Text,
-  Form,
-  Button,
-  Container,
-  Content,
-  ActionSheet
-} from 'native-base'
+import { Text, Form, Button, Container, Content } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
@@ -36,6 +29,7 @@ const UserSettings = props => {
   const isOffline = useSelector(state => state.user.netInfo.isOffline)
 
   const { firstName, lastName, phoneNumber, email, avatar } = user
+  console.log('[!] UserSettings - avatar -', avatar)
 
   useEffect(() => {
     dispatch(createAction(EDIT_PIN_COORDINATES)(user.homeCoordinates))

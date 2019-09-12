@@ -78,7 +78,7 @@ const UserRequest = () => {
                 label={'Photo/Video'}
                 CustomComponent={
                   <View>
-                    {values.media && (
+                    {!_.isEmpty(values.media) && (
                       <View>
                         <Image
                           style={{ height: 300, width: '100%' }}

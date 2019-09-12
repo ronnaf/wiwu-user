@@ -108,8 +108,6 @@ PODS:
     - React/Core
     - React/fishhook
     - React/RCTBlob
-  - rn-fetch-blob (0.10.6):
-    - React/Core
   - RNGestureHandler (1.3.0):
     - React
   - RNReanimated (1.1.0):
@@ -165,7 +163,6 @@ DEPENDENCIES:
   - React/RCTText (from `../node_modules/react-native`)
   - React/RCTVibration (from `../node_modules/react-native`)
   - React/RCTWebSocket (from `../node_modules/react-native`)
-  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler/RNGestureHandler.podspec`)
   - RNReanimated (from `../node_modules/react-native-reanimated/RNReanimated.podspec`)
   - UMBarCodeScannerInterface (from `../node_modules/unimodules-barcode-scanner-interface/ios`)
@@ -240,8 +237,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-camera"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
-  rn-fetch-blob:
-    :path: "../node_modules/rn-fetch-blob"
   RNGestureHandler:
     :podspec: "../node_modules/react-native-gesture-handler/RNGestureHandler.podspec"
   RNReanimated:
@@ -308,7 +303,6 @@ SPEC CHECKSUMS:
   react-native-background-timer: 1b6e6b4e10f1b74c367a1fdc3c72b67c619b222b
   react-native-camera: fd052e2a172d9f49d7427c7fa7b089da6d047a38
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
-  rn-fetch-blob: 766f85cabd2992300dfa1be2bc9e4e258abc6f04
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNReanimated: 7a52c90473b5e81c13408d40d797b98387eaddde
   UMBarCodeScannerInterface: 84ea2d6b58ff0dc27ef9b68bab71286be18ee020
@@ -325,6 +319,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 8664abd37a00715727e60df9ecd65e42ba47b548
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 178fe31464f81ec72f0bd4fc6c4d7b31994dda82
+PODFILE CHECKSUM: 3009203374f6b85022076765408f900ffab271b6
 
 COCOAPODS: 1.7.5
