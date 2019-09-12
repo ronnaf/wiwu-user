@@ -1,13 +1,13 @@
 import React, { useState, useEffect, createRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { View } from 'react-native'
-import { Button, Text, Icon, Body } from 'native-base'
+import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { Button, Text, Body } from 'native-base'
+import Icon from 'react-native-vector-icons/AntDesign'
 import {
   TwilioVideoLocalView,
   TwilioVideoParticipantView,
   TwilioVideo
 } from 'react-native-twilio-video-webrtc'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 import GenericHeader from '../../components/GenericHeader'
 import Spacer from '../../components/Spacer'
 import { getToken } from '../../actions/twilio/getToken.action'
@@ -29,6 +29,66 @@ const UserVerification = props => {
   const [hasJoinedRoom, setHasJoinedRoom] = useState(false)
   const dispatch = useDispatch()
   const twilioVideo = createRef()
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'white'
+    },
+    callContainer: {
+      flex: 1,
+      position: 'absolute',
+      bottom: 0,
+      top: 0,
+      left: 0,
+      right: 0
+    },
+    button: {
+      marginTop: 100
+    },
+    localVideo: {
+      flex: 1,
+      width: 150,
+      height: 250,
+      position: 'absolute',
+      right: 10,
+      bottom: 10
+    },
+    remoteGrid: {
+      flex: 1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      backgroundColor: 'yellow'
+    },
+    remoteVideo: {
+      marginTop: 20,
+      marginLeft: 10,
+      marginRight: 10,
+      width: 100,
+      height: 120,
+      backgroundColor: 'red'
+    },
+    optionsContainer: {
+      position: 'absolute',
+      left: 0,
+      bottom: 0,
+      right: 0,
+      height: 100,
+      backgroundColor: 'blue',
+      flexDirection: 'row',
+      alignItems: 'center'
+    },
+    optionButton: {
+      width: 60,
+      height: 60,
+      marginLeft: 10,
+      marginRight: 10,
+      borderRadius: 100 / 2,
+      backgroundColor: 'grey',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }
+  })
 
   useEffect(() => {
     if (!permissionCamera && !permissionAudio) {
@@ -66,7 +126,9 @@ const UserVerification = props => {
   }
 
   const onRoomDidDisconnect = ({ roomName, error }) => {
-    console.log(`ERROR: ${error}`)
+    if (error) {
+      console.log(`ERROR: ${error.message}`)
+    }
     showToast(`Disconnected from ${roomName}`)
   }
 
@@ -81,7 +143,7 @@ const UserVerification = props => {
   }
 
   const onParticipantAddedVideoTrack = ({ participant, track }) => {
-    showToast(`${participant.identity} added ${track}`)
+    showToast(`${participant.identity} added ${track.trackSid}`)
     console.log('participant', participant)
     console.log('track', track)
     setVideoTracks(
@@ -90,8 +152,11 @@ const UserVerification = props => {
         [
           track.trackSid,
           {
-            participantIdentity: participant.sid,
-            videoTrackSid: track.trackSid
+            participantSid: participant.sid,
+            participantIdentity: participant.identity,
+            videoTrackSid: track.trackSid,
+            trackName: track.trackName,
+            enabled: true
           }
         ]
       ])
@@ -99,14 +164,14 @@ const UserVerification = props => {
   }
 
   const onParticipantRemovedVideoTrack = ({ participant, track }) => {
-    console.log(`${participant} removed ${track}`)
+    console.log(`${participant.identity} removed ${track.trackSid}`)
     const tracks = videoTracks
     tracks.delete(track.trackSid)
     setVideoTracks(tracks)
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <GenericHeader title='Identity Verification' type='drawer' />
       {status === 'disconnected' && (
         <View
@@ -119,11 +184,10 @@ const UserVerification = props => {
           }}>
           <Body style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Button
-              title='Connect'
               onPress={() => dispatch(getToken(identity, roomName))}
               style={{}}
               transparent>
-              <Icon name='camera' />
+              <Icon name='videocamera' size={30} />
             </Button>
           </Body>
           <Text style={{ color: 'grey' }}>
@@ -135,36 +199,22 @@ const UserVerification = props => {
           <Text style={{ color: 'grey' }}>Send a picture of a valid ID.</Text>
           <Body style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Button onPress={() => {}} style={{ margin: 20 }} transparent>
-              <Icon name='camera' />
+              <Icon name='upload' size={30} />
             </Button>
           </Body>
         </View>
       )}
       {(status === 'connected' || status === 'connecting') && (
-        <View
-          styles={{
-            flex: 1,
-            position: 'absolute',
-            bottom: 0,
-            top: 0,
-            left: 0,
-            right: 0
-          }}>
+        <View styles={styles.callContainer}>
           {status === 'connected' && (
-            <View style={{}}>
+            <View style={styles.remoteGrid}>
               {Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
                 console.log('trackSid', trackSid)
                 console.log('trackIdentifier', trackIdentifier)
                 return (
                   <TwilioVideoParticipantView
                     enabled
-                    styles={{
-                      marginTop: 20,
-                      marginLeft: 10,
-                      marginRight: 10,
-                      width: 100,
-                      height: 120
-                    }}
+                    styles={styles.remoteVideo}
                     key={trackSid}
                     trackIdentifier={trackIdentifier}
                   />
@@ -172,32 +222,13 @@ const UserVerification = props => {
               })}
             </View>
           )}
-          <View styles={{}}>
+          <View styles={styles.optionsContainer}>
             <TouchableOpacity
               onPress={() => leaveRoom()}
-              style={{
-                width: 60,
-                height: 60,
-                marginLeft: 10,
-                marginRight: 10,
-                borderRadius: 100 / 2,
-                backgroundColor: 'grey',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
+              style={styles.optionButton}>
               <Text>End</Text>
             </TouchableOpacity>
-            <TwilioVideoLocalView
-              enabled
-              style={{
-                flex: 1,
-                width: 150,
-                height: 250,
-                position: 'absolute',
-                right: 10,
-                bottom: 10
-              }}
-            />
+            <TwilioVideoLocalView enabled style={styles.localVideo} />
           </View>
         </View>
       )}
