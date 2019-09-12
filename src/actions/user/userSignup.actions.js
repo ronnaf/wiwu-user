@@ -12,7 +12,6 @@ import { uploadAsset } from '../../helpers/upload.helper'
 export function signup(values) {
   return async (dispatch, getState) => {
     try {
-      console.log('[!] 1 signup - start -', values)
       const {
         email,
         password,
@@ -33,17 +32,13 @@ export function signup(values) {
 
       dispatch(createAction(SCREEN_LOADING)(true))
 
-      console.log('[!] 2 signup - creating user...')
       const response = await auth.createUserWithEmailAndPassword(
         email,
         password
       )
       const { uid } = response.user
-      console.log('[!] 2.5 signup - created user! -', response)
 
-      console.log('[!] 3 signup - uploading asset...')
       await uploadAsset('avatars', 'image', avatar, async url => {
-        console.log('[!] 4 signup - callback start...')
         const data = {
           firstName: capitalize(firstName),
           lastName: capitalize(lastName),
@@ -59,20 +54,15 @@ export function signup(values) {
           avatar: url
         }
 
-        console.log('[!] 5 signup - store user document...')
         await firestore
           .collection('users')
           .doc(uid)
           .set(data)
-
-        console.log('[!] 6 signup - sending email verification...')
         await auth.currentUser.sendEmailVerification()
 
-        console.log('[!] 7 signup - setting item async...')
         const payload = { email: auth.currentUser.email, uid }
         await SecureStore.setItemAsync(WIWU_USER_INFO, JSON.stringify(payload))
 
-        console.log('[!] 8 signup - dispatching after...')
         dispatch(createAction(SIGNUP)({ email: auth.currentUser.email, uid }))
         NavigationService.navigate('Unverified')
         dispatch(createAction(SCREEN_LOADING)(false))
