@@ -15,7 +15,7 @@ import { resetToken } from '../../actions/twilio/resetToken.action'
 import showToast from '../../helpers/toast.helper'
 import {
   requestCamera,
-  requestMicrphone
+  requestMicrophone
 } from '../../helpers/permission.helper'
 
 const UserVerification = props => {
@@ -42,7 +42,7 @@ const UserVerification = props => {
 
   const requestPermissions = async () => {
     await setPermissionCamera(await requestCamera())
-    await setPermissionAudio(await requestMicrphone())
+    await setPermissionAudio(await requestMicrophone())
   }
 
   const joinRoom = () => {
@@ -81,14 +81,16 @@ const UserVerification = props => {
   }
 
   const onParticipantAddedVideoTrack = ({ participant, track }) => {
-    showToast(`${participant} added ${track.kind}`)
+    showToast(`${participant.identity} added ${track}`)
+    console.log('participant', participant)
+    console.log('track', track)
     setVideoTracks(
       new Map([
         ...videoTracks,
         [
           track.trackSid,
           {
-            participantSid: participant.sid,
+            participantIdentity: participant.sid,
             videoTrackSid: track.trackSid
           }
         ]
@@ -121,7 +123,7 @@ const UserVerification = props => {
               onPress={() => dispatch(getToken(identity, roomName))}
               style={{}}
               transparent>
-              <Icon name='video-camera' />
+              <Icon name='camera' />
             </Button>
           </Body>
           <Text style={{ color: 'grey' }}>
@@ -149,21 +151,19 @@ const UserVerification = props => {
             right: 0
           }}>
           {status === 'connected' && (
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                flexWrap: 'wrap'
-              }}>
+            <View style={{}}>
               {Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
+                console.log('trackSid', trackSid)
+                console.log('trackIdentifier', trackIdentifier)
                 return (
                   <TwilioVideoParticipantView
+                    enabled
                     styles={{
                       marginTop: 20,
                       marginLeft: 10,
                       marginRight: 10,
-                      width: 200,
-                      height: 300
+                      width: 100,
+                      height: 120
                     }}
                     key={trackSid}
                     trackIdentifier={trackIdentifier}
@@ -172,17 +172,7 @@ const UserVerification = props => {
               })}
             </View>
           )}
-          <View
-            styles={{
-              position: 'absolute',
-              left: 0,
-              bottom: 0,
-              right: 0,
-              height: 100,
-              backgroundColor: 'blue',
-              flexDirection: 'row',
-              alignItems: 'center'
-            }}>
+          <View styles={{}}>
             <TouchableOpacity
               onPress={() => leaveRoom()}
               style={{
