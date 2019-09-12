@@ -1,19 +1,40 @@
 import React, { useEffect } from 'react'
 import { Container } from 'native-base'
 import { useDispatch, useSelector } from 'react-redux'
+import { createAction } from 'redux-actions'
+
+import { firestore } from '../../firebase'
 
 import Map from '../../components/Map'
 import GenericHeader from '../../components/GenericHeader'
 import Footer from '../../components/Footer'
 
-import { getEmergencies } from '../../actions/emergency/getEmergencies.action'
+import { GET_ALL_EMERGENCIES } from '../../actions/emergency/emergency.constants'
 
 const UserMaps = () => {
   const dispatch = useDispatch()
   const emergencies = useSelector(e => e.emergency.list)
 
   useEffect(() => {
-    dispatch(getEmergencies())
+    const listenerRef = firestore
+      .collection('emergencies')
+      .where('status', '==', 'PENDING')
+      .onSnapshot(snapshot => {
+        const emergencies = snapshot.docs.map(e => {
+          const data = e.data()
+
+          return {
+            id: e.id,
+            location: data.location,
+            department: data.department
+          }
+        })
+        dispatch(createAction(GET_ALL_EMERGENCIES)(emergencies))
+      })
+
+    return function cleanup() {
+      listenerRef()
+    }
   }, [])
 
   return (
