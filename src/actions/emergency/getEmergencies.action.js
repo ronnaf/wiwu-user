@@ -17,7 +17,11 @@ export function getEmergencies() {
 
       const emergencies = emergencyRef.docs.map(e => {
         const data = e.data()
-        return { id: e.id, location: data.location }
+        return {
+          id: e.id,
+          location: data.location,
+          department: data.department
+        }
       })
 
       dispatch(createAction(GET_ALL_EMERGENCIES)(emergencies))
