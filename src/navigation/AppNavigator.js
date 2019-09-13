@@ -99,6 +99,7 @@ const AppNavigator = () => {
   useEffect(() => {
     getConnection(dispatch)
     OneSignal.init('99a5a234-ed7d-48a6-9738-4cf5a7a4fbec')
+    OneSignal.inFocusDisplaying(2) // this means that it should not give a notification inside app
 
     OneSignal.addEventListener('received', onReceived)
     OneSignal.addEventListener('opened', onOpened)
