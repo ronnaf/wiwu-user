@@ -21,6 +21,7 @@ export const syncDb = () => {
         for (const item of arr) {
           // mutating so the userId will be a document reference
           item.userId = firestore.doc(`users/${item.userId}`)
+          item.date = new Date(item.date)
 
           const emergency = await firestore.collection('emergencies').add(item)
           await firestore
