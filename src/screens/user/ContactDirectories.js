@@ -1,6 +1,7 @@
+import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Linking } from 'react-native'
 import { createAction } from 'redux-actions'
 import {
   Container,
@@ -45,6 +46,7 @@ const ContactDirectories = props => {
   const contacts = useSelector(state => state.contacts.list)
   const activeList = contacts.filter(e => e.department === activeTab)
 
+  console.log(activeList)
   useEffect(() => {
     dispatch(getContacts())
   }, [])
@@ -61,7 +63,25 @@ const ContactDirectories = props => {
               <Text>Address: {modalContent.address}</Text>
             </CardItem>
             <CardItem>
-              <Text>Numbers: {modalContent.numbers.join()}</Text>
+              <Text>Numbers: </Text>
+              {modalContent.numbers.map((e, index) => (
+                <>
+                  <Text
+                    key={index}
+                    style={{
+                      textDecorationLine: 'underline',
+                      color: 'blue'
+                    }}
+                    onPress={() =>
+                      Linking.openURL(`tel:${_.replace(e, '-', '')}`)
+                    }>
+                    {e}
+                  </Text>
+                  <Text>
+                    {index === modalContent.numbers.length - 1 ? '' : ', '}
+                  </Text>
+                </>
+              ))}
             </CardItem>
             <CardItem footer>
               <Button
@@ -87,7 +107,7 @@ const ContactDirectories = props => {
                 <Text>Find In Maps</Text>
               </Button>
               <Button block danger onPress={() => setModalVisibility(false)}>
-                <Text>Hide Modal</Text>
+                <Text>CLOSE</Text>
               </Button>
             </CardItem>
           </Card>
@@ -137,7 +157,7 @@ const ContactDirectories = props => {
         <List>
           {activeList.map(place => (
             <ListItem
-              key={place.name}
+              key={place.id}
               thumbnail
               onPress={() => {
                 setModalContent(place)

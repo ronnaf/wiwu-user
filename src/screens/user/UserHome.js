@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
-import { Container, Text, Icon } from 'native-base'
-import { Dimensions, TouchableOpacity } from 'react-native'
+import { Container, Text, Icon, ActionSheet } from 'native-base'
+import { Dimensions, TouchableOpacity, Linking } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
 import Lottie from 'lottie-react-native'
@@ -37,6 +37,28 @@ const UserHome = () => {
           <Lottie ref={lottieRef} source={require('../../assets/call.json')} />
           <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
             <TouchableOpacity
+              onPress={() =>
+                ActionSheet.show(
+                  {
+                    options: ['Fire', 'Medical', 'Police', 'Cancel'],
+                    cancelButtonIndex: 3
+                  },
+                  buttonIndex => {
+                    if (buttonIndex !== 3) {
+                      // placeholders until we get the actual numbers
+                      Linking.openURL(
+                        `tel:${
+                          buttonIndex === 1
+                            ? '00000'
+                            : buttonIndex === 2
+                            ? '00000'
+                            : '00000'
+                        }`
+                      )
+                    }
+                  }
+                )
+              }
               style={{
                 height: innerCircle,
                 width: innerCircle,

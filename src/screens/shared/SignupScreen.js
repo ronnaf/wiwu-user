@@ -11,8 +11,7 @@ import {
   Content,
   Form,
   Text,
-  View,
-  Label
+  View
 } from 'native-base'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,6 +22,12 @@ import GenericInput from '../../components/GenericInput'
 import Spacer from '../../components/Spacer'
 import NavigationService from '../../navigation/NavigationService'
 import Map from '../../components/Map'
+import GenericField from '../../components/GenericField'
+import { Image, TouchableOpacity } from 'react-native'
+import { showCameraActionSheet } from '../../helpers/camera.helper'
+import * as ImagePicker from 'expo-image-picker'
+import { images } from '../../assets/assets'
+import _ from 'lodash'
 
 const SignupScreen = () => {
   const dispatch = useDispatch()
@@ -50,21 +55,12 @@ const SignupScreen = () => {
             firstName: '',
             lastName: '',
             password: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            avatar: ''
           }}
           validationSchema={signupSchema}
           onSubmit={(values, { setSubmitting }) => {
-            const { email, password, firstName, lastName, phoneNumber } = values
-
-            dispatch(
-              signup({
-                email,
-                password,
-                firstName,
-                lastName,
-                phoneNumber
-              })
-            )
+            dispatch(signup(values))
             setSubmitting(false)
           }}>
           {({
@@ -74,10 +70,43 @@ const SignupScreen = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting
+            isSubmitting,
+            setFieldValue
           }) => {
             return (
               <Form>
+                {/* avatar pic is an exemption to use GenericField */}
+                <View
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      showCameraActionSheet(
+                        setFieldValue,
+                        'avatar',
+                        'Take Photo',
+                        'Select an Avatar',
+                        ImagePicker.MediaTypeOptions.Images
+                      )
+                    }>
+                    <Image
+                      style={{ height: 200, width: 200, borderRadius: 100 }}
+                      resizeMode='cover'
+                      source={
+                        !_.isEmpty(values.avatar)
+                          ? { uri: values.avatar }
+                          : images.defaultAvatar
+                      }
+                    />
+                  </TouchableOpacity>
+                  <Spacer height={8} />
+                  <Text note>Tap to change</Text>
+                </View>
+                <Spacer height={32} />
+
                 <GenericInput
                   label='First Name'
                   name='firstName'
@@ -129,10 +158,16 @@ const SignupScreen = () => {
                   error={errors.phoneNumber && touched.phoneNumber}
                   errorMessage={errors.phoneNumber}
                 />
-                <View style={{ height: 400 }}>
-                  <Label>Home Location</Label>
-                  <Map />
-                </View>
+
+                <GenericField
+                  label={'Home location'}
+                  CustomComponent={
+                    <View style={{ height: 400 }}>
+                      <Map />
+                    </View>
+                  }
+                />
+
                 <Spacer height={24} />
                 <Button
                   onPress={handleSubmit}
