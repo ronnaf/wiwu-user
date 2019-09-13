@@ -1,11 +1,10 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import React, { Fragment, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AsyncStorage, NetInfo, StyleSheet } from 'react-native'
+import { NetInfo, StyleSheet } from 'react-native'
 import { createAction } from 'redux-actions'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { Root, View, Text } from 'native-base'
-import nativeFirebase from 'react-native-firebase'
 
 import { NET_INFO } from '../actions/user/user.constants'
 import { syncDb } from '../actions/emergency/syncDb.action'
@@ -81,64 +80,8 @@ const AppNavigator = () => {
     }
   }
 
-  const notificationOnMount = async () => {
-    const enabled = await nativeFirebase.messaging().hasPermission()
-    console.log(enabled)
-    if (!enabled) {
-      await nativeFirebase.messaging().requestPermission()
-    }
-    console.log(await nativeFirebase.messaging().getToken())
-    if (!(await AsyncStorage.getItem('fcmToken'))) {
-      const fcmToken = await nativeFirebase.messaging().getToken()
-
-      if (fcmToken) {
-        // user has a device token
-        await AsyncStorage.setItem('fcmToken', fcmToken)
-      }
-    }
-
-    const notificationOpen = await nativeFirebase
-      .notifications()
-      .getInitialNotification()
-    console.log(notificationOpen)
-    if (notificationOpen) {
-      const { title, body } = notificationOpen.notification
-      console.log(title, body)
-    }
-  }
-
   useEffect(() => {
     getConnection(dispatch)
-    notificationOnMount()
-
-    nativeFirebase.notifications().onNotification(notification => {
-      console.log(notification)
-    })
-    //
-    // const notificationDisplayedListener = nativeFirebase
-    //   .notifications()
-    //   .onNotificationDisplayed(notification => {
-    //     const { title, body } = notification
-    //     console.log(title, body)
-    //   })
-    // const notificationOpenedListener = nativeFirebase
-    //   .notifications()
-    //   .onNotificationOpened(notificationOpen => {
-    //     const { title, body } = notificationOpen.notification
-    //     console.log(title, body)
-    //   })
-
-    nativeFirebase.messaging().onMessage(message => {
-      //process data message
-      console.log(JSON.stringify(message))
-    })
-
-    return function cleanup() {
-      // notificationListener()
-      // notificationOpenedListener()
-      // messageListener()
-      // notificationDisplayedListener()
-    }
   }, [])
 
   return (
