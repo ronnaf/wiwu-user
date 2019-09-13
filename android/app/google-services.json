@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "363729210043",
+    "firebase_url": "https://weewoo-b9408.firebaseio.com",
+    "project_id": "weewoo-b9408",
+    "storage_bucket": "weewoo-b9408.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:363729210043:android:0e90e9164a644d30c0379e",
+        "android_client_info": {
+          "package_name": "com.wiwu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "363729210043-0kp3r9tptsg8mf0l1j6prbnu424vnh54.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2Q2wVcd6oRyistUdIiZj9sidCAesu1UU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "363729210043-0kp3r9tptsg8mf0l1j6prbnu424vnh54.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "363729210043-5ukgf10r8mmf8rd4ipvt8d2oqk2ark63.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "wiwu"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

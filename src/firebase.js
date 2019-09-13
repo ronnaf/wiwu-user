@@ -2,6 +2,7 @@ import { API_KEY } from 'react-native-dotenv'
 import * as firebase from 'firebase'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/messaging'
 
 const firebaseConfig = {
   apiKey: API_KEY,
