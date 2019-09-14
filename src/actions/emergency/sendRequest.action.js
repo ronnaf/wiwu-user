@@ -5,6 +5,8 @@ import { firestore, firebase } from '../../firebase'
 
 import showToast from '../../helpers/toast.helper'
 
+import NavigationService from '../../navigation/NavigationService'
+
 import { PermissionsAndroid, NativeModules, Platform } from 'react-native'
 import { SECRET_KEY } from 'react-native-dotenv'
 import { createAction } from 'redux-actions'
@@ -12,7 +14,7 @@ import * as SecureStore from 'expo-secure-store'
 import SimpleCrypto from 'simple-crypto-js'
 import * as SMS from 'expo-sms'
 
-export function sendRequest(data) {
+export function sendRequestAction(data) {
   return async (dispatch, getState) => {
     try {
       const {
@@ -83,7 +85,6 @@ export function sendRequest(data) {
           const emergencyArray = await SecureStore.getItemAsync(
             WIWU_OFFLINE_EMERGENCY_ARRAY
           )
-          console.log(emergencyArray)
 
           if (emergencyArray) {
             const arr = JSON.parse(emergencyArray)
@@ -111,6 +112,7 @@ export function sendRequest(data) {
           })
       }
 
+      NavigationService.navigate('UserHome')
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
