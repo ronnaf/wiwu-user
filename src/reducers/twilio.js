@@ -1,10 +1,16 @@
-import { GET_TOKEN, RESET_TOKEN } from '../actions/twilio/twilio.constants'
+import {
+  GET_TOKEN,
+  RESET_TOKEN,
+  JOINED_VIDEO
+} from '../actions/twilio/twilio.constants'
 
 const initialState = {
-  token: ''
+  token: '',
+  joinedRoom: false
 }
 
 export default function reducer(state = initialState, action) {
+  console.log('action', action)
   switch (action.type) {
     case GET_TOKEN:
       return {
@@ -13,6 +19,11 @@ export default function reducer(state = initialState, action) {
       }
     case RESET_TOKEN:
       return initialState
+    case JOINED_VIDEO:
+      return {
+        ...state,
+        joinedRoom: action.payload
+      }
     default:
       return state
   }

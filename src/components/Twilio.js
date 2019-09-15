@@ -10,6 +10,7 @@ import {
 import PropTypes from 'prop-types'
 import { resetToken } from '../actions/twilio/resetToken.action'
 import showToast from '../helpers/toast.helper'
+import { setJoinedRoom } from '../actions/twilio/setJoinedVideo'
 
 const Twilio = props => {
   const dispatch = useDispatch()
@@ -93,17 +94,19 @@ const Twilio = props => {
         accessToken: token
       })
       setStatus('connecting')
+      dispatch(setJoinedRoom(true))
     } catch (error) {
       console.log(`ERROR: ${error}`)
       showToast(error.message)
     }
   }
 
-  const leaveRoom = () => {
+  const leaveRoom = async () => {
     setStatus('disconnected')
     twilioVideo.current.disconnect()
     setHasJoinedRoom(false)
     dispatch(resetToken())
+    dispatch(setJoinedRoom(false))
   }
 
   const onRoomDidDisconnect = ({ roomName, error }) => {
@@ -125,8 +128,6 @@ const Twilio = props => {
 
   const onParticipantAddedVideoTrack = ({ participant, track }) => {
     showToast(`${participant.identity} added ${track.trackSid}`)
-    console.log('participant', participant)
-    console.log('track', track)
     setVideoTracks(
       new Map([
         ...videoTracks,
@@ -145,7 +146,6 @@ const Twilio = props => {
   }
 
   const onParticipantRemovedVideoTrack = ({ participant, track }) => {
-    console.log(`${participant.identity} removed ${track.trackSid}`)
     const tracks = videoTracks
     tracks.delete(track.trackSid)
     setVideoTracks(tracks)
@@ -158,8 +158,6 @@ const Twilio = props => {
           {status === 'connected' && (
             <View style={styles.remoteGrid}>
               {Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
-                console.log('trackSid', trackSid)
-                console.log('trackIdentifier', trackIdentifier)
                 return (
                   <TwilioVideoParticipantView
                     enabled
