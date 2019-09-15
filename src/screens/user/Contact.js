@@ -47,7 +47,11 @@ const Contact = props => {
     )
   }, [])
 
-  const openActionSheet = () => {
+  /**
+   * opens action sheet to show different contact numbers
+   * @param string type - [sms, call]
+   */
+  const openActionSheet = type => {
     const options = [...contact.numbers, 'Cancel']
     ActionSheet.show(
       {
@@ -58,8 +62,9 @@ const Contact = props => {
       },
       buttonIndex => {
         if (buttonIndex < options.length - 1) {
-          alert(
-            `Feature not yet implemented! - ${contact.numbers[buttonIndex]}`
+          const link = type === 'sms' ? 'sms' : 'tel'
+          Linking.openURL(
+            `${link}:${_.replace(contact.numbers[buttonIndex], '-', '')}`
           )
         }
       }
@@ -73,7 +78,7 @@ const Contact = props => {
         <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{contact.name}</Text>
         <Spacer height={4} />
         <Text note>{contact.address}</Text>
-        <Spacer height={16} />
+        <Spacer height={8} />
         <View style={{ flexDirection: 'row' }}>
           <Button
             style={{ marginRight: 8 }}
@@ -81,8 +86,10 @@ const Contact = props => {
             rounded
             onPress={() => {
               contact.numbers.length <= 1
-                ? alert(`Feature not yet implemented! - ${contact.numbers[0]}`)
-                : openActionSheet()
+                ? Linking.openURL(
+                    `sms:${_.replace(contact.numbers[0], '-', '')}`
+                  )
+                : openActionSheet('sms')
             }}>
             <Icon name={'chatboxes'} />
           </Button>
@@ -92,13 +99,15 @@ const Contact = props => {
             rounded
             onPress={() => {
               contact.numbers.length <= 1
-                ? alert(`Feature not yet implemented! - ${contact.numbers[0]}`)
-                : openActionSheet()
+                ? Linking.openURL(
+                    `tel:${_.replace(contact.numbers[0], '-', '')}`
+                  )
+                : openActionSheet('call')
             }}>
             <Icon name={'call'} />
           </Button>
         </View>
-        <Spacer height={16} />
+        <Spacer height={24} />
 
         <GenericField
           label={'Contact Numbers'}
