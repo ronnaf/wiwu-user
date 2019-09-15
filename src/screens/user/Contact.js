@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import {
   Container,
   Content,
@@ -16,16 +17,17 @@ import Spacer from '../../components/Spacer'
 import Map from '../../components/Map'
 import GenericField from '../../components/GenericField'
 
-const Contact = () => {
+const Contact = props => {
+  const { navigation } = props
+  const contact = navigation.getParam('contact', {})
+
   return (
     <Container>
       <GenericHeader title={'Contact'} type='back' />
       <Content padder>
-        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
-          West Visayas State University Medical Center
-        </Text>
+        <Text style={{ fontSize: 24, fontWeight: 'bold' }}>{contact.name}</Text>
         <Spacer height={4} />
-        <Text note>E. Lopez St., Jaro, Iloilo City</Text>
+        <Text note>{contact.address}</Text>
         <Spacer height={16} />
         <View style={{ flexDirection: 'row' }}>
           <Button style={{ marginRight: 8 }} small rounded>
@@ -41,8 +43,8 @@ const Contact = () => {
           label={'Contact Numbers'}
           CustomComponent={
             <List>
-              {['+63 955 453 4759', '+63 926 134 2587'].map(number => (
-                <ListItem style={{ marginLeft: 0 }}>
+              {contact.numbers.map(number => (
+                <ListItem key={number} style={{ marginLeft: 0 }}>
                   <Body>
                     <Text>{number}</Text>
                   </Body>
@@ -64,7 +66,6 @@ const Contact = () => {
           label={'Location'}
           CustomComponent={
             <View style={{ height: 300 }}>
-              {/* TODO: add ability to disable search */}
               <Map />
             </View>
           }
@@ -72,6 +73,10 @@ const Contact = () => {
       </Content>
     </Container>
   )
+}
+
+Contact.propTypes = {
+  navigation: PropTypes.object.isRequired
 }
 
 export default Contact
