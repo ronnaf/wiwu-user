@@ -149,6 +149,9 @@ const ContactDirectories = props => {
                 <Text note numberOfLines={1}>
                   {place.address}
                 </Text>
+                <Text note numberOfLines={1}>
+                  {place.address}
+                </Text>
               </Body>
               <Right>
                 <Icon name='arrow-forward' />
