@@ -34,49 +34,6 @@ const ContactDirectories = props => {
 
   return (
     <Container>
-      {/*<Modal isVisible={isModalVisible}>*/}
-      {/*  <View style={styles.modalContent}>*/}
-      {/*    <Card>*/}
-      {/*      <CardItem header>*/}
-      {/*        <Text>Name: {modalContent.name}</Text>*/}
-      {/*      </CardItem>*/}
-      {/*      <CardItem>*/}
-      {/*        <Text>Address: {modalContent.address}</Text>*/}
-      {/*      </CardItem>*/}
-      {/*      <CardItem>*/}
-      {/*        <Text>Numbers: {modalContent.numbers.join()}</Text>*/}
-      {/*      </CardItem>*/}
-      {/*      <CardItem footer>*/}
-      {/*        <Button*/}
-      {/*          block*/}
-      {/*          success*/}
-      {/*          onPress={() => {*/}
-      {/*            const { latitude, longitude } = modalContent.location*/}
-      {/*            dispatch(*/}
-      {/*              createAction(EDIT_PIN_COORDINATES)({*/}
-      {/*                latitude,*/}
-      {/*                longitude*/}
-      {/*              })*/}
-      {/*            )*/}
-      {/*            dispatch(*/}
-      {/*              createAction(EDIT_REGION_COORDINATES)({*/}
-      {/*                latitude,*/}
-      {/*                longitude*/}
-      {/*              })*/}
-      {/*            )*/}
-      {/*            setModalVisibility(false)*/}
-      {/*            props.navigation.navigate('UserMaps')*/}
-      {/*          }}>*/}
-      {/*          <Text>Find In Maps</Text>*/}
-      {/*        </Button>*/}
-      {/*        <Button block danger onPress={() => setModalVisibility(false)}>*/}
-      {/*          <Text>Hide Modal</Text>*/}
-      {/*        </Button>*/}
-      {/*      </CardItem>*/}
-      {/*    </Card>*/}
-      {/*  </View>*/}
-      {/*</Modal>*/}
-
       <GenericHeader
         title='Responders'
         type='drawer'
