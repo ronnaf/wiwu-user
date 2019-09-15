@@ -31,6 +31,7 @@ import {
   EDIT_PIN_COORDINATES,
   EDIT_REGION_COORDINATES
 } from '../../actions/map/map.constants'
+import NavigationService from '../../navigation/NavigationService'
 
 const ContactDirectories = props => {
   const [activeTab, setActiveTab] = useState('medical')
@@ -139,16 +140,10 @@ const ContactDirectories = props => {
             <ListItem
               key={place.id}
               thumbnail
-              onPress={() => {
-                setModalContent(place)
-                setModalVisibility(true)
-              }}>
+              onPress={() => NavigationService.navigate('UserContactInfo')}>
               <Left />
               <Body>
                 <Text>{place.name}</Text>
-                <Text note numberOfLines={1}>
-                  {place.address}
-                </Text>
                 <Text note numberOfLines={1}>
                   {place.address}
                 </Text>
