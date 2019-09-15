@@ -2,16 +2,17 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
+  ActionSheet,
+  Body,
+  Button,
   Container,
   Content,
-  Text,
+  Icon,
   List,
   ListItem,
   Right,
-  Body,
-  Icon,
-  View,
-  Button
+  Text,
+  View
 } from 'native-base'
 import {
   EDIT_PIN_COORDINATES,
@@ -44,6 +45,25 @@ const Contact = props => {
     )
   }, [])
 
+  const openActionSheet = () => {
+    const options = [...contact.numbers, 'Cancel']
+    ActionSheet.show(
+      {
+        options,
+        cancelButtonIndex: options.length - 1,
+        destructiveButtonIndex: options.length - 1,
+        title: 'Select number'
+      },
+      buttonIndex => {
+        if (buttonIndex < options.length - 1) {
+          alert(
+            `Feature not yet implemented! - ${contact.numbers[buttonIndex]}`
+          )
+        }
+      }
+    )
+  }
+
   return (
     <Container>
       <GenericHeader title={'Contact'} type='back' />
@@ -53,10 +73,26 @@ const Contact = props => {
         <Text note>{contact.address}</Text>
         <Spacer height={16} />
         <View style={{ flexDirection: 'row' }}>
-          <Button style={{ marginRight: 8 }} small rounded>
+          <Button
+            style={{ marginRight: 8 }}
+            small
+            rounded
+            onPress={() => {
+              contact.numbers.length <= 1
+                ? alert(`Feature not yet implemented! - ${contact.numbers[0]}`)
+                : openActionSheet()
+            }}>
             <Icon name={'chatboxes'} />
           </Button>
-          <Button style={{ marginRight: 8 }} small rounded>
+          <Button
+            style={{ marginRight: 8 }}
+            small
+            rounded
+            onPress={() => {
+              contact.numbers.length <= 1
+                ? alert(`Feature not yet implemented! - ${contact.numbers[0]}`)
+                : openActionSheet()
+            }}>
             <Icon name={'call'} />
           </Button>
         </View>
@@ -67,7 +103,12 @@ const Contact = props => {
           CustomComponent={
             <List>
               {contact.numbers.map(number => (
-                <ListItem key={number} style={{ marginLeft: 0 }}>
+                <ListItem
+                  key={number}
+                  style={{ marginLeft: 0 }}
+                  onPress={() =>
+                    alert(`Feature not yet implemented! - ${number}`)
+                  }>
                   <Body>
                     <Text>{number}</Text>
                   </Body>
