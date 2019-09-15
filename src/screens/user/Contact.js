@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Linking } from 'react-native'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
@@ -23,6 +24,7 @@ import GenericHeader from '../../components/GenericHeader'
 import Spacer from '../../components/Spacer'
 import Map from '../../components/Map'
 import GenericField from '../../components/GenericField'
+import _ from 'lodash'
 
 const Contact = props => {
   const dispatch = useDispatch()
@@ -107,7 +109,7 @@ const Contact = props => {
                   key={number}
                   style={{ marginLeft: 0 }}
                   onPress={() =>
-                    alert(`Feature not yet implemented! - ${number}`)
+                    Linking.openURL(`tel:${_.replace(number, '-', '')}`)
                   }>
                   <Body>
                     <Text>{number}</Text>

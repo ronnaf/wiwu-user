@@ -37,6 +37,7 @@ target 'wiwu' do
 
   pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
 
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
   target 'wiwuTests' do
     inherit! :search_paths

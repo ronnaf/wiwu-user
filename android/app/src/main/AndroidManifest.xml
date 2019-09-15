@@ -35,7 +35,8 @@
 					android:icon="@mipmap/ic_launcher"
 					android:roundIcon="@mipmap/ic_launcher_round"
 					android:allowBackup="false"
-					android:theme="@style/AppTheme">
+					android:theme="@style/AppTheme"
+					android:launchMode="singleTop">
 		<meta-data android:name="com.google.android.geo.API_KEY"
 		           android:value="AIzaSyAloF0YSmn5i_ZrjOAk4aqZMvpDHMjQ69A"/>
 		<activity
@@ -61,7 +62,6 @@
 			<meta-data android:name="android.appwidget.provider" android:resource="@xml/widgetprovider"/>
 		</receiver>
 		<service android:name=".BackgroundTask" android:enabled="true" android:label="BackgroundAdd"/>
-
 		<activity
 						android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
 						android:theme="@style/Base.Theme.AppCompat">

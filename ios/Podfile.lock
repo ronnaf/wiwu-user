@@ -27,6 +27,9 @@ PODS:
     - UMPermissionsInterface
   - EXSecureStore (6.0.0):
     - UMCore
+  - EXSMS (6.0.0):
+    - UMCore
+    - UMPermissionsInterface
   - EXSQLite (6.0.0):
     - UMCore
     - UMFileSystemInterface
@@ -41,20 +44,16 @@ PODS:
   - lottie-react-native (2.6.1):
     - lottie-ios (~> 2.5.0)
     - React
+  - OneSignal (2.11.0)
   - React (0.59.8):
     - React/Core (= 0.59.8)
   - react-native-background-timer (2.1.1):
     - React
-  - react-native-camera (3.0.1):
-    - React
-    - react-native-camera/RCT (= 3.0.1)
-    - react-native-camera/RN (= 3.0.1)
-  - react-native-camera/RCT (3.0.1):
-    - React
-  - react-native-camera/RN (3.0.1):
-    - React
   - react-native-maps (0.24.2):
     - React
+  - react-native-onesignal (3.3.3):
+    - OneSignal (= 2.11.0)
+    - React (< 1.0.0, >= 0.13.0)
   - React/Core (0.59.8):
     - yoga (= 0.59.8.React)
   - React/CxxBridge (0.59.8):
@@ -141,14 +140,15 @@ DEPENDENCIES:
   - EXLocation (from `../node_modules/expo-location/ios`)
   - EXPermissions (from `../node_modules/expo-permissions/ios`)
   - EXSecureStore (from `../node_modules/expo-secure-store/ios`)
+  - EXSMS (from `../node_modules/expo-sms/ios`)
   - EXSQLite (from `../node_modules/expo-sqlite/ios`)
   - EXWebBrowser (from `../node_modules/expo-web-browser/ios`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - react-native-background-timer (from `../node_modules/react-native-background-timer`)
-  - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-maps (from `../node_modules/react-native-maps`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -183,6 +183,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
     - lottie-ios
+    - OneSignal
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -217,6 +218,9 @@ EXTERNAL SOURCES:
   EXSecureStore:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-secure-store/ios"
+  EXSMS:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-sms/ios"
   EXSQLite:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-sqlite/ios"
@@ -233,10 +237,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-background-timer:
     :path: "../node_modules/react-native-background-timer"
-  react-native-camera:
-    :path: "../node_modules/react-native-camera"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
+  react-native-onesignal:
+    :path: "../node_modules/react-native-onesignal"
   RNGestureHandler:
     :podspec: "../node_modules/react-native-gesture-handler/RNGestureHandler.podspec"
   RNReanimated:
@@ -293,16 +297,18 @@ SPEC CHECKSUMS:
   EXLocation: 4eb76115832f08b1e78003b335c210e18fa60424
   EXPermissions: 99e52dc3e5f8e55153f1958004f6df2a30a1f2f5
   EXSecureStore: e929213a8a5e8c55cdd4615e52e283c11cba975e
+  EXSMS: cb30013923b89b795840634ba486a79f29eee368
   EXSQLite: 8dab6a5ab1b78be7925073d6071eb22095d4dda6
   EXWebBrowser: def838b95aa9d396f9ce71ace4e614ee16e7ee30
   Folly: de497beb10f102453a1afa9edbf8cf8a251890de
   glog: aefd1eb5dda2ab95ba0938556f34b98e2da3a60d
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   lottie-react-native: 3d8181d43619b1fe804c828bd5a09d20fe8bdea7
+  OneSignal: 1e2ed98358f87cb755e7262412ddb2949b8e5c55
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
   react-native-background-timer: 1b6e6b4e10f1b74c367a1fdc3c72b67c619b222b
-  react-native-camera: fd052e2a172d9f49d7427c7fa7b089da6d047a38
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
+  react-native-onesignal: fc750afd9ec99c89d04e9bebeabd03af1a13263c
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNReanimated: 7a52c90473b5e81c13408d40d797b98387eaddde
   UMBarCodeScannerInterface: 84ea2d6b58ff0dc27ef9b68bab71286be18ee020
@@ -319,6 +325,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 8664abd37a00715727e60df9ecd65e42ba47b548
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 3009203374f6b85022076765408f900ffab271b6
+PODFILE CHECKSUM: 580a7722687a4a1f4f99de75dfc6dd4694d6d450
 
 COCOAPODS: 1.7.5
