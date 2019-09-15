@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
   Container,
@@ -12,14 +13,36 @@ import {
   View,
   Button
 } from 'native-base'
+import {
+  EDIT_PIN_COORDINATES,
+  EDIT_REGION_COORDINATES
+} from '../../actions/map/map.constants'
+import { createAction } from 'redux-actions'
 import GenericHeader from '../../components/GenericHeader'
 import Spacer from '../../components/Spacer'
 import Map from '../../components/Map'
 import GenericField from '../../components/GenericField'
 
 const Contact = props => {
+  const dispatch = useDispatch()
   const { navigation } = props
   const contact = navigation.getParam('contact', {})
+  const { latitude, longitude } = contact.location
+
+  useEffect(() => {
+    dispatch(
+      createAction(EDIT_PIN_COORDINATES)({
+        latitude,
+        longitude
+      })
+    )
+    dispatch(
+      createAction(EDIT_REGION_COORDINATES)({
+        latitude,
+        longitude
+      })
+    )
+  }, [])
 
   return (
     <Container>
