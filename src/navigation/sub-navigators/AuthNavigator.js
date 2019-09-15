@@ -11,14 +11,10 @@ const AuthNavigator = createStackNavigator(
     },
     Unverified: {
       screen: UnverifiedScreen
-    },
-    Contact: {
-      screen: Contact
     }
   },
   {
-    headerMode: 'none',
-    initialRouteName: 'Contact'
+    headerMode: 'none'
   }
 )
 
