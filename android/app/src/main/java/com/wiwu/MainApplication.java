@@ -44,8 +44,11 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+<<<<<<< HEAD
             new VectorIconsPackage(),
           new TwilioPackage(),
+=======
+>>>>>>> 6d709181394c22936f7e9986a475d0e0db4b7dc9
           new BackgroundTimerPackage(),
           new MapsPackage(),
           new LottiePackage(),
