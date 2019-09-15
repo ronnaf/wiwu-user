@@ -39,6 +39,10 @@ target 'wiwu' do
 
   pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
 
+  pod 'react-native-twilio-video-webrtc', :path => '../node_modules/react-native-twilio-video-webrtc'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'wiwuTests' do
     inherit! :search_paths
   end
