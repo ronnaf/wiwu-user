@@ -1,13 +1,13 @@
 import React, { useState, useEffect, createRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import { Text } from 'native-base'
+import { View, TouchableOpacity } from 'react-native'
 import {
   TwilioVideoLocalView,
   TwilioVideoParticipantView,
   TwilioVideo
 } from 'react-native-twilio-video-webrtc'
 import PropTypes from 'prop-types'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 import { resetToken } from '../actions/twilio/resetToken.action'
 import showToast from '../helpers/toast.helper'
 import { setJoinedRoom } from '../actions/twilio/setJoinedVideo'
@@ -19,66 +19,6 @@ const Twilio = props => {
   const token = useSelector(state => state.twilio.token)
   const [hasJoinedRoom, setHasJoinedRoom] = useState(false)
   const twilioVideo = createRef()
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'white'
-    },
-    callContainer: {
-      flex: 1,
-      position: 'absolute',
-      bottom: 0,
-      top: 0,
-      left: 0,
-      right: 0
-    },
-    button: {
-      marginTop: 100
-    },
-    localVideo: {
-      flex: 1,
-      width: 150,
-      height: 250,
-      position: 'absolute',
-      right: 10,
-      bottom: 10
-    },
-    remoteGrid: {
-      flex: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      backgroundColor: 'yellow'
-    },
-    remoteVideo: {
-      marginTop: 20,
-      marginLeft: 10,
-      marginRight: 10,
-      width: 100,
-      height: 120,
-      backgroundColor: 'red'
-    },
-    optionsContainer: {
-      position: 'absolute',
-      left: 0,
-      bottom: 0,
-      right: 0,
-      height: 100,
-      backgroundColor: 'blue',
-      flexDirection: 'row',
-      alignItems: 'center'
-    },
-    optionButton: {
-      width: 60,
-      height: 60,
-      marginLeft: 10,
-      marginRight: 10,
-      borderRadius: 100 / 2,
-      backgroundColor: 'grey',
-      justifyContent: 'center',
-      alignItems: 'center'
-    }
-  })
 
   useEffect(() => {
     if (token && !hasJoinedRoom) {
@@ -102,11 +42,10 @@ const Twilio = props => {
   }
 
   const leaveRoom = async () => {
-    setStatus('disconnected')
     twilioVideo.current.disconnect()
+    setStatus('disconnected')
     setHasJoinedRoom(false)
     dispatch(resetToken())
-    dispatch(setJoinedRoom(false))
   }
 
   const onRoomDidDisconnect = ({ roomName, error }) => {
@@ -152,16 +91,36 @@ const Twilio = props => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'white'
+      }}>
       {(status === 'connected' || status === 'connecting') && (
-        <View styles={styles.callContainer}>
+        <View
+          style={{
+            flex: 1,
+            position: 'absolute',
+            bottom: 0,
+            top: 0,
+            left: 0,
+            right: 0
+          }}>
           {status === 'connected' && (
-            <View style={styles.remoteGrid}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap'
+              }}>
               {Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
                 return (
                   <TwilioVideoParticipantView
                     enabled
-                    styles={styles.remoteVideo}
+                    style={{
+                      width: '100%',
+                      height: '100%'
+                    }}
                     key={trackSid}
                     trackIdentifier={trackIdentifier}
                   />
@@ -169,13 +128,44 @@ const Twilio = props => {
               })}
             </View>
           )}
-          <View styles={styles.optionsContainer}>
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              bottom: 0,
+              right: 0,
+              height: 100,
+              flexDirection: 'row',
+              alignItems: 'center'
+            }}>
             <TouchableOpacity
-              onPress={() => leaveRoom()}
-              style={styles.optionButton}>
-              <Text>End</Text>
+              onPress={() => {
+                leaveRoom()
+                dispatch(setJoinedRoom(false))
+              }}
+              style={{
+                width: 60,
+                height: 60,
+                marginLeft: 10,
+                marginRight: 10,
+                borderRadius: 100 / 2,
+                backgroundColor: 'grey',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+              <Icon name='call-end' size={30} color='red' />
             </TouchableOpacity>
-            <TwilioVideoLocalView enabled style={styles.localVideo} />
+            <TwilioVideoLocalView
+              enabled
+              style={{
+                flex: 1,
+                width: 150,
+                height: 250,
+                position: 'absolute',
+                right: 10,
+                bottom: 10
+              }}
+            />
           </View>
         </View>
       )}
