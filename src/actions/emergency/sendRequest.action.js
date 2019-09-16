@@ -41,66 +41,62 @@ export function sendRequestAction(data) {
 
       // TODO: ADD CAMERA
       if (isOffline) {
-        try {
-          if (Platform.OS === 'android') {
-            // works only for android
-            const DirectSms = NativeModules.DirectSms
-            const granted = await PermissionsAndroid.request(
-              PermissionsAndroid.PERMISSIONS.SEND_SMS,
-              {
-                title: 'Wiwu App Sms Permission',
-                message:
-                  'Wiwu App needs access to your inbox ' +
-                  'so you can send messages in background.',
-                buttonNeutral: 'Ask Me Later',
-                buttonNegative: 'Cancel',
-                buttonPositive: 'OK'
-              }
-            )
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-              DirectSms.sendDirectSms(
-                '09177456123',
-                simpleCrypto.encrypt(JSON.stringify(payload))
-              )
-              showToast('Message has been sent', 'success')
-            } else {
-              throw new Error('Cannot send SMS')
+        if (Platform.OS === 'android') {
+          // works only for android
+          const DirectSms = NativeModules.DirectSms
+          const granted = await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.SEND_SMS,
+            {
+              title: 'Wiwu App Sms Permission',
+              message:
+                'Wiwu App needs access to your inbox ' +
+                'so you can send messages in background.',
+              buttonNeutral: 'Ask Me Later',
+              buttonNegative: 'Cancel',
+              buttonPositive: 'OK'
             }
-          } else {
-            // TODO: test on real device
-            const isAvailable = await SMS.isAvailableAsync()
-
-            if (!isAvailable) {
-              throw new Error('Cannot send SMS')
-            }
-
-            await SMS.sendSMSAsync(
+          )
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            DirectSms.sendDirectSms(
               '09177456123',
               simpleCrypto.encrypt(JSON.stringify(payload))
             )
-
             showToast('Message has been sent', 'success')
+          } else {
+            throw new Error('Cannot send SMS')
+          }
+        } else {
+          // TODO: test on real device
+          const isAvailable = await SMS.isAvailableAsync()
+
+          if (!isAvailable) {
+            throw new Error('Cannot send SMS')
           }
 
-          const emergencyArray = await SecureStore.getItemAsync(
-            WIWU_OFFLINE_EMERGENCY_ARRAY
+          await SMS.sendSMSAsync(
+            '09177456123',
+            simpleCrypto.encrypt(JSON.stringify(payload))
           )
 
-          if (emergencyArray) {
-            const arr = JSON.parse(emergencyArray)
-            arr.push(payload)
-            await SecureStore.setItemAsync(
-              WIWU_OFFLINE_EMERGENCY_ARRAY,
-              JSON.stringify(arr)
-            )
-          } else {
-            await SecureStore.setItemAsync(
-              WIWU_OFFLINE_EMERGENCY_ARRAY,
-              JSON.stringify([payload])
-            )
-          }
-        } catch (err) {
-          console.warn(err)
+          showToast('Message has been sent', 'success')
+        }
+
+        const emergencyArray = await SecureStore.getItemAsync(
+          WIWU_OFFLINE_EMERGENCY_ARRAY
+        )
+
+        if (emergencyArray) {
+          const arr = JSON.parse(emergencyArray)
+          arr.push(payload)
+          await SecureStore.setItemAsync(
+            WIWU_OFFLINE_EMERGENCY_ARRAY,
+            JSON.stringify(arr)
+          )
+        } else {
+          await SecureStore.setItemAsync(
+            WIWU_OFFLINE_EMERGENCY_ARRAY,
+            JSON.stringify([payload])
+          )
         }
       } else {
         const emergency = await firestore.collection('emergencies').add(payload)
