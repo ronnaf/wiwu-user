@@ -3,6 +3,7 @@ package com.wiwu;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.twiliorn.library.TwilioPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
@@ -44,11 +45,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-<<<<<<< HEAD
-            new VectorIconsPackage(),
+          new ReactNativeOneSignalPackage(),
+          new VectorIconsPackage(),
           new TwilioPackage(),
-=======
->>>>>>> 6d709181394c22936f7e9986a475d0e0db4b7dc9
           new BackgroundTimerPackage(),
           new MapsPackage(),
           new LottiePackage(),

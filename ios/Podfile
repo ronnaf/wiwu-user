@@ -37,6 +37,11 @@ target 'wiwu' do
 
   pod 'react-native-background-timer', :path => '../node_modules/react-native-background-timer'
 
+<<<<<<< HEAD
+=======
+  pod 'react-native-onesignal', :path => '../node_modules/react-native-onesignal'
+
+>>>>>>> 5034ece5f87f17fb895b1e6a6559c1aef390c2fd
   pod 'react-native-twilio-video-webrtc', :path => '../node_modules/react-native-twilio-video-webrtc'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'

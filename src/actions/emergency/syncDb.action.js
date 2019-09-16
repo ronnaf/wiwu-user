@@ -20,22 +20,26 @@ export const syncDb = () => {
 
         for (const item of arr) {
           // mutating so the userId will be a document reference
+          const userId = item.userId
           item.userId = firestore.doc(`users/${item.userId}`)
+          item.date = new Date(item.date)
 
           const emergency = await firestore.collection('emergencies').add(item)
+
           await firestore
             .collection('users')
-            .doc(item.userId)
+            .doc(userId)
             .update({
               emergencies: firebase.firestore.FieldValue.arrayUnion(emergency)
             })
-
-          await SecureStore.deleteItemAsync(WIWU_OFFLINE_EMERGENCY_ARRAY)
         }
+
+        await SecureStore.deleteItemAsync(WIWU_OFFLINE_EMERGENCY_ARRAY)
       }
 
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
+      console.log(e)
       dispatch(createAction(SCREEN_LOADING)(false))
     }
   }

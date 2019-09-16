@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import * as ImagePicker from 'expo-image-picker'
 import _ from 'lodash'
 
-import { sendRequest } from '../../actions/emergency/sendRequest'
+import { sendRequestAction } from '../../actions/emergency/sendRequest.action'
 import { showCameraActionSheet } from '../../helpers/camera.helper'
 
 import GenericHeader from '../../components/GenericHeader'
@@ -37,7 +37,7 @@ const UserRequest = () => {
             address: '',
             comments: ''
           }}
-          onSubmit={values => dispatch(sendRequest(values))}>
+          onSubmit={values => dispatch(sendRequestAction(values))}>
           {({
             values,
             errors,
