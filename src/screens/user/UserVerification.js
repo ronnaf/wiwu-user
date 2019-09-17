@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { StyleSheet, View } from 'react-native'
-import { Button, Text, Body } from 'native-base'
+import { View, Image, TouchableOpacity } from 'react-native'
+import { Button, Text } from 'native-base'
 import Icon from 'react-native-vector-icons/AntDesign'
+import * as ImagePicker from 'expo-image-picker'
 import GenericHeader from '../../components/GenericHeader'
 import Spacer from '../../components/Spacer'
 import Twilio from '../../components/Twilio'
 import { getToken } from '../../actions/twilio/getToken.action'
+import { uploadId } from '../../actions/user/uploadId.action'
 import {
   requestCamera,
   requestMicrophone
 } from '../../helpers/permission.helper'
+import { showCameraActionSheet } from '../../helpers/camera.helper'
 
 const UserVerification = () => {
   const dispatch = useDispatch()
@@ -19,13 +22,7 @@ const UserVerification = () => {
   const roomName = useSelector(state => state.user.current.email)
   const [permissionCamera, setPermissionCamera] = useState(false)
   const [permissionAudio, setPermissionAudio] = useState(false)
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'white'
-    }
-  })
+  const [idImage, setIdImage] = useState()
 
   useEffect(() => {
     if (!permissionCamera && !permissionAudio) {
@@ -39,37 +36,71 @@ const UserVerification = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: 'white'
+      }}>
       <GenericHeader title='Identity Verification' type='drawer' />
       {status === 'disconnected' && (
         <View
           style={{
-            marginTop: 50,
             width: '100%',
-            height: '50%',
-            justifyContent: 'center',
-            alignItems: 'center'
+            height: '100%'
           }}>
-          <Body style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
             <Button
               onPress={() => dispatch(getToken(identity, roomName))}
               style={{}}
               transparent>
               <Icon name='videocamera' size={30} />
             </Button>
-          </Body>
-          <Text style={{ color: 'grey' }}>
-            Join a video chat room with a representative.
-          </Text>
-          <Spacer height={16} />
-          <Text style={{ color: 'grey' }}> - or - </Text>
-          <Spacer height={16} />
-          <Text style={{ color: 'grey' }}>Send a picture of a valid ID.</Text>
-          <Body style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Button onPress={() => {}} style={{ margin: 20 }} transparent>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <Text
+              style={{
+                color: 'grey',
+                textAlignVertical: 'center',
+                textAlign: 'center'
+              }}>
+              Join a video chat room with a representative.
+              {'\n'}- or -{'\n'}
+              Upload a picture of a valid ID.
+            </Text>
+          </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+            <TouchableOpacity
+              onPress={() =>
+                showCameraActionSheet(
+                  (fieldName, uri) => {
+                    setIdImage(uri)
+                  },
+                  'idImage',
+                  'Take Photo',
+                  'Select an ID',
+                  ImagePicker.MediaTypeOptions.Images
+                )
+              }
+              style={{ margin: 20 }}
+              transparent>
               <Icon name='upload' size={30} />
-            </Button>
-          </Body>
+            </TouchableOpacity>
+          </View>
+          <Image
+            style={{ height: '30%', width: '100%' }}
+            resizeMode='contain'
+            source={{ uri: idImage }}
+          />
+          <Spacer height={16} />
+          {idImage ? (
+            <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+              <Button onPress={() => dispatch(uploadId(idImage))}>
+                <Text>Upload Photo</Text>
+              </Button>
+            </View>
+          ) : (
+            <Spacer height={16} />
+          )}
         </View>
       )}
       <Twilio setStatus={setStatus} status={status} roomName={roomName} />
