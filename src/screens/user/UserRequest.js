@@ -23,6 +23,14 @@ const UserRequest = () => {
 
   const [isMoreFields, setMoreFields] = useState(false)
   const department = useSelector(state => state.emergency.departmentSelected)
+  const initialValues = {
+    department,
+    role: 'I need help!',
+    description: '',
+    address: '',
+    comments: '',
+    media: null
+  }
 
   return (
     <Container>
@@ -30,14 +38,11 @@ const UserRequest = () => {
       <Content padder>
         <Formik
           enableReinitialize={true}
-          initialValues={{
-            department,
-            role: 'I need help!',
-            description: '',
-            address: '',
-            comments: ''
-          }}
-          onSubmit={values => dispatch(sendRequestAction(values))}>
+          initialValues={initialValues}
+          onSubmit={async (values, { resetForm }) => {
+            await dispatch(sendRequestAction(values))
+            resetForm()
+          }}>
           {({
             values,
             errors,

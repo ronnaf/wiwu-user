@@ -67,7 +67,6 @@ export function sendRequestAction(values) {
                   '09177456123',
                   simpleCrypto.encrypt(JSON.stringify(payload))
                 )
-
                 showToast('Message has been sent', 'success')
               } else {
                 throw new Error('Cannot send SMS')
@@ -117,6 +116,7 @@ export function sendRequestAction(values) {
               })
           }
 
+          showToast('Emergency request sent!', 'success')
           NavigationService.navigate('UserHome')
           dispatch(createAction(SCREEN_LOADING)(false))
         }
