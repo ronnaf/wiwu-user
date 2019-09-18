@@ -102,7 +102,11 @@ const UserRequest = () => {
                         )
                       }
                       title={'Attach photo or video'}>
-                      <Text>Attach photo or video</Text>
+                      <Text>
+                        {values.media
+                          ? 'Update photo or video'
+                          : 'Attach photo or video'}
+                      </Text>
                     </Button>
                   </View>
                 }
