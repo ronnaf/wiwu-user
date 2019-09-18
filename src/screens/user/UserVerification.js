@@ -18,8 +18,8 @@ import { showCameraActionSheet } from '../../helpers/camera.helper'
 const UserVerification = () => {
   const dispatch = useDispatch()
   const [status, setStatus] = useState('disconnected')
-  const identity = useSelector(state => state.user.current.uid)
-  const roomName = useSelector(state => state.user.current.email)
+  const identity = useSelector(state => state.user.current.email)
+  const roomName = useSelector(state => state.user.current.uid)
   const [permissionCamera, setPermissionCamera] = useState(false)
   const [permissionAudio, setPermissionAudio] = useState(false)
   const [idImage, setIdImage] = useState()
