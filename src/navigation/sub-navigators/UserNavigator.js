@@ -2,11 +2,11 @@ import { createDrawerNavigator } from 'react-navigation'
 
 import UserHome from '../../screens/user/UserHome'
 import UserMaps from '../../screens/user/UserMaps'
-import ContactDirectories from '../../screens/user/ContactDirectories'
 import UserRequest from '../../screens/user/UserRequest'
 import UserSettings from '../../screens/user/UserSettings'
-
+import UserVerification from '../../screens/user/UserVerification'
 import Sidebar from '../../components/Sidebar'
+import ContactsNavigator from './user-navigators/ContactsNavigator'
 
 const UserNavigator = createDrawerNavigator(
   {
@@ -20,10 +20,13 @@ const UserNavigator = createDrawerNavigator(
       screen: UserMaps
     },
     UserContactDirectories: {
-      screen: ContactDirectories
+      screen: ContactsNavigator
     },
     UserRequest: {
       screen: UserRequest
+    },
+    UserVerification: {
+      screen: UserVerification
     }
   },
   {

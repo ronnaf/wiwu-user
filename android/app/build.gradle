@@ -8,7 +8,6 @@ buildscript {
 }
 
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
-
 apply plugin: "com.android.application"
 
 import com.android.build.OutputFile
@@ -147,10 +146,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dexOptions {
+        jumboMode true
+    }
 }
 
 dependencies {
     implementation project(':react-native-onesignal')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-twilio-video-webrtc')
     implementation project(':react-native-background-timer')
     implementation project(':react-native-maps')
     implementation project(':lottie-react-native')

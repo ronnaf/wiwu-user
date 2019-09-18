@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* wiwuTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* wiwuTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -14,6 +13,23 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		946EEB1F6A4941FF520D168A /* libPods-wiwu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E2EBA38100447A566023A2A /* libPods-wiwu.a */; };
 		DDFE3A8832D8FFF4B97455E4 /* libPods-wiwuTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A0F04107ED281E33AB4AAB5 /* libPods-wiwuTests.a */; };
+		C383962232CC4370AEFD4048 /* libTWReactNativeTwilioVideoWebrtc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E37817E8E2064737A71BDBB7 /* libTWReactNativeTwilioVideoWebrtc.a */; };
+		39F0F1A7E3C24C0BA463E2D0 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 99419C7D27194211B5D6722F /* AntDesign.ttf */; };
+		A7C6F03C6ADC4D24BF68BAD8 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31EDF9B5DBB84BD095E871A1 /* Entypo.ttf */; };
+		7CD92B639611475DA7CA1FD7 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 67BCCB8123434CB188CD3C8B /* EvilIcons.ttf */; };
+		9915DC7020A64567BD72FFF7 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E2E3C4BC5423441FB18C6330 /* Feather.ttf */; };
+		6F0505D14DAA4CDC8FA12252 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76E777A7EA664F1FBAAF29EB /* FontAwesome.ttf */; };
+		9237B0348F574FF98C56E721 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4B581159426948FB919DB654 /* FontAwesome5_Brands.ttf */; };
+		86B259F8D36B4DB697491CA6 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C4D4701F417043DB8AE9927C /* FontAwesome5_Regular.ttf */; };
+		FB2CA9B7D5D846B09FA3E341 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B8184B7D18449B78D0982EB /* FontAwesome5_Solid.ttf */; };
+		C4429D8BE2424CA78B4BDC6B /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 490468EA10DC4C2C8B5A6F7C /* Fontisto.ttf */; };
+		43F592CC402D4A2A95DF27A8 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 13124CC231DC438A870CDF21 /* Foundation.ttf */; };
+		07A2454FD579488D8EFCD3E0 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB0894C3B48D480090705A19 /* Ionicons.ttf */; };
+		9925802E05C94FB08B37F48D /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9CFAFF8169524DF19F1EF794 /* MaterialCommunityIcons.ttf */; };
+		E5264797225640288F8BBA10 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3CB2D1596FE3498CAD8D4F67 /* MaterialIcons.ttf */; };
+		2EA1F3997FFE4BA88D112FE2 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A8D4B84AFA94365B7211A5C /* Octicons.ttf */; };
+		F79FC8F30C574DF099550BFF /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 803D9B093ED0472484DAF35D /* SimpleLineIcons.ttf */; };
+		A616D02BCA384BB08CD5ED79 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C972B2896F843599F86ED58 /* Zocial.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +64,24 @@
 		EAFB40AABB67D4B43C40F0C5 /* Pods-wiwu.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wiwu.debug.xcconfig"; path = "Target Support Files/Pods-wiwu/Pods-wiwu.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		E721E0ECCFB3485CAA8B9709 /* TWReactNativeTwilioVideoWebrtc.xcodeproj */ = {isa = PBXFileReference; name = "TWReactNativeTwilioVideoWebrtc.xcodeproj"; path = "../node_modules/react-native-twilio-video-webrtc/ios/TWReactNativeTwilioVideoWebrtc.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		E37817E8E2064737A71BDBB7 /* libTWReactNativeTwilioVideoWebrtc.a */ = {isa = PBXFileReference; name = "libTWReactNativeTwilioVideoWebrtc.a"; path = "libTWReactNativeTwilioVideoWebrtc.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		99419C7D27194211B5D6722F /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		31EDF9B5DBB84BD095E871A1 /* Entypo.ttf */ = {isa = PBXFileReference; name = "Entypo.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		67BCCB8123434CB188CD3C8B /* EvilIcons.ttf */ = {isa = PBXFileReference; name = "EvilIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E2E3C4BC5423441FB18C6330 /* Feather.ttf */ = {isa = PBXFileReference; name = "Feather.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		76E777A7EA664F1FBAAF29EB /* FontAwesome.ttf */ = {isa = PBXFileReference; name = "FontAwesome.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4B581159426948FB919DB654 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Brands.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		C4D4701F417043DB8AE9927C /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Regular.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0B8184B7D18449B78D0982EB /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; name = "FontAwesome5_Solid.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		490468EA10DC4C2C8B5A6F7C /* Fontisto.ttf */ = {isa = PBXFileReference; name = "Fontisto.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		13124CC231DC438A870CDF21 /* Foundation.ttf */ = {isa = PBXFileReference; name = "Foundation.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CB0894C3B48D480090705A19 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9CFAFF8169524DF19F1EF794 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; name = "MaterialCommunityIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3CB2D1596FE3498CAD8D4F67 /* MaterialIcons.ttf */ = {isa = PBXFileReference; name = "MaterialIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2A8D4B84AFA94365B7211A5C /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		803D9B093ED0472484DAF35D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1C972B2896F843599F86ED58 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +98,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				946EEB1F6A4941FF520D168A /* libPods-wiwu.a in Frameworks */,
+				C383962232CC4370AEFD4048 /* libTWReactNativeTwilioVideoWebrtc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,6 +152,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				E721E0ECCFB3485CAA8B9709 /* TWReactNativeTwilioVideoWebrtc.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -130,6 +166,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				91E68A9118B6C15389E6795A /* Pods */,
+				E43C1F2C084B452C8E4A0902 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -155,6 +192,30 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		E43C1F2C084B452C8E4A0902 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				99419C7D27194211B5D6722F /* AntDesign.ttf */,
+				31EDF9B5DBB84BD095E871A1 /* Entypo.ttf */,
+				67BCCB8123434CB188CD3C8B /* EvilIcons.ttf */,
+				E2E3C4BC5423441FB18C6330 /* Feather.ttf */,
+				76E777A7EA664F1FBAAF29EB /* FontAwesome.ttf */,
+				4B581159426948FB919DB654 /* FontAwesome5_Brands.ttf */,
+				C4D4701F417043DB8AE9927C /* FontAwesome5_Regular.ttf */,
+				0B8184B7D18449B78D0982EB /* FontAwesome5_Solid.ttf */,
+				490468EA10DC4C2C8B5A6F7C /* Fontisto.ttf */,
+				13124CC231DC438A870CDF21 /* Foundation.ttf */,
+				CB0894C3B48D480090705A19 /* Ionicons.ttf */,
+				9CFAFF8169524DF19F1EF794 /* MaterialCommunityIcons.ttf */,
+				3CB2D1596FE3498CAD8D4F67 /* MaterialIcons.ttf */,
+				2A8D4B84AFA94365B7211A5C /* Octicons.ttf */,
+				803D9B093ED0472484DAF35D /* SimpleLineIcons.ttf */,
+				1C972B2896F843599F86ED58 /* Zocial.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -258,6 +319,22 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				39F0F1A7E3C24C0BA463E2D0 /* AntDesign.ttf in Resources */,
+				A7C6F03C6ADC4D24BF68BAD8 /* Entypo.ttf in Resources */,
+				7CD92B639611475DA7CA1FD7 /* EvilIcons.ttf in Resources */,
+				9915DC7020A64567BD72FFF7 /* Feather.ttf in Resources */,
+				6F0505D14DAA4CDC8FA12252 /* FontAwesome.ttf in Resources */,
+				9237B0348F574FF98C56E721 /* FontAwesome5_Brands.ttf in Resources */,
+				86B259F8D36B4DB697491CA6 /* FontAwesome5_Regular.ttf in Resources */,
+				FB2CA9B7D5D846B09FA3E341 /* FontAwesome5_Solid.ttf in Resources */,
+				C4429D8BE2424CA78B4BDC6B /* Fontisto.ttf in Resources */,
+				43F592CC402D4A2A95DF27A8 /* Foundation.ttf in Resources */,
+				07A2454FD579488D8EFCD3E0 /* Ionicons.ttf in Resources */,
+				9925802E05C94FB08B37F48D /* MaterialCommunityIcons.ttf in Resources */,
+				E5264797225640288F8BBA10 /* MaterialIcons.ttf in Resources */,
+				2EA1F3997FFE4BA88D112FE2 /* Octicons.ttf in Resources */,
+				F79FC8F30C574DF099550BFF /* SimpleLineIcons.ttf in Resources */,
+				A616D02BCA384BB08CD5ED79 /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +482,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wiwu.app/wiwu";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-twilio-video-webrtc\ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -426,6 +511,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/wiwu.app/wiwu";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-twilio-video-webrtc\ios/**",
+				);
 			};
 			name = Release;
 		};
@@ -448,6 +541,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = wiwu;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-twilio-video-webrtc\ios/**",
+				);
 			};
 			name = Debug;
 		};
@@ -469,6 +566,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = wiwu;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)\..\node_modules\react-native-twilio-video-webrtc\ios/**",
+				);
 			};
 			name = Release;
 		};

@@ -59,6 +59,7 @@ export const launchMediaAsync = async (
       const response = await action({
         mediaTypes,
         allowsEditing: true,
+        aspect: [1, 1],
         quality: 0.3
       })
 
