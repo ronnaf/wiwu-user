@@ -13,9 +13,8 @@ import { GET_ALL_EMERGENCIES } from '../../actions/emergency/emergency.constants
 
 import showToast from '../../helpers/toast.helper'
 
-const UserMaps = () => {
+export const useGetEmergenciesListener = () => {
   const dispatch = useDispatch()
-  const emergencies = useSelector(e => e.emergency.list)
 
   useEffect(() => {
     try {
@@ -23,13 +22,21 @@ const UserMaps = () => {
         .collection('emergencies')
         .where('status', '==', 'PENDING')
         .onSnapshot(snapshot => {
-          const emergencies = snapshot.docs.map(e => {
-            const data = e.data()
+          const emergencies = snapshot.docs.map(emergencyDoc => {
+            const emergency = emergencyDoc.data()
 
             return {
-              id: e.id,
-              location: data.location,
-              department: data.department
+              id: emergencyDoc.id,
+              address: emergency.address,
+              comments: emergency.comments,
+              date: emergency.date.toDate(),
+              department: emergency.department,
+              description: emergency.description,
+              location: emergency.location,
+              media: emergency.media,
+              priority: emergency.priority,
+              role: emergency.role,
+              status: emergency.status
             }
           })
           dispatch(createAction(GET_ALL_EMERGENCIES)(emergencies))
@@ -42,6 +49,12 @@ const UserMaps = () => {
       showToast('No connection found')
     }
   }, [])
+}
+
+const UserMaps = () => {
+  const emergencies = useSelector(({ emergency }) => emergency.list)
+
+  useGetEmergenciesListener()
 
   return (
     <Container>
