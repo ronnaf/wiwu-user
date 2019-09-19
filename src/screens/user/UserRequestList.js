@@ -14,6 +14,7 @@ import {
 import GenericHeader from '../../components/GenericHeader'
 import { images } from '../../assets/assets'
 import moment from 'moment'
+import NavigationService from '../../navigation/NavigationService'
 
 const UserRequestList = props => {
   return (
@@ -22,7 +23,11 @@ const UserRequestList = props => {
       <Content padder>
         <List>
           {[1, 2, 3, 4].map(num => (
-            <ListItem key={num} thumbnail style={{ marginLeft: 0 }}>
+            <ListItem
+              key={num}
+              thumbnail
+              onPress={() => NavigationService.navigate('UserRequestDetails')}
+              style={{ marginLeft: 0 }}>
               <Left>
                 <Thumbnail source={images.police} />
               </Left>

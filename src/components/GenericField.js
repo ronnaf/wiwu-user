@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 
 // TODO: add proptypes
 GenericField.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string.s,
   CustomComponent: PropTypes.node.isRequired
 }
 
