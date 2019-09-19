@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Container, Text, Icon, ActionSheet } from 'native-base'
-import { Dimensions, TouchableOpacity, Linking } from 'react-native'
+import { Dimensions, TouchableOpacity, Linking, Platform } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
 import Lottie from 'lottie-react-native'
@@ -47,9 +47,9 @@ const UserHome = () => {
                     if (buttonIndex !== 3) {
                       // placeholders until we get the actual numbers
                       Linking.openURL(
-                        `tel:${
+                        `${Platform.OS === 'android' ? 'tel' : 'telprompt'}:${
                           buttonIndex === 1
-                            ? '00000'
+                            ? '0123'
                             : buttonIndex === 2
                             ? '00000'
                             : '00000'

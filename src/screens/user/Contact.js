@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Linking } from 'react-native'
+import { Linking, Platform } from 'react-native'
 import { useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
@@ -62,7 +62,12 @@ const Contact = props => {
       },
       buttonIndex => {
         if (buttonIndex < options.length - 1) {
-          const link = type === 'sms' ? 'sms' : 'tel'
+          const link =
+            type === 'sms'
+              ? 'sms'
+              : Platform.OS === 'android'
+              ? 'tel'
+              : 'telprompt'
           Linking.openURL(
             `${link}:${_.replace(contact.numbers[buttonIndex], '-', '')}`
           )
