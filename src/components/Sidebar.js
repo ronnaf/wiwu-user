@@ -27,11 +27,9 @@ const Sidebar = props => {
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user.current)
   const routes = [
-    { title: 'Profile', routeName: 'UserProfile' },
+    { title: 'Emergency Requests', routeName: 'UserRequestList' },
     { title: 'Settings', routeName: 'UserSettings' }
   ]
-
-  console.log('user -', user)
 
   return (
     <Container>
