@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   Container,
   Content,
@@ -7,9 +7,7 @@ import {
   Left,
   Thumbnail,
   Body,
-  Text,
-  Right,
-  Button
+  Text
 } from 'native-base'
 import GenericHeader from '../../components/GenericHeader'
 import { images } from '../../assets/assets'
@@ -21,7 +19,6 @@ import { useGetEmergenciesListener } from './UserMaps'
 
 const UserRequestList = props => {
   const emergencies = useSelector(({ emergency }) => emergency.list)
-  console.log('Emergencies -', emergencies)
 
   useGetEmergenciesListener()
 
