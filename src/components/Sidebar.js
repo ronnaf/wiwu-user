@@ -27,6 +27,7 @@ const Sidebar = props => {
   const dispatch = useDispatch()
   const user = useSelector(({ user }) => user.current)
   const routes = [
+    { title: 'Home', routeName: 'UserHome' },
     { title: 'Emergency Requests', routeName: 'UserRequestList' },
     { title: 'Settings', routeName: 'UserSettings' }
   ]
