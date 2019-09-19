@@ -6,10 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { createAction } from 'redux-actions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import PropTypes from 'prop-types'
-
-import policeFlag from '../../images/policeFlag.png'
-import medicalFlag from '../../images/medicineFlag.png'
-import fireFlag from '../../images/fireFlag.png'
+import { images } from '../assets/assets'
 
 import {
   EDIT_PIN_COORDINATES,
@@ -87,10 +84,10 @@ const Map = props => {
           // active emergencies
           const flag =
             e.department === 'fire'
-              ? fireFlag
+              ? images.firePin
               : e.department === 'medical'
-              ? medicalFlag
-              : policeFlag
+              ? images.medicalPin
+              : images.policePin
           return (
             <MapView.Marker key={index} coordinate={e.location}>
               <Image source={flag} style={{ width: 40, height: 40 }} />

@@ -6,7 +6,10 @@ module.exports = {
     defaultThumbnail: require('./images/default-thumb.png'),
     fire: require('./images/fire.png'),
     medical: require('./images/medical.png'),
-    police: require('./images/police.png')
+    police: require('./images/police.png'),
+    firePin: require('./images/fire-pin.png'),
+    medicalPin: require('./images/medical-pin.png'),
+    policePin: require('./images/police-pin.png')
   },
   fonts: {}
 }
