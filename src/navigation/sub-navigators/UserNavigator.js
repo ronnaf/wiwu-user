@@ -8,6 +8,7 @@ import UserVerification from '../../screens/user/UserVerification'
 import Sidebar from '../../components/Sidebar'
 import ContactsNavigator from './user-navigators/ContactsNavigator'
 import RequestListNavigator from './user-navigators/RequestListNavigator'
+import EmergencyAlertsNavigator from './user-navigators/EmergencyAlertsNavigator'
 
 const UserNavigator = createDrawerNavigator(
   {
@@ -31,6 +32,9 @@ const UserNavigator = createDrawerNavigator(
     },
     UserRequestList: {
       screen: RequestListNavigator
+    },
+    EmergencyAlertsList: {
+      screen: EmergencyAlertsNavigator
     }
   },
   {
