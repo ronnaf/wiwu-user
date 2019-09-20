@@ -2,7 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Platform } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { Icon, Button, Header, Left, Body, Right, Title } from 'native-base'
+import {
+  Icon,
+  Button,
+  Header,
+  Left,
+  Body,
+  Right,
+  Title,
+  Thumbnail
+} from 'native-base'
+import { useSelector } from 'react-redux'
+import _ from 'lodash'
 
 /**
  * generic header
@@ -18,6 +29,7 @@ import { Icon, Button, Header, Left, Body, Right, Title } from 'native-base'
  */
 const GenericHeader = props => {
   const { navigation, title, type, SegmentComponent, ...rest } = props
+  const user = useSelector(({ user }) => user.current)
 
   let nav
   switch (type) {
@@ -43,9 +55,13 @@ const GenericHeader = props => {
         {SegmentComponent ? <SegmentComponent /> : <Title>{title}</Title>}
       </Body>
       <Right>
-        <Button transparent>
-          <Icon name='contact' />
-        </Button>
+        {!_.isEmpty(user) && user.avatar ? (
+          <Thumbnail small source={{ uri: user.avatar }} />
+        ) : (
+          <Button transparent>
+            <Icon name='contact' />
+          </Button>
+        )}
       </Right>
     </Header>
   )

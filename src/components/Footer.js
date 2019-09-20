@@ -13,7 +13,9 @@ const UserFooter = ({ active = 'home' }) => {
           onPress={() => NavigationService.navigate('UserHome')}>
           <Icon name='home' />
         </Button>
-        <Button active={active === 'notifications'}>
+        <Button
+          active={active === 'notifications'}
+          onPress={() => NavigationService.navigate('EmergencyAlertsList')}>
           <Icon name='notifications' />
         </Button>
         <Button

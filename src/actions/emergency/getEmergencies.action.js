@@ -5,7 +5,10 @@ import showToast from '../../helpers/toast.helper'
 
 import { createAction } from 'redux-actions'
 
-// not used due to added firebase listener
+/**
+ * not used due to added firebase listener in UserMaps
+ * @returns {Function}
+ */
 export function getEmergencies() {
   return async dispatch => {
     try {
@@ -16,12 +19,20 @@ export function getEmergencies() {
         .where('status', '==', 'PENDING')
         .get()
 
-      const emergencies = emergencyRef.docs.map(e => {
-        const data = e.data()
+      const emergencies = emergencyRef.docs.map(emergencyDoc => {
+        const emergency = emergencyDoc.data()
         return {
-          id: e.id,
-          location: data.location,
-          department: data.department
+          id: emergencyDoc.id,
+          address: emergency.address,
+          comments: emergency.comments,
+          date: emergency.date.toDate(),
+          department: emergency.department,
+          description: emergency.description,
+          location: emergency.location,
+          media: emergency.media,
+          priority: emergency.priority,
+          role: emergency.role,
+          status: emergency.status
         }
       })
 
