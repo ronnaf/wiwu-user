@@ -19,7 +19,7 @@ const { contentPadding } = commonColor
 const { width } = Dimensions.get('window')
 const outerCircle = width - 32
 const middleCircle = outerCircle - 80
-const innerCircle = middleCircle - 80
+const innerCircle = middleCircle - 40
 
 const UserHome = () => {
   const lottieRef = useRef(null)
@@ -33,9 +33,20 @@ const UserHome = () => {
     <Container>
       <GenericHeader title='Home' type='drawer' />
       <Grid style={{ margin: contentPadding }}>
-        <Row size={3} style={{ alignItems: 'center' }}>
-          <Lottie ref={lottieRef} source={require('../../assets/call.json')} />
-          <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Row
+          size={5}
+          style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Lottie
+            ref={lottieRef}
+            source={require('../../assets/call.json')}
+            style={{ width: '125%', position: 'relative' }}
+          />
+          <Col
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'absolute'
+            }}>
             <TouchableOpacity
               onPress={() =>
                 ActionSheet.show(
@@ -75,7 +86,7 @@ const UserHome = () => {
             </TouchableOpacity>
           </Col>
         </Row>
-        <Row size={1.5}>
+        <Row size={2}>
           <Col style={{ justifyContent: 'center', alignItems: 'center' }}>
             <Text
               style={{
@@ -100,131 +111,97 @@ const UserHome = () => {
             </Text>
           </Col>
         </Row>
-        <Row size={2}>
+        <Row size={2} style={{ marginBottom: 8 }}>
           <Col>
-            <Row style={{ marginBottom: 8 }}>
-              <Col>
-                <TouchableOpacity
-                  style={{ flex: 1 }}
-                  onPress={() => {
-                    NavigationService.navigate('UserRequest')
-                    dispatch(createAction(SET_SELECTED_DEPARTMENT)('medical'))
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => {
+                NavigationService.navigate('UserRequest')
+                dispatch(createAction(SET_SELECTED_DEPARTMENT)('medical'))
+              }}>
+              <LinearGradient
+                style={{
+                  flex: 1,
+                  marginRight: 2,
+                  borderRadius: 8,
+                  padding: 8,
+                  justifyContent: 'flex-end'
+                }}
+                colors={['#5433FF', '#20BDFF', '#A5FECB']}
+                start={[0, 1]}
+                end={[1, 0]}>
+                <Text
+                  style={{
+                    color: '#f6f1ee',
+                    fontWeight: 'bold',
+                    textTransform: 'lowercase',
+                    fontSize: 24
                   }}>
-                  <LinearGradient
-                    style={{
-                      flex: 1,
-                      marginRight: 4,
-                      borderRadius: 8,
-                      padding: 8,
-                      justifyContent: 'flex-end'
-                    }}
-                    colors={['#5433FF', '#20BDFF', '#A5FECB']}
-                    start={[0, 1]}
-                    end={[1, 0]}>
-                    <Text
-                      style={{
-                        color: '#f6f1ee',
-                        fontWeight: 'bold',
-                        textTransform: 'lowercase',
-                        fontSize: 24
-                      }}>
-                      Medical
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </Col>
-              <Col>
-                <TouchableOpacity
-                  style={{ flex: 1 }}
-                  onPress={() => {
-                    dispatch(createAction(SET_SELECTED_DEPARTMENT)('fire'))
-                    NavigationService.navigate('UserRequest')
+                  Medical
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </Col>
+          <Col>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => {
+                dispatch(createAction(SET_SELECTED_DEPARTMENT)('fire'))
+                NavigationService.navigate('UserRequest')
+              }}>
+              <LinearGradient
+                style={{
+                  flex: 1,
+                  marginRight: 2,
+                  marginLeft: 2,
+                  borderRadius: 8,
+                  padding: 8,
+                  justifyContent: 'flex-end'
+                }}
+                colors={['#8A2387', '#E94057', '#f27121']}
+                start={[0, 1]}
+                end={[1, 0]}>
+                <Text
+                  style={{
+                    color: '#f6f1ee',
+                    fontWeight: 'bold',
+                    textTransform: 'lowercase',
+                    fontSize: 24
                   }}>
-                  <LinearGradient
-                    style={{
-                      flex: 1,
-                      marginLeft: 4,
-                      borderRadius: 8,
-                      padding: 8,
-                      justifyContent: 'flex-end'
-                    }}
-                    colors={['#8A2387', '#E94057', '#f27121']}
-                    start={[0, 1]}
-                    end={[1, 0]}>
-                    <Text
-                      style={{
-                        color: '#f6f1ee',
-                        fontWeight: 'bold',
-                        textTransform: 'lowercase',
-                        fontSize: 24
-                      }}>
-                      Fire
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <TouchableOpacity
-                  style={{ flex: 1 }}
-                  onPress={() => {
-                    NavigationService.navigate('UserRequest')
-                    dispatch(createAction(SET_SELECTED_DEPARTMENT)('police'))
+                  Fire
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </Col>
+          <Col>
+            <TouchableOpacity
+              style={{ flex: 1 }}
+              onPress={() => {
+                NavigationService.navigate('UserRequest')
+                dispatch(createAction(SET_SELECTED_DEPARTMENT)('police'))
+              }}>
+              <LinearGradient
+                style={{
+                  flex: 1,
+                  marginLeft: 2,
+                  borderRadius: 8,
+                  padding: 8,
+                  justifyContent: 'flex-end'
+                }}
+                colors={['#1a2a6c', '#b21f1f', '#fdbb2d']}
+                start={[0, 1]}
+                end={[1, 0]}>
+                <Text
+                  style={{
+                    color: '#f6f1ee',
+                    fontWeight: 'bold',
+                    textTransform: 'lowercase',
+                    fontSize: 24
                   }}>
-                  <LinearGradient
-                    style={{
-                      flex: 1,
-                      marginRight: 4,
-                      borderRadius: 8,
-                      padding: 8,
-                      justifyContent: 'flex-end'
-                    }}
-                    colors={['#1a2a6c', '#b21f1f', '#fdbb2d']}
-                    start={[0, 1]}
-                    end={[1, 0]}>
-                    <Text
-                      style={{
-                        color: '#f6f1ee',
-                        fontWeight: 'bold',
-                        textTransform: 'lowercase',
-                        fontSize: 24
-                      }}>
-                      Police
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </Col>
-              <Col>
-                <TouchableOpacity
-                  style={{ flex: 1 }}
-                  onPress={() =>
-                    NavigationService.navigate('UserVerification')
-                  }>
-                  <LinearGradient
-                    style={{
-                      flex: 1,
-                      marginLeft: 4,
-                      borderRadius: 8,
-                      padding: 8,
-                      justifyContent: 'flex-end'
-                    }}
-                    colors={['#ffa6b7', '#1e2ad2']}
-                    start={[0, 1]}
-                    end={[1, 0]}>
-                    <Text
-                      style={{
-                        color: '#f6f1ee',
-                        fontWeight: 'bold',
-                        textTransform: 'lowercase',
-                        fontSize: 24
-                      }}>
-                      Typhoon
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </Col>
-            </Row>
+                  Police
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </Col>
         </Row>
       </Grid>
