@@ -21,6 +21,7 @@ export const uploadId = idImage => {
         dispatch(createAction(UPLOAD_ID)())
         NavigationService.navigate('UserHome')
         dispatch(createAction(SCREEN_LOADING)(false))
+        showToast('Id uploaded. Your account will be verified asap.')
       })
     } catch (error) {
       showToast(error.message)

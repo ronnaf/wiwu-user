@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, Text } from 'react-native'
 import {
   TwilioVideoLocalView,
   TwilioVideoParticipantView,
@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { resetToken } from '../actions/twilio/resetToken.action'
 import showToast from '../helpers/toast.helper'
 import { setJoinedRoom } from '../actions/twilio/setJoinedVideo'
+import { Spinner } from 'native-base'
 
 const Twilio = props => {
   const dispatch = useDispatch()
@@ -36,7 +37,6 @@ const Twilio = props => {
       setStatus('connecting')
       dispatch(setJoinedRoom(true))
     } catch (error) {
-      console.log(`ERROR: ${error}`)
       showToast(error.message)
     }
   }
@@ -113,19 +113,45 @@ const Twilio = props => {
                 flexDirection: 'row',
                 flexWrap: 'wrap'
               }}>
-              {Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
-                return (
-                  <TwilioVideoParticipantView
-                    enabled
+              {videoTracks.size === 0 ? (
+                <View style={{ width: '100%', height: '100%' }}>
+                  <View
                     style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
                       width: '100%',
-                      height: '100%'
-                    }}
-                    key={trackSid}
-                    trackIdentifier={trackIdentifier}
-                  />
-                )
-              })}
+                      alignItems: 'center',
+                      marginTop: '40%'
+                    }}>
+                    <Text style={{ color: 'grey' }}>
+                      Please wait for a representative to connect.
+                    </Text>
+                  </View>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      width: '100%',
+                      alignItems: 'center'
+                    }}>
+                    <Spinner color='blue' />
+                  </View>
+                </View>
+              ) : (
+                Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
+                  return (
+                    <TwilioVideoParticipantView
+                      enabled
+                      style={{
+                        width: '100%',
+                        height: '100%'
+                      }}
+                      key={trackSid}
+                      trackIdentifier={trackIdentifier}
+                    />
+                  )
+                })
+              )}
             </View>
           )}
           <View
@@ -149,7 +175,7 @@ const Twilio = props => {
                 marginLeft: 10,
                 marginRight: 10,
                 borderRadius: 100 / 2,
-                backgroundColor: 'grey',
+                backgroundColor: 'black',
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>
