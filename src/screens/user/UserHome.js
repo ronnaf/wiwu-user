@@ -1,10 +1,16 @@
 import React, { useRef, useEffect } from 'react'
 import { Container, Text, Icon, ActionSheet } from 'native-base'
-import { Dimensions, TouchableOpacity, Linking, Platform } from 'react-native'
+import {
+  Dimensions,
+  TouchableOpacity,
+  Linking,
+  Platform,
+  View
+} from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
 import Lottie from 'lottie-react-native'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
 
 import { SET_SELECTED_DEPARTMENT } from '../../actions/emergency/emergency.constants'
@@ -14,6 +20,8 @@ import GenericHeader from '../../components/GenericHeader'
 import commonColor from '../../../native-base-theme/variables/commonColor'
 import NavigationService from '../../navigation/NavigationService'
 import Footer from '../../components/Footer'
+import UnverifiedBanner from '../../components/UnverifiedBanner'
+import { verifyAlert } from '../../helpers/verifyAlert.helper'
 
 const { contentPadding } = commonColor
 const { width } = Dimensions.get('window')
@@ -22,6 +30,7 @@ const middleCircle = outerCircle - 80
 const innerCircle = middleCircle - 40
 
 const UserHome = () => {
+  const isUserVerified = useSelector(state => state.user.current.isUserVerified)
   const lottieRef = useRef(null)
   const dispatch = useDispatch()
 
@@ -31,6 +40,7 @@ const UserHome = () => {
 
   return (
     <Container>
+      {!isUserVerified ? <UnverifiedBanner /> : <View />}
       <GenericHeader title='Home' type='drawer' />
       <Grid style={{ margin: contentPadding }}>
         <Row
@@ -116,8 +126,12 @@ const UserHome = () => {
             <TouchableOpacity
               style={{ flex: 1 }}
               onPress={() => {
-                NavigationService.navigate('UserRequest')
-                dispatch(createAction(SET_SELECTED_DEPARTMENT)('medical'))
+                if (!isUserVerified) {
+                  verifyAlert()
+                } else {
+                  NavigationService.navigate('UserRequest')
+                  dispatch(createAction(SET_SELECTED_DEPARTMENT)('medical'))
+                }
               }}>
               <LinearGradient
                 style={{
@@ -146,8 +160,12 @@ const UserHome = () => {
             <TouchableOpacity
               style={{ flex: 1 }}
               onPress={() => {
-                dispatch(createAction(SET_SELECTED_DEPARTMENT)('fire'))
-                NavigationService.navigate('UserRequest')
+                if (!isUserVerified) {
+                  verifyAlert()
+                } else {
+                  dispatch(createAction(SET_SELECTED_DEPARTMENT)('fire'))
+                  NavigationService.navigate('UserRequest')
+                }
               }}>
               <LinearGradient
                 style={{
@@ -177,8 +195,12 @@ const UserHome = () => {
             <TouchableOpacity
               style={{ flex: 1 }}
               onPress={() => {
-                NavigationService.navigate('UserRequest')
-                dispatch(createAction(SET_SELECTED_DEPARTMENT)('police'))
+                if (!isUserVerified) {
+                  verifyAlert()
+                } else {
+                  NavigationService.navigate('UserRequest')
+                  dispatch(createAction(SET_SELECTED_DEPARTMENT)('police'))
+                }
               }}>
               <LinearGradient
                 style={{
