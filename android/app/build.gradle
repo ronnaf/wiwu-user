@@ -153,7 +153,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-camera')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-twilio-video-webrtc')
