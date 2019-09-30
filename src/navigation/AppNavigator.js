@@ -8,7 +8,6 @@ import { Root, View, Text } from 'native-base'
 import OneSignal from 'react-native-onesignal'
 
 import { NET_INFO } from '../actions/user/user.constants'
-import { syncDb } from '../actions/emergency/syncDb.action'
 
 import { checkOnlineStatus } from '../helpers/online-status.helper'
 
@@ -49,10 +48,6 @@ const AppNavigator = () => {
   const handleConnectivityChange = connectionInfo => {
     const isOnline = checkOnlineStatus(connectionInfo)
 
-    if (isOnline) {
-      dispatch(syncDb())
-    }
-
     dispatch(
       createAction(NET_INFO)({
         ...connectionInfo,
@@ -64,10 +59,6 @@ const AppNavigator = () => {
   const getConnection = async () => {
     const connectionInfo = await NetInfo.getConnectionInfo()
     const isOnline = checkOnlineStatus(connectionInfo)
-
-    if (isOnline) {
-      dispatch(syncDb())
-    }
 
     dispatch(
       createAction(NET_INFO)({

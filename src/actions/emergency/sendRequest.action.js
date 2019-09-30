@@ -1,4 +1,3 @@
-import { WIWU_OFFLINE_EMERGENCY_ARRAY } from './emergency.constants'
 import { SCREEN_LOADING } from '../user/user.constants'
 import { firestore, firebase } from '../../firebase'
 import showToast from '../../helpers/toast.helper'
@@ -6,7 +5,6 @@ import NavigationService from '../../navigation/NavigationService'
 import { PermissionsAndroid, NativeModules, Platform } from 'react-native'
 import { SECRET_KEY } from 'react-native-dotenv'
 import { createAction } from 'redux-actions'
-import * as SecureStore from 'expo-secure-store'
 import SimpleCrypto from 'simple-crypto-js'
 import * as SMS from 'expo-sms'
 import { uploadAsset } from '../../helpers/upload.helper'
@@ -73,26 +71,6 @@ export function sendRequestAction(values) {
           const encryptedPayload = simpleCrypto.encrypt(JSON.stringify(payload))
           await SMS.sendSMSAsync(smsReceiver, encryptedPayload)
           showToast('Message has been sent', 'success')
-        }
-
-        // after sending sms
-        const emergencyArray = await SecureStore.getItemAsync(
-          WIWU_OFFLINE_EMERGENCY_ARRAY
-        )
-
-        if (emergencyArray) {
-          const arr = JSON.parse(emergencyArray)
-          arr.push(payload)
-
-          await SecureStore.setItemAsync(
-            WIWU_OFFLINE_EMERGENCY_ARRAY,
-            JSON.stringify(arr)
-          )
-        } else {
-          await SecureStore.setItemAsync(
-            WIWU_OFFLINE_EMERGENCY_ARRAY,
-            JSON.stringify([payload])
-          )
         }
       } else {
         // if user is online
