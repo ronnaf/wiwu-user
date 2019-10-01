@@ -3,7 +3,7 @@ import { firestore, firebase } from '../../firebase'
 import showToast from '../../helpers/toast.helper'
 import NavigationService from '../../navigation/NavigationService'
 import { PermissionsAndroid, NativeModules, Platform } from 'react-native'
-import { SECRET_KEY } from 'react-native-dotenv'
+import { SECRET_KEY, PHONE_NUMBER } from 'react-native-dotenv'
 import { createAction } from 'redux-actions'
 import SimpleCrypto from 'simple-crypto-js'
 import * as SMS from 'expo-sms'
@@ -20,7 +20,7 @@ export function sendRequestAction(values) {
         map: { pinCoordinates }
       } = getState()
       const simpleCrypto = new SimpleCrypto(SECRET_KEY)
-      const smsReceiver = '09177456123'
+      const smsReceiver = PHONE_NUMBER
 
       dispatch(createAction(SCREEN_LOADING)(true))
 
