@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, StyleSheet, AppState, Image } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  AppState,
+  Image,
+  TouchableOpacity
+} from 'react-native'
 import MapView from 'react-native-maps'
-import { Toast, Container, Button, Icon } from 'native-base'
+import { Toast, Container, Icon } from 'native-base'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAction } from 'redux-actions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
@@ -158,13 +164,13 @@ const Map = props => {
           }}
         />
       </View>
-      <Button
-        rounded
-        primary
-        onPress={getCurrentPosition}
-        style={styles.buttonStyle}>
-        <Icon name='add' size={100} style={styles.iconStyle} />
-      </Button>
+      <TouchableOpacity onPress={getCurrentPosition} style={styles.buttonStyle}>
+        <Icon
+          name='my-location'
+          style={styles.iconStyle}
+          type='MaterialIcons'
+        />
+      </TouchableOpacity>
     </Container>
   )
 }
@@ -194,7 +200,9 @@ const styles = StyleSheet.create({
   },
   iconStyle: {
     justifyContent: 'center',
-    alignSelf: 'center'
+    alignSelf: 'center',
+    color: '#000080',
+    fontSize: 30
   }
 })
 
