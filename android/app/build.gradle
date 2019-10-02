@@ -156,7 +156,6 @@ dependencies {
     implementation project(':react-native-onesignal')
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-twilio-video-webrtc')
-    implementation project(':react-native-background-timer')
     implementation project(':react-native-maps')
     implementation project(':lottie-react-native')
     implementation project(':react-native-reanimated')
