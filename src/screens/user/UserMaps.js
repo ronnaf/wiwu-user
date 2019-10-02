@@ -28,7 +28,6 @@ export const useGetEmergenciesListener = () => {
             return {
               id: emergencyDoc.id,
               address: emergency.address,
-              comments: emergency.comments,
               date: emergency.date.toDate(),
               department: emergency.department,
               description: emergency.description,
