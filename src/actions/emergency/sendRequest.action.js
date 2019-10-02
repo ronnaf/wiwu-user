@@ -29,7 +29,6 @@ export function sendRequestAction(values) {
         userId: isOffline ? uid : firestore.doc(`users/${uid}`),
         location: pinCoordinates,
         responderId: null,
-        adminId: null,
         priority: 'UNDETERMINED',
         status: 'PENDING',
         date: new Date(),
