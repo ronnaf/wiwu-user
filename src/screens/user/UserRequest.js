@@ -28,7 +28,6 @@ const UserRequest = () => {
     role: 'I need help!',
     description: '',
     address: '',
-    comments: '',
     media: null
   }
 
