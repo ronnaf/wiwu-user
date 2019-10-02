@@ -91,6 +91,7 @@ const Twilio = props => {
     const tracks = videoTracks
     tracks.delete(track.trackSid)
     setVideoTracks(tracks)
+    leaveRoom()
   }
 
   return (
