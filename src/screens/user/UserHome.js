@@ -76,7 +76,7 @@ const UserHome = () => {
           <Lottie
             ref={lottieRef}
             source={require('../../assets/call.json')}
-            style={{ width: '125%', position: 'relative' }}
+            style={{ width: '100%', position: 'relative' }}
           />
           <Col
             style={{
