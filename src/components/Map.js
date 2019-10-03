@@ -50,8 +50,7 @@ const Map = props => {
         Toast.show({
           text: error.message,
           buttonText: 'Okay'
-        }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+        })
     )
   }
 

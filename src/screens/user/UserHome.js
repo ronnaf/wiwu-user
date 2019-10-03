@@ -34,28 +34,31 @@ const innerCircle = middleCircle - 40
 
 const UserHome = () => {
   const isUserVerified = useSelector(state => state.user.current.isUserVerified)
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
   const lottieRef = useRef(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
     lottieRef.current.play()
     try {
-      const { uid } = auth.currentUser
-      const listenerRef = firestore
-        .collection('users')
-        .doc(uid)
-        .onSnapshot(snapshot => {
-          if (isUserVerified !== snapshot.data().isUserVerified) {
-            dispatch(updateVerificationStatus(snapshot.data().isUserVerified))
-          }
-        })
-      return function cleanup() {
-        listenerRef()
+      if (!isOffline) {
+        const { uid } = auth.currentUser
+        const listenerRef = firestore
+          .collection('users')
+          .doc(uid)
+          .onSnapshot(snapshot => {
+            if (isUserVerified !== snapshot.data().isUserVerified) {
+              dispatch(updateVerificationStatus(snapshot.data().isUserVerified))
+            }
+          })
+        return function cleanup() {
+          listenerRef()
+        }
       }
     } catch (error) {
       showToast('No connection found')
     }
-  }, [])
+  }, [isOffline])
 
   return (
     <Container>
