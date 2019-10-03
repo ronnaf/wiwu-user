@@ -1,7 +1,11 @@
-import { SET_SELECTED_DEPARTMENT } from '../actions/emergency/emergency.constants'
+import {
+  SET_SELECTED_DEPARTMENT,
+  GET_ALL_EMERGENCIES
+} from '../actions/emergency/emergency.constants'
 
 const initialState = {
-  departmentSelected: ''
+  departmentSelected: '',
+  list: [] // this is for queried emergencies
 }
 
 export default function reducer(state = initialState, action) {
@@ -10,6 +14,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         departmentSelected: action.payload
+      }
+    case GET_ALL_EMERGENCIES:
+      return {
+        ...state,
+        list: action.payload
       }
     default:
       return state

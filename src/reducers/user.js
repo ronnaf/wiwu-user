@@ -6,7 +6,8 @@ import {
   VERIFY,
   NET_INFO,
   CHANGE_PASSWORD,
-  SCREEN_LOADING
+  SCREEN_LOADING,
+  UPLOAD_ID
 } from '../actions/user/user.constants'
 
 const initialState = {
@@ -53,6 +54,10 @@ export default function reducer(state = initialState, action) {
           ...state.current,
           isEmailVerified: action.payload
         }
+      }
+    case UPLOAD_ID:
+      return {
+        ...state
       }
     case LOGOUT:
       return {

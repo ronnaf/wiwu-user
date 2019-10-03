@@ -61,7 +61,7 @@ const UnverifiedScreen = props => {
                 primary
                 block
                 disabled={isOffline}
-                onPress={() => dispatch(verifyUser)}>
+                onPress={() => dispatch(verifyUser())}>
                 <Text>I have already done this</Text>
               </Button>
               <Spacer height={8} />

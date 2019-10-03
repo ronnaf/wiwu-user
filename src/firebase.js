@@ -8,7 +8,7 @@ const firebaseConfig = {
   authDomain: 'weewoo-b9408.firebaseapp.com',
   databaseURL: 'https://weewoo-b9408.firebaseio.com',
   projectId: 'weewoo-b9408',
-  storageBucket: '',
+  storageBucket: 'gs://weewoo-b9408.appspot.com/',
   messagingSenderId: '363729210043',
   appId: '1:363729210043:web:47b0c446dc062344'
 }
@@ -16,7 +16,8 @@ const firebaseConfig = {
 const firebaseApp = firebase.initializeApp(firebaseConfig)
 const auth = firebaseApp.auth()
 const firestore = firebaseApp.firestore()
+const storage = firebaseApp.storage()
 const persistence = firebase.auth.Auth.Persistence
 
 // Initialize Firebase
-export { auth, firestore, persistence, firebase }
+export { auth, firestore, storage, persistence, firebase }

@@ -1,16 +1,19 @@
 import React, { Fragment, useState } from 'react'
-import { Container, Content, Form, Button, Text, Label } from 'native-base'
+import { Container, Content, Form, Button, Text } from 'native-base'
 import { Formik } from 'formik'
-import { View } from 'react-native'
+import { View, Image } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
+import * as ImagePicker from 'expo-image-picker'
 import _ from 'lodash'
 
-import { sendRequest } from '../../actions/emergency/sendRequest'
+import { sendRequestAction } from '../../actions/emergency/sendRequest.action'
+import { showCameraActionSheet } from '../../helpers/camera.helper'
 
 import GenericHeader from '../../components/GenericHeader'
 import GenericPicker from '../../components/GenericPicker'
 import GenericInput from '../../components/GenericInput'
 import GenericTextarea from '../../components/GenericTextarea'
+import GenericField from '../../components/GenericField'
 import Spacer from '../../components/Spacer'
 import Map from '../../components/Map'
 
@@ -20,20 +23,25 @@ const UserRequest = () => {
 
   const [isMoreFields, setMoreFields] = useState(false)
   const department = useSelector(state => state.emergency.departmentSelected)
+  const initialValues = {
+    department,
+    role: 'I need help!',
+    description: '',
+    address: '',
+    media: null
+  }
 
   return (
     <Container>
       <GenericHeader title='Emergency Request' type='back' />
       <Content padder>
         <Formik
-          initialValues={{
-            department,
-            role: 'I need help!',
-            description: '',
-            address: '',
-            comments: ''
-          }}
-          onSubmit={values => dispatch(sendRequest(values))}>
+          enableReinitialize={true}
+          initialValues={initialValues}
+          onSubmit={async (values, { resetForm }) => {
+            await dispatch(sendRequestAction(values))
+            resetForm()
+          }}>
           {({
             values,
             errors,
@@ -41,8 +49,6 @@ const UserRequest = () => {
             handleChange,
             handleBlur,
             handleSubmit,
-            isSubmitting,
-            isValidating,
             setFieldValue
           }) => (
             <Form>
@@ -62,10 +68,54 @@ const UserRequest = () => {
                 handleChange={e => setFieldValue('role', e)}
                 value={values.role}
               />
-              <Label>Emergency location</Label>
-              <View style={{ height: 400, marginBottom: 10 }}>
-                <Map />
-              </View>
+
+              <GenericField
+                label={'Emergency location'}
+                CustomComponent={
+                  <View style={{ height: 300 }}>
+                    <Map />
+                  </View>
+                }
+              />
+
+              <GenericField
+                label={'Photo/Video'}
+                CustomComponent={
+                  <View>
+                    {!_.isEmpty(values.media) && (
+                      <View>
+                        <Image
+                          style={{ height: 300, width: '100%' }}
+                          resizeMode='cover'
+                          source={{ uri: values.media }}
+                        />
+                        <Spacer height={8} />
+                      </View>
+                    )}
+                    <Button
+                      primary
+                      full
+                      bordered
+                      onPress={() =>
+                        showCameraActionSheet(
+                          setFieldValue,
+                          'media',
+                          'Take Photo/Video',
+                          'Choose an Attachment',
+                          ImagePicker.MediaTypeOptions.All
+                        )
+                      }
+                      title={'Attach photo or video'}>
+                      <Text>
+                        {values.media
+                          ? 'Update photo or video'
+                          : 'Attach photo or video'}
+                      </Text>
+                    </Button>
+                  </View>
+                }
+              />
+
               {isMoreFields && (
                 <Fragment>
                   <GenericTextarea

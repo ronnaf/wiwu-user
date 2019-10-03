@@ -3,10 +3,12 @@ import user from './user'
 import contacts from './contacts'
 import map from './map'
 import emergency from './emergency'
+import twilio from './twilio'
 
 export default combineReducers({
-  user: user,
-  contacts: contacts,
-  map: map,
-  emergency: emergency
+  user,
+  contacts,
+  map,
+  emergency,
+  twilio
 })

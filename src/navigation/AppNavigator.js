@@ -5,11 +5,11 @@ import { NetInfo, StyleSheet } from 'react-native'
 import { createAction } from 'redux-actions'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { Root, View, Text } from 'native-base'
+import OneSignal from 'react-native-onesignal'
 
 import { NET_INFO } from '../actions/user/user.constants'
-import { syncDb } from '../actions/emergency/syncDb.action'
 
-import { checkOnlineStatus } from '../helpers/checkOnlineStatus.helper'
+import { checkOnlineStatus } from '../helpers/online-status.helper'
 
 // import MainTabNavigator from './MainTabNavigator'
 import AuthNavigator from './sub-navigators/AuthNavigator'
@@ -48,10 +48,6 @@ const AppNavigator = () => {
   const handleConnectivityChange = connectionInfo => {
     const isOnline = checkOnlineStatus(connectionInfo)
 
-    if (isOnline) {
-      dispatch(syncDb())
-    }
-
     dispatch(
       createAction(NET_INFO)({
         ...connectionInfo,
@@ -63,10 +59,6 @@ const AppNavigator = () => {
   const getConnection = async () => {
     const connectionInfo = await NetInfo.getConnectionInfo()
     const isOnline = checkOnlineStatus(connectionInfo)
-
-    if (isOnline) {
-      dispatch(syncDb())
-    }
 
     dispatch(
       createAction(NET_INFO)({
@@ -80,8 +72,35 @@ const AppNavigator = () => {
     }
   }
 
+  const onReceived = notification => {
+    console.log('Notification received: ', notification)
+  }
+
+  const onOpened = openResult => {
+    console.log('Message: ', openResult.notification.payload.body)
+    console.log('Data: ', openResult.notification.payload.additionalData)
+    console.log('isActive: ', openResult.notification.isAppInFocus)
+    console.log('openResult: ', openResult)
+  }
+
+  const onIds = device => {
+    console.log('Device info: ', device)
+  }
+
   useEffect(() => {
     getConnection(dispatch)
+    OneSignal.init('99a5a234-ed7d-48a6-9738-4cf5a7a4fbec')
+    OneSignal.inFocusDisplaying(2) // this means that it should not give a notification inside app
+
+    OneSignal.addEventListener('received', onReceived)
+    OneSignal.addEventListener('opened', onOpened)
+    OneSignal.addEventListener('ids', onIds)
+
+    return function cleanup() {
+      OneSignal.removeEventListener('received', onReceived)
+      OneSignal.removeEventListener('opened', onOpened)
+      OneSignal.removeEventListener('ids', onIds)
+    }
   }, [])
 
   return (
