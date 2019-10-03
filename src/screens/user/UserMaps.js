@@ -15,6 +15,7 @@ import showToast from '../../helpers/toast.helper'
 
 export const useGetEmergenciesListener = () => {
   const dispatch = useDispatch()
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
 
   useEffect(() => {
     try {
@@ -22,6 +23,7 @@ export const useGetEmergenciesListener = () => {
         .collection('emergencies')
         .where('status', '==', 'PENDING')
         .onSnapshot(snapshot => {
+          console.log('triggered')
           const emergencies = snapshot.docs.map(emergencyDoc => {
             const emergency = emergencyDoc.data()
 
@@ -47,7 +49,7 @@ export const useGetEmergenciesListener = () => {
     } catch (e) {
       showToast('No connection found')
     }
-  }, [])
+  }, [isOffline])
 }
 
 const UserMaps = () => {
