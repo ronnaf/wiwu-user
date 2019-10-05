@@ -23,6 +23,7 @@ const UserVerification = () => {
   const [permissionCamera, setPermissionCamera] = useState(false)
   const [permissionAudio, setPermissionAudio] = useState(false)
   const [idImage, setIdImage] = useState()
+  const readyToConnect = useSelector(state => state.twilio.readyToConnect)
 
   useEffect(() => {
     if (!permissionCamera) {
@@ -108,7 +109,7 @@ const UserVerification = () => {
           )}
         </View>
       )}
-      {permissionCamera && permissionAudio ? (
+      {permissionCamera && permissionAudio && readyToConnect ? (
         <Twilio setStatus={setStatus} status={status} roomName={roomName} />
       ) : (
         <View />
