@@ -19,7 +19,7 @@ export const verifyUser = () => {
           NavigationService.navigate('UserHome')
           dispatch(createAction(VERIFY)(user.emailVerified))
         } else {
-          showToast('User is not verified', 'error')
+          showToast('User is not verified')
         }
         NavigationService.navigate(
           user.emailVerified ? 'UserHome' : 'Unverified'

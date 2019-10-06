@@ -56,7 +56,7 @@ export function sendRequestAction(values) {
           if (granted === PermissionsAndroid.RESULTS.GRANTED) {
             const secretPayload = simpleCrypto.encrypt(JSON.stringify(payload))
             DirectSms.sendDirectSms(smsReceiver, secretPayload)
-            showToast('Message has been sent', 'success')
+            showToast('Message has been sent')
           } else {
             throw new Error('Cannot send SMS')
           }
@@ -69,7 +69,7 @@ export function sendRequestAction(values) {
 
           const encryptedPayload = simpleCrypto.encrypt(JSON.stringify(payload))
           await SMS.sendSMSAsync(smsReceiver, encryptedPayload)
-          showToast('Message has been sent', 'success')
+          showToast('Message has been sent')
         }
       } else {
         // if user is online
@@ -109,12 +109,12 @@ export function sendRequestAction(values) {
             })
         }
       }
-      showToast('Emergency request sent!', 'success')
+      showToast('Emergency request sent!')
       NavigationService.navigate('UserHome')
       dispatch(createAction(SCREEN_LOADING)(false))
     } catch (e) {
       dispatch(createAction(SCREEN_LOADING)(false))
-      showToast(e.message, 'error')
+      showToast(e.message)
       console.log('[!] sendRequest - ERROR -', e)
     }
   }
