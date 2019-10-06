@@ -7,7 +7,8 @@ import {
   NET_INFO,
   CHANGE_PASSWORD,
   SCREEN_LOADING,
-  UPLOAD_ID
+  UPLOAD_ID,
+  UPDATE_VERIFICATION_STATUS
 } from '../actions/user/user.constants'
 
 const initialState = {
@@ -24,7 +25,8 @@ const initialState = {
     effectiveType: 'unknown',
     isOffline: false
   },
-  isLoading: false
+  isLoading: false,
+  isUserVerified: false
 }
 
 export default function reducer(state = initialState, action) {
@@ -77,6 +79,14 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         netInfo: action.payload
+      }
+    case UPDATE_VERIFICATION_STATUS:
+      return {
+        ...state,
+        current: {
+          ...state.current,
+          isUserVerified: action.payload
+        }
       }
     default:
       return state

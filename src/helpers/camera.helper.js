@@ -21,14 +21,14 @@ export const askCameraPermission = async () => {
     )
 
     if (cameraStatus !== 'granted' && cameraRollStatus !== 'granted') {
-      showToast('You denied camera access!', 'error')
+      showToast('You denied camera access!')
       return false
     } else {
       return true
     }
   } catch (e) {
     console.log('[!] error - askCameraPermission -', e)
-    showToast(e.message, 'error')
+    showToast(e.message)
     return false
   }
 }
@@ -67,7 +67,7 @@ export const launchMediaAsync = async (
     }
   } catch (e) {
     console.log('[!] error - launchMediaAsync -', e)
-    showToast(e.message, 'error')
+    showToast(e.message)
   }
 }
 

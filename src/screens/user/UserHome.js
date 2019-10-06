@@ -20,8 +20,11 @@ import GenericHeader from '../../components/GenericHeader'
 import commonColor from '../../../native-base-theme/variables/commonColor'
 import NavigationService from '../../navigation/NavigationService'
 import Footer from '../../components/Footer'
-import UnverifiedBanner from '../../components/UnverifiedBanner'
+import Banner from '../../components/Banner'
 import { verifyAlert } from '../../helpers/verifyAlert.helper'
+import showToast from '../../helpers/toast.helper'
+import { firestore, auth } from '../../firebase'
+import { updateVerificationStatus } from '../../actions/user/updateVerificationStatus'
 
 const { contentPadding } = commonColor
 const { width } = Dimensions.get('window')
@@ -31,16 +34,43 @@ const innerCircle = middleCircle - 40
 
 const UserHome = () => {
   const isUserVerified = useSelector(state => state.user.current.isUserVerified)
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
   const lottieRef = useRef(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
     lottieRef.current.play()
-  }, [])
+    try {
+      if (!isOffline) {
+        const { uid } = auth.currentUser
+        const listenerRef = firestore
+          .collection('users')
+          .doc(uid)
+          .onSnapshot(snapshot => {
+            if (isUserVerified !== snapshot.data().isUserVerified) {
+              dispatch(updateVerificationStatus(snapshot.data().isUserVerified))
+            }
+          })
+        return function cleanup() {
+          listenerRef()
+        }
+      }
+    } catch (error) {
+      showToast('No connection found')
+    }
+  }, [isOffline])
 
   return (
     <Container>
-      {!isUserVerified ? <UnverifiedBanner /> : <View />}
+      {!isUserVerified ? (
+        <Banner
+          type='warn'
+          title='Unverified Identity'
+          description='Some features may not be available.'
+        />
+      ) : (
+        <View />
+      )}
       <GenericHeader title='Home' type='drawer' />
       <Grid style={{ margin: contentPadding }}>
         <Row
@@ -49,7 +79,7 @@ const UserHome = () => {
           <Lottie
             ref={lottieRef}
             source={require('../../assets/call.json')}
-            style={{ width: '125%', position: 'relative' }}
+            style={{ width: '100%', position: 'relative' }}
           />
           <Col
             style={{

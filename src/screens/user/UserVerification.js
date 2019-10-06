@@ -23,15 +23,21 @@ const UserVerification = () => {
   const [permissionCamera, setPermissionCamera] = useState(false)
   const [permissionAudio, setPermissionAudio] = useState(false)
   const [idImage, setIdImage] = useState()
+  const readyToConnect = useSelector(state => state.twilio.readyToConnect)
 
   useEffect(() => {
-    if (!permissionCamera && !permissionAudio) {
-      requestPermissions()
+    if (!permissionCamera) {
+      requestPermissionCamera()
+    } else if (!permissionAudio) {
+      requestPermissionMicrophone()
     }
   })
 
-  const requestPermissions = async () => {
+  const requestPermissionCamera = async () => {
     await setPermissionCamera(await requestCamera())
+  }
+
+  const requestPermissionMicrophone = async () => {
     await setPermissionAudio(await requestMicrophone())
   }
 
@@ -103,7 +109,11 @@ const UserVerification = () => {
           )}
         </View>
       )}
-      <Twilio setStatus={setStatus} status={status} roomName={roomName} />
+      {permissionCamera && permissionAudio && readyToConnect ? (
+        <Twilio setStatus={setStatus} status={status} roomName={roomName} />
+      ) : (
+        <View />
+      )}
     </View>
   )
 }

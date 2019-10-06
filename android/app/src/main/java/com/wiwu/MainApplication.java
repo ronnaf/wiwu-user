@@ -6,7 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.geektime.rnonesignalandroid.ReactNativeOneSignalPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.twiliorn.library.TwilioPackage;
-import com.ocetnik.timer.BackgroundTimerPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.swmansion.reanimated.ReanimatedPackage;
@@ -48,10 +47,8 @@ public class MainApplication extends Application implements ReactApplication {
           new ReactNativeOneSignalPackage(),
           new VectorIconsPackage(),
           new TwilioPackage(),
-          new BackgroundTimerPackage(),
           new MapsPackage(),
           new LottiePackage(),
-          new BackgroundTaskBridgePackage(),
           new ReanimatedPackage(),
           new RNGestureHandlerPackage(),
           new DirectSmsPackage(),

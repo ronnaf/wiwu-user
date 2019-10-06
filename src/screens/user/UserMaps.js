@@ -15,39 +15,42 @@ import showToast from '../../helpers/toast.helper'
 
 export const useGetEmergenciesListener = () => {
   const dispatch = useDispatch()
+  const isOffline = useSelector(state => state.user.netInfo.isOffline)
 
   useEffect(() => {
     try {
-      const listenerRef = firestore
-        .collection('emergencies')
-        .where('status', '==', 'PENDING')
-        .onSnapshot(snapshot => {
-          const emergencies = snapshot.docs.map(emergencyDoc => {
-            const emergency = emergencyDoc.data()
+      if (!isOffline) {
+        const listenerRef = firestore
+          .collection('emergencies')
+          .where('status', '==', 'PENDING')
+          .onSnapshot(snapshot => {
+            const emergencies = snapshot.docs.map(emergencyDoc => {
+              const emergency = emergencyDoc.data()
 
-            return {
-              id: emergencyDoc.id,
-              address: emergency.address,
-              date: emergency.date.toDate(),
-              department: emergency.department,
-              description: emergency.description,
-              location: emergency.location,
-              media: emergency.media,
-              priority: emergency.priority,
-              role: emergency.role,
-              status: emergency.status
-            }
+              return {
+                id: emergencyDoc.id,
+                address: emergency.address,
+                date: emergency.date.toDate(),
+                department: emergency.department,
+                description: emergency.description,
+                location: emergency.location,
+                media: emergency.media,
+                priority: emergency.priority,
+                role: emergency.role,
+                status: emergency.status
+              }
+            })
+            dispatch(createAction(GET_ALL_EMERGENCIES)(emergencies))
           })
-          dispatch(createAction(GET_ALL_EMERGENCIES)(emergencies))
-        })
 
-      return function cleanup() {
-        listenerRef()
+        return function cleanup() {
+          listenerRef()
+        }
       }
     } catch (e) {
       showToast('No connection found')
     }
-  }, [])
+  }, [isOffline])
 }
 
 const UserMaps = () => {

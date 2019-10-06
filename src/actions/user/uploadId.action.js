@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions'
-
 import { auth, firestore } from '../../firebase'
 import { SCREEN_LOADING, UPLOAD_ID } from './user.constants'
 import { uploadAsset } from '../../helpers/upload.helper'
@@ -21,7 +20,7 @@ export const uploadId = idImage => {
         dispatch(createAction(UPLOAD_ID)())
         NavigationService.navigate('UserHome')
         dispatch(createAction(SCREEN_LOADING)(false))
-        showToast('Id uploaded. Your account will be verified asap.')
+        showToast('Id uploaded. Your account will be verified ASAP.')
       })
     } catch (error) {
       showToast(error.message)

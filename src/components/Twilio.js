@@ -12,6 +12,7 @@ import { resetToken } from '../actions/twilio/resetToken.action'
 import showToast from '../helpers/toast.helper'
 import { setJoinedRoom } from '../actions/twilio/setJoinedVideo'
 import { Spinner } from 'native-base'
+import NavigationService from '../navigation/NavigationService'
 
 const Twilio = props => {
   const dispatch = useDispatch()
@@ -24,7 +25,6 @@ const Twilio = props => {
   useEffect(() => {
     if (token && !hasJoinedRoom) {
       joinRoom()
-      setHasJoinedRoom(true)
     }
   })
 
@@ -36,6 +36,7 @@ const Twilio = props => {
       })
       setStatus('connecting')
       dispatch(setJoinedRoom(true))
+      setHasJoinedRoom(true)
     } catch (error) {
       showToast(error.message)
     }
@@ -44,8 +45,10 @@ const Twilio = props => {
   const leaveRoom = async () => {
     twilioVideo.current.disconnect()
     setStatus('disconnected')
+    dispatch(setJoinedRoom(false))
     setHasJoinedRoom(false)
     dispatch(resetToken())
+    NavigationService.navigate('UserHome')
   }
 
   const onRoomDidDisconnect = ({ roomName, error }) => {
@@ -88,6 +91,7 @@ const Twilio = props => {
     const tracks = videoTracks
     tracks.delete(track.trackSid)
     setVideoTracks(tracks)
+    leaveRoom()
   }
 
   return (
