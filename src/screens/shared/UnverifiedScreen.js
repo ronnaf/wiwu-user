@@ -16,10 +16,9 @@ const UnverifiedScreen = props => {
 
   return (
     <Container>
-      <Header />
       <Grid>
         <Row
-          size={1}
+          size={2}
           style={{
             alignItems: 'flex-end'
           }}>
