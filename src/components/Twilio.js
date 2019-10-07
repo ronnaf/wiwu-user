@@ -110,6 +110,40 @@ const Twilio = props => {
             left: 0,
             right: 0
           }}>
+          {status === 'connecting' || videoTracks.size === 0 ? (
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                flexWrap: 'wrap'
+              }}>
+              <View style={{ width: '100%', height: '100%' }}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    width: '100%',
+                    alignItems: 'center',
+                    marginTop: '40%'
+                  }}>
+                  <Text style={{ color: 'grey' }}>
+                    Please wait for a representative to connect.
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    width: '100%',
+                    alignItems: 'center'
+                  }}>
+                  <Spinner color='blue' />
+                </View>
+              </View>
+            </View>
+          ) : (
+            <View />
+          )}
           {status === 'connected' && (
             <View
               style={{
@@ -118,29 +152,7 @@ const Twilio = props => {
                 flexWrap: 'wrap'
               }}>
               {videoTracks.size === 0 ? (
-                <View style={{ width: '100%', height: '100%' }}>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      width: '100%',
-                      alignItems: 'center',
-                      marginTop: '40%'
-                    }}>
-                    <Text style={{ color: 'grey' }}>
-                      Please wait for a representative to connect.
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'center',
-                      width: '100%',
-                      alignItems: 'center'
-                    }}>
-                    <Spinner color='blue' />
-                  </View>
-                </View>
+                <View />
               ) : (
                 Array.from(videoTracks, ([trackSid, trackIdentifier]) => {
                   return (
