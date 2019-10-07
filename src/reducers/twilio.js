@@ -6,7 +6,8 @@ import {
 
 const initialState = {
   token: '',
-  joinedRoom: false
+  joinedRoom: false,
+  readyToConnect: false
 }
 
 export default function reducer(state = initialState, action) {
@@ -14,7 +15,8 @@ export default function reducer(state = initialState, action) {
     case GET_TOKEN:
       return {
         ...state,
-        token: action.payload
+        token: action.payload,
+        readyToConnect: true
       }
     case RESET_TOKEN:
       return initialState

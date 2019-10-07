@@ -4,7 +4,6 @@ import Toast from 'react-native-root-toast'
  * generic toast
  *
  * @param {string} message toast message
- * @param {string} type could be ['error', 'success', 'warning', or nothing]
  */
 export const showToast = (message, type) => {
   let backgroundColor
