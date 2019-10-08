@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   Linking,
   Platform,
-  View
+  View,
+  Image
 } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -25,6 +26,7 @@ import { verifyAlert } from '../../helpers/verifyAlert.helper'
 import showToast from '../../helpers/toast.helper'
 import { firestore, auth } from '../../firebase'
 import { updateVerificationStatus } from '../../actions/user/updateVerificationStatus'
+import { images } from '../../assets/assets'
 
 const { contentPadding } = commonColor
 const { width } = Dimensions.get('window')
@@ -147,14 +149,19 @@ const UserHome = () => {
                 textTransform: 'uppercase',
                 fontFamily: 'dosis-bold'
               }}>
-              Choose an emergency
+              Fill up an emergency form
             </Text>
           </Col>
         </Row>
         <Row size={2} style={{ marginBottom: 8 }}>
           <Col>
             <TouchableOpacity
-              style={{ flex: 1 }}
+              style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                marginLeft: 3,
+                marginRight: 3
+              }}
               onPress={() => {
                 if (!isUserVerified) {
                   verifyAlert()
@@ -163,32 +170,36 @@ const UserHome = () => {
                   dispatch(createAction(SET_SELECTED_DEPARTMENT)('medical'))
                 }
               }}>
-              <LinearGradient
+              <Image
+                source={images.medicalButtonNoText}
+                resizeMode={'cover'}
                 style={{
-                  flex: 1,
-                  marginRight: 2,
-                  borderRadius: 8,
-                  padding: 8,
-                  justifyContent: 'flex-end'
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  borderRadius: 8
                 }}
-                colors={['#5433FF', '#20BDFF', '#A5FECB']}
-                start={[0, 1]}
-                end={[1, 0]}>
-                <Text
-                  style={{
-                    color: '#f6f1ee',
-                    fontWeight: 'bold',
-                    textTransform: 'lowercase',
-                    fontSize: 24
-                  }}>
-                  Medical
-                </Text>
-              </LinearGradient>
+              />
+              <Text
+                style={{
+                  color: '#f6f1ee',
+                  fontWeight: 'bold',
+                  textTransform: 'lowercase',
+                  fontSize: 24,
+                  margin: 8
+                }}>
+                Medical
+              </Text>
             </TouchableOpacity>
           </Col>
           <Col>
             <TouchableOpacity
-              style={{ flex: 1 }}
+              style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                marginLeft: 3,
+                marginRight: 3
+              }}
               onPress={() => {
                 if (!isUserVerified) {
                   verifyAlert()
@@ -197,33 +208,36 @@ const UserHome = () => {
                   NavigationService.navigate('UserRequest')
                 }
               }}>
-              <LinearGradient
+              <Image
+                source={images.fireButtonNoText}
+                resizeMode={'cover'}
                 style={{
-                  flex: 1,
-                  marginRight: 2,
-                  marginLeft: 2,
-                  borderRadius: 8,
-                  padding: 8,
-                  justifyContent: 'flex-end'
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  borderRadius: 8
                 }}
-                colors={['#8A2387', '#E94057', '#f27121']}
-                start={[0, 1]}
-                end={[1, 0]}>
-                <Text
-                  style={{
-                    color: '#f6f1ee',
-                    fontWeight: 'bold',
-                    textTransform: 'lowercase',
-                    fontSize: 24
-                  }}>
-                  Fire
-                </Text>
-              </LinearGradient>
+              />
+              <Text
+                style={{
+                  color: '#f6f1ee',
+                  fontWeight: 'bold',
+                  textTransform: 'lowercase',
+                  fontSize: 24,
+                  margin: 8
+                }}>
+                Fire
+              </Text>
             </TouchableOpacity>
           </Col>
           <Col>
             <TouchableOpacity
-              style={{ flex: 1 }}
+              style={{
+                flex: 1,
+                justifyContent: 'flex-end',
+                marginLeft: 3,
+                marginRight: 3
+              }}
               onPress={() => {
                 if (!isUserVerified) {
                   verifyAlert()
@@ -232,27 +246,26 @@ const UserHome = () => {
                   dispatch(createAction(SET_SELECTED_DEPARTMENT)('police'))
                 }
               }}>
-              <LinearGradient
+              <Image
+                source={images.policeButtonNoText}
+                resizeMode={'cover'}
                 style={{
-                  flex: 1,
-                  marginLeft: 2,
-                  borderRadius: 8,
-                  padding: 8,
-                  justifyContent: 'flex-end'
+                  position: 'absolute',
+                  height: '100%',
+                  width: '100%',
+                  borderRadius: 8
                 }}
-                colors={['#1a2a6c', '#b21f1f', '#fdbb2d']}
-                start={[0, 1]}
-                end={[1, 0]}>
-                <Text
-                  style={{
-                    color: '#f6f1ee',
-                    fontWeight: 'bold',
-                    textTransform: 'lowercase',
-                    fontSize: 24
-                  }}>
-                  Police
-                </Text>
-              </LinearGradient>
+              />
+              <Text
+                style={{
+                  color: '#f6f1ee',
+                  fontWeight: 'bold',
+                  textTransform: 'lowercase',
+                  fontSize: 24,
+                  margin: 8
+                }}>
+                Police
+              </Text>
             </TouchableOpacity>
           </Col>
         </Row>

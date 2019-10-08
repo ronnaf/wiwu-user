@@ -9,7 +9,10 @@ module.exports = {
     police: require('./images/police.png'),
     firePin: require('./images/fire-pin.png'),
     medicalPin: require('./images/medical-pin.png'),
-    policePin: require('./images/police-pin.png')
+    policePin: require('./images/police-pin.png'),
+    medicalButtonNoText: require('./images/med-button-wout-text.png'),
+    fireButtonNoText: require('./images/fire-button-wout-text.png'),
+    policeButtonNoText: require('./images/police-button-wout-text.png')
   },
   fonts: {}
 }
