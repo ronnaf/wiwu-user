@@ -110,6 +110,17 @@ const Twilio = props => {
             left: 0,
             right: 0
           }}>
+          <TwilioVideoLocalView
+            enabled
+            style={{
+              flex: 1,
+              alignSelf: 'flex-end',
+              width: 150,
+              height: 250,
+              position: 'absolute',
+              marginTop: -5
+            }}
+          />
           {status === 'connecting' || videoTracks.size === 0 ? (
             <View
               style={{
@@ -124,7 +135,7 @@ const Twilio = props => {
                     justifyContent: 'center',
                     width: '100%',
                     alignItems: 'center',
-                    marginTop: '40%'
+                    marginTop: '80%'
                   }}>
                   <Text style={{ color: 'grey' }}>
                     Please wait for a representative to connect.
@@ -197,17 +208,6 @@ const Twilio = props => {
               }}>
               <Icon name='call-end' size={30} color='red' />
             </TouchableOpacity>
-            <TwilioVideoLocalView
-              enabled
-              style={{
-                flex: 1,
-                width: 150,
-                height: 250,
-                position: 'absolute',
-                right: 10,
-                bottom: 10
-              }}
-            />
           </View>
         </View>
       )}
