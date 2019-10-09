@@ -9,7 +9,6 @@ import {
   Image
 } from 'react-native'
 import { Grid, Row, Col } from 'react-native-easy-grid'
-import { LinearGradient } from 'expo-linear-gradient'
 import Lottie from 'lottie-react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
