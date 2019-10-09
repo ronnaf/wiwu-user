@@ -11,17 +11,12 @@ import {
   Icon
 } from 'native-base'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 
+import NavigationService from '../navigation/NavigationService'
 import { logout } from '../actions/user/logout.action'
 import _ from 'lodash'
 import { images } from '../assets/assets'
 import Spacer from './Spacer'
-
-const AppName = styled(Text)`
-  font-weight: bold;
-  font-size: 26px;
-`
 
 const Sidebar = props => {
   const dispatch = useDispatch()
@@ -36,7 +31,6 @@ const Sidebar = props => {
     <Container>
       <Content>
         <View padder>
-          {/*<AppName>wiwu</AppName>*/}
           <Image
             style={{ height: 80, width: 80, borderRadius: 40 }}
             resizeMode='cover'
@@ -75,7 +69,23 @@ const Sidebar = props => {
                 fontSize: 14,
                 color: user.isUserVerified ? '#47A1EC' : '#000000'
               }}>
-              {user.isUserVerified ? 'Verified' : 'Unverified'} User
+              {user.isUserVerified ? 'Verified' : 'Unverified'} User{' '}
+              {!user.isUserVerified && (
+                <Text
+                  style={{
+                    fontSize: 14
+                  }}>
+                  (
+                  <Text
+                    style={{ color: 'blue', fontSize: 14 }}
+                    onPress={() =>
+                      NavigationService.navigate('UserVerification')
+                    }>
+                    verify
+                  </Text>
+                  )
+                </Text>
+              )}
             </Text>
           </View>
         </View>

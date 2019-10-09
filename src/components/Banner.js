@@ -1,6 +1,5 @@
 import React, { useEffect, createRef } from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
 import DropdownAlert from 'react-native-dropdownalert'
 
 const Banner = props => {
@@ -11,11 +10,7 @@ const Banner = props => {
     alertRef.current.alertWithType(type, title, description)
   })
 
-  return (
-    <View>
-      <DropdownAlert ref={alertRef} />
-    </View>
-  )
+  return <DropdownAlert ref={alertRef} closeInterval={5000} zIndex={1} />
 }
 
 Banner.propTypes = {
