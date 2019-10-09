@@ -3,7 +3,7 @@ import { firestore, firebase } from '../../firebase'
 import showToast from '../../helpers/toast.helper'
 import NavigationService from '../../navigation/NavigationService'
 import { PermissionsAndroid, NativeModules, Platform } from 'react-native'
-import { SECRET_KEY, PHONE_NUMBER } from 'react-native-dotenv'
+import { SECRET_KEY, PHONE_NUMBER, API_KEY } from 'react-native-dotenv'
 import { createAction } from 'redux-actions'
 import SimpleCrypto from 'simple-crypto-js'
 import * as SMS from 'expo-sms'
@@ -42,7 +42,7 @@ export function sendRequestAction(values) {
             ',' +
             pinCoordinates.longitude +
             '&key=' +
-            'AIzaSyBwvfQvIxe14wJMbOvSoAGLeaG3t5KSsfM'
+            API_KEY
         )
 
         const responseJson = await response.json()

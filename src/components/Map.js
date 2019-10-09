@@ -13,6 +13,7 @@ import { createAction } from 'redux-actions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
 import PropTypes from 'prop-types'
 import { images } from '../assets/assets'
+import { API_KEY } from 'react-native-dotenv'
 
 import {
   EDIT_PIN_COORDINATES,
@@ -129,7 +130,7 @@ const Map = props => {
             return ''
           }}
           query={{
-            key: 'AIzaSyBwvfQvIxe14wJMbOvSoAGLeaG3t5KSsfM',
+            key: API_KEY,
             language: 'en',
             components: 'country:ph',
             location: '10.7202, 122.5621',
