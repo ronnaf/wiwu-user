@@ -111,7 +111,7 @@ const Map = props => {
           renderDescription={row => row.description}
           onPress={(data, details = null) => {
             const { lat, lng } = details.geometry.location
-            console.log(`lat: ${lat}, lng: ${lng}`)
+
             dispatch(
               createAction(EDIT_PIN_COORDINATES)({
                 latitude: lat,

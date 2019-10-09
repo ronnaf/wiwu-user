@@ -35,6 +35,20 @@ export function sendRequestAction(values) {
         media: null
       }
 
+      if (!values.address) {
+        const response = await fetch(
+          'https://maps.googleapis.com/maps/api/geocode/json?address=' +
+            pinCoordinates.latitude +
+            ',' +
+            pinCoordinates.longitude +
+            '&key=' +
+            'AIzaSyBwvfQvIxe14wJMbOvSoAGLeaG3t5KSsfM'
+        )
+
+        const responseJson = await response.json()
+        payload.address = responseJson.results[0].formatted_address
+      }
+
       if (isOffline) {
         if (Platform.OS === 'android') {
           // works only for android
