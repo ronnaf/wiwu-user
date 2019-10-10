@@ -1,7 +1,7 @@
 import * as Yup from 'yup'
 
 const phoneRegex = /^(09|\+639)\d{9}$/
-const nameRegex = /^[A-Za-z]+$/
+const nameRegex = /^[A-Za-z ]+$/
 const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*]).{8,}$/
 
 export const signupSchema = Yup.object().shape({
@@ -38,12 +38,12 @@ export const EditSchema = Yup.object().shape({
     .email('Invalid Email')
     .required('Required'),
   firstName: Yup.string()
-    .matches(nameRegex, 'Only letters allowed')
+    .matches(nameRegex, 'Invalid name string!')
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
   lastName: Yup.string()
-    .matches(nameRegex, 'Only letters allowed')
+    .matches(nameRegex, 'Invalid name string!')
     .min(2, 'Too Short!')
     .max(50, 'Too Long!')
     .required('Required'),
