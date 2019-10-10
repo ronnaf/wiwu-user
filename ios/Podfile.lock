@@ -2,6 +2,9 @@ PODS:
   - boost-for-react-native (1.63.0)
   - DoubleConversion (1.1.6)
   - EXAppLoaderProvider (6.0.0)
+  - EXAV (7.0.1):
+    - UMCore
+    - UMPermissionsInterface
   - EXConstants (6.0.0):
     - UMConstantsInterface
     - UMCore
@@ -47,6 +50,8 @@ PODS:
   - OneSignal (2.11.0)
   - React (0.59.8):
     - React/Core (= 0.59.8)
+  - react-native-background-timer (2.1.1):
+    - React
   - react-native-maps (0.24.2):
     - React
   - react-native-onesignal (3.3.3):
@@ -135,6 +140,7 @@ PODS:
 DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXAppLoaderProvider (from `../node_modules/expo-app-loader-provider/ios`)
+  - EXAV (from `../node_modules/expo-av/ios`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXFileSystem (from `../node_modules/expo-file-system/ios`)
   - EXFont (from `../node_modules/expo-font/ios`)
@@ -150,6 +156,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
+  - react-native-background-timer (from `../node_modules/react-native-background-timer`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-twilio-video-webrtc (from `../node_modules/react-native-twilio-video-webrtc`)
@@ -197,6 +204,9 @@ EXTERNAL SOURCES:
   EXAppLoaderProvider:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-app-loader-provider/ios"
+  EXAV:
+    :path: !ruby/object:Pathname
+    path: "../node_modules/expo-av/ios"
   EXConstants:
     :path: !ruby/object:Pathname
     path: "../node_modules/expo-constants/ios"
@@ -241,6 +251,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/lottie-react-native"
   React:
     :path: "../node_modules/react-native"
+  react-native-background-timer:
+    :path: "../node_modules/react-native-background-timer"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-onesignal:
@@ -296,6 +308,7 @@ SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   EXAppLoaderProvider: 7a8185228d8ba9e689a0e2d6d957fe9bdd49c8a0
+  EXAV: 97912c6002e7d7934843f50c9080f1d7f8b99a4f
   EXConstants: 5d81e84ca71b9a552529889cc798b4a04e9e22b3
   EXFileSystem: 091907902fcec9f9182b656fdead41a82f30986a
   EXFont: c862449210fc86aa11d24a202cb22c71a0d39609
@@ -314,6 +327,7 @@ SPEC CHECKSUMS:
   lottie-react-native: 3d8181d43619b1fe804c828bd5a09d20fe8bdea7
   OneSignal: 1e2ed98358f87cb755e7262412ddb2949b8e5c55
   React: 76e6aa2b87d05eb6cccb6926d72685c9a07df152
+  react-native-background-timer: 1b6e6b4e10f1b74c367a1fdc3c72b67c619b222b
   react-native-maps: 0316ed017dbb64b33b227751fa810e2454fcfa39
   react-native-onesignal: fc750afd9ec99c89d04e9bebeabd03af1a13263c
   react-native-twilio-video-webrtc: 75fda2fcbedecef5c4156250b37f517a7472c63e
@@ -335,6 +349,6 @@ SPEC CHECKSUMS:
   UMTaskManagerInterface: 8664abd37a00715727e60df9ecd65e42ba47b548
   yoga: 92b2102c3d373d1a790db4ab761d2b0ffc634f64
 
-PODFILE CHECKSUM: 47f7950eb3daf48ae1c4a403912a6b0869b32a8b
+PODFILE CHECKSUM: 431d5a40624d69e14ce370f03cf7784b3c79832e
 
 COCOAPODS: 1.7.5

@@ -41,6 +41,9 @@ const UserHome = () => {
 
   useEffect(() => {
     lottieRef.current.play()
+  }, [])
+
+  useEffect(() => {
     try {
       if (!isOffline) {
         const { uid } = auth.currentUser
@@ -52,6 +55,7 @@ const UserHome = () => {
               dispatch(updateVerificationStatus(snapshot.data().isUserVerified))
             }
           })
+
         return function cleanup() {
           listenerRef()
         }
