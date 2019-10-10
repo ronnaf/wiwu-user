@@ -14,6 +14,7 @@ import {
   EDIT_REGION_COORDINATES
 } from '../../actions/map/map.constants'
 import { useDispatch } from 'react-redux'
+import { Video } from 'expo-av'
 
 const UserRequestDetails = props => {
   const dispatch = useDispatch()
@@ -23,6 +24,10 @@ const UserRequestDetails = props => {
     dispatch(createAction(EDIT_PIN_COORDINATES)(emergency.location))
     dispatch(createAction(EDIT_REGION_COORDINATES)(emergency.location))
   }, [])
+
+  const mediaExt =
+    !_.isEmpty(emergency.media) &&
+    emergency.media.split('.')[emergency.media.split('.').length - 1]
 
   return (
     <Container>
@@ -57,15 +62,36 @@ const UserRequestDetails = props => {
         <GenericField
           label={'Media Attached'}
           CustomComponent={
-            <Image
-              style={{ height: 300, width: '100%' }}
-              resizeMode='cover'
-              source={
-                emergency.media
-                  ? { uri: emergency.media }
-                  : images.defaultThumbnail
-              }
-            />
+            !_.isEmpty(emergency.media) ? (
+              // if media exists, and it is an image
+              mediaExt === 'jpg' ? (
+                <Image
+                  style={{ height: 300, width: '100%' }}
+                  resizeMode='cover'
+                  source={{ uri: emergency.media }}
+                />
+              ) : (
+                // if media exists, and it is a vid
+                <Video
+                  source={{ uri: emergency.media }}
+                  rate={1.0}
+                  volume={1.0}
+                  isMuted={false}
+                  resizeMode={Video.RESIZE_MODE_COVER}
+                  shouldPlay={true}
+                  isLooping={false}
+                  useNativeControls={true}
+                  style={{ height: 300, width: '100%' }}
+                />
+              )
+            ) : (
+              // if media does not exist
+              <Image
+                style={{ height: 300, width: '100%' }}
+                resizeMode='cover'
+                source={images.defaultThumbnail}
+              />
+            )
           }
         />
 

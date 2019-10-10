@@ -55,7 +55,6 @@ const UserRequest = () => {
             const ext =
               !_.isEmpty(values.media) &&
               values.media.split('.')[values.media.split('.').length - 1]
-            console.log('ext -', ext)
             return (
               <Form>
                 <GenericInput

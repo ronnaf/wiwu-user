@@ -2,16 +2,13 @@ import React, { useEffect } from 'react'
 import { Container } from 'native-base'
 import { useDispatch, useSelector } from 'react-redux'
 import { createAction } from 'redux-actions'
-
 import { firestore } from '../../firebase'
-
 import Map from '../../components/Map'
 import GenericHeader from '../../components/GenericHeader'
 import Footer from '../../components/Footer'
-
 import { GET_ALL_EMERGENCIES } from '../../actions/emergency/emergency.constants'
-
 import showToast from '../../helpers/toast.helper'
+import _ from 'lodash'
 
 export const useGetEmergenciesListener = () => {
   const dispatch = useDispatch()
@@ -23,6 +20,7 @@ export const useGetEmergenciesListener = () => {
         const listenerRef = firestore
           .collection('emergencies')
           .where('status', '==', 'PENDING')
+          .orderBy('date')
           .onSnapshot(snapshot => {
             const emergencies = snapshot.docs.map(emergencyDoc => {
               const emergency = emergencyDoc.data()
@@ -40,7 +38,8 @@ export const useGetEmergenciesListener = () => {
                 status: emergency.status
               }
             })
-            dispatch(createAction(GET_ALL_EMERGENCIES)(emergencies))
+
+            dispatch(createAction(GET_ALL_EMERGENCIES)(_.reverse(emergencies)))
           })
 
         return function cleanup() {
