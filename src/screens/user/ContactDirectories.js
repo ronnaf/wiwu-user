@@ -21,16 +21,30 @@ import { getContacts } from '../../actions/contact/getContacts.action'
 import NavigationService from '../../navigation/NavigationService'
 import GenericHeader from '../../components/GenericHeader'
 import Footer from '../../components/Footer'
+import Fuse from 'fuse.js'
+import _ from 'lodash'
 
 const ContactDirectories = props => {
   const dispatch = useDispatch()
   const contacts = useSelector(state => state.contacts.list)
   const [activeTab, setActiveTab] = useState('medical')
+  const [searchedContacts, setSearchedContacts] = useState([])
   const activeContacts = contacts.filter(e => e.department === activeTab)
+  const contactsToDisplay = !_.isEmpty(searchedContacts)
+    ? searchedContacts
+    : activeContacts
 
   useEffect(() => {
     dispatch(getContacts())
   }, [])
+
+  const searchContacts = input => {
+    console.log('[!] searching...', input)
+    const fuse = new Fuse(activeContacts, { keys: ['name', 'address'] })
+    const result = fuse.search(input)
+
+    setSearchedContacts(result)
+  }
 
   return (
     <Container>
@@ -64,12 +78,15 @@ const ContactDirectories = props => {
         <Text style={styles.title}>Emergency Responders</Text>
         <Item regular>
           <Icon active name='search' />
-          <Input placeholder='Search responders...' />
+          <Input
+            placeholder='Search responders...'
+            onChangeText={text => searchContacts(text)}
+          />
         </Item>
       </View>
       <Content>
         <List>
-          {activeContacts.map(contact => (
+          {contactsToDisplay.map(contact => (
             <ListItem
               key={contact.id}
               thumbnail

@@ -27,6 +27,7 @@
     "expo-web-browser": "~6.0.0",
     "firebase": "^6.2.4",
     "formik": "^1.5.8",
+    "fuse.js": "^3.4.5",
     "jwt-decode": "^2.2.0",
     "lodash": "latest",
     "lottie-react-native": "~2.6.1",
