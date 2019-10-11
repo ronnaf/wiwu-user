@@ -12,7 +12,8 @@ module.exports = {
     policePin: require('./images/police-pin.png'),
     medicalButtonNoText: require('./images/med-button-wout-text.png'),
     fireButtonNoText: require('./images/fire-button-wout-text.png'),
-    policeButtonNoText: require('./images/police-button-wout-text.png')
+    policeButtonNoText: require('./images/police-button-wout-text.png'),
+    emptyState: require('./images/empty-box.png')
   },
   fonts: {}
 }
