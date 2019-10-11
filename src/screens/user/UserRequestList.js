@@ -25,6 +25,49 @@ import { useDispatch } from 'react-redux'
 import { GET_OWN_EMERGENCIES } from '../../actions/emergency/emergency.constants'
 import showToast from '../../helpers/toast.helper'
 
+const RequestList = props => {
+  const { emergencies, emptyStateTitle, isFromBroadcast } = props
+  return (
+    <List>
+      {!_.isEmpty(emergencies) ? (
+        emergencies.map(emergency => (
+          <ListItem
+            key={emergency.id}
+            thumbnail
+            onPress={() =>
+              NavigationService.navigate('UserRequestDetails', {
+                emergency: { ...emergency, isFromBroadcast }
+              })
+            }
+            style={{ marginLeft: 0 }}>
+            <Left>
+              <Thumbnail source={images[emergency.department]} />
+            </Left>
+            <Body>
+              <Text>
+                {emergency.isFromBroadcast ? 'A' : 'You requested for'}{' '}
+                <Text style={{ fontWeight: 'bold' }}>
+                  {emergency.department}
+                </Text>{' '}
+                {emergency.isFromBroadcast ? 'request was made' : 'assistance'}
+              </Text>
+              <Text note numberOfLines={1}>
+                {emergency.role}{' '}
+                {emergency.description && `- ${emergency.description}`}
+              </Text>
+              <Text note numberOfLines={1}>
+                {moment(emergency.date).format('MMM DD, YYYY - hh:mmA')}
+              </Text>
+            </Body>
+          </ListItem>
+        ))
+      ) : (
+        <EmptyState title={emptyStateTitle} />
+      )}
+    </List>
+  )
+}
+
 const UserRequestList = props => {
   const dispatch = useDispatch()
   const { user, emergency } = useSelector(state => state)
@@ -78,84 +121,20 @@ const UserRequestList = props => {
       <Tabs>
         <Tab heading='Broadcast'>
           <Content padder>
-            <List>
-              {!_.isEmpty(emergencies) ? (
-                emergencies.map(emergency => (
-                  <ListItem
-                    key={emergency.id}
-                    thumbnail
-                    onPress={() =>
-                      NavigationService.navigate('UserRequestDetails', {
-                        emergency: { ...emergency, isFromBroadcast: true }
-                      })
-                    }
-                    style={{ marginLeft: 0 }}>
-                    <Left>
-                      <Thumbnail source={images[emergency.department]} />
-                    </Left>
-                    <Body>
-                      <Text>
-                        A{' '}
-                        <Text style={{ fontWeight: 'bold' }}>
-                          {emergency.department}
-                        </Text>{' '}
-                        request was made
-                      </Text>
-                      <Text note numberOfLines={1}>
-                        {emergency.role}{' '}
-                        {emergency.description && `- ${emergency.description}`}
-                      </Text>
-                      <Text note numberOfLines={1}>
-                        {moment(emergency.date).format('MMM DD, YYYY - hh:mmA')}
-                      </Text>
-                    </Body>
-                  </ListItem>
-                ))
-              ) : (
-                <EmptyState title={'No requests available'} />
-              )}
-            </List>
+            <RequestList
+              emergencies={emergencies}
+              emptyStateTitle={`No requests available`}
+              isFromBroadcast={true}
+            />
           </Content>
         </Tab>
         <Tab heading='My Requests'>
           <Content padder>
-            <List>
-              {!_.isEmpty(myEmergencies) ? (
-                myEmergencies.map(emergency => (
-                  <ListItem
-                    key={emergency.id}
-                    thumbnail
-                    onPress={() =>
-                      NavigationService.navigate('UserRequestDetails', {
-                        emergency
-                      })
-                    }
-                    style={{ marginLeft: 0 }}>
-                    <Left>
-                      <Thumbnail source={images[emergency.department]} />
-                    </Left>
-                    <Body>
-                      <Text>
-                        You requested for{' '}
-                        <Text style={{ fontWeight: 'bold' }}>
-                          {emergency.department}
-                        </Text>{' '}
-                        assistance
-                      </Text>
-                      <Text note numberOfLines={1}>
-                        {emergency.role}{' '}
-                        {emergency.description && `- ${emergency.description}`}
-                      </Text>
-                      <Text note numberOfLines={1}>
-                        {moment(emergency.date).format('MMM DD, YYYY - hh:mmA')}
-                      </Text>
-                    </Body>
-                  </ListItem>
-                ))
-              ) : (
-                <EmptyState title={`You don't have requests yet`} />
-              )}
-            </List>
+            <RequestList
+              emergencies={myEmergencies}
+              emptyStateTitle={`You don't have requests yet`}
+              isFromBroadcast={false}
+            />
           </Content>
         </Tab>
       </Tabs>
