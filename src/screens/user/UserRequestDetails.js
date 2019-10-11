@@ -85,11 +85,7 @@ const UserRequestDetails = props => {
               )
             ) : (
               // if media does not exist
-              <Image
-                style={{ height: 300, width: '100%' }}
-                resizeMode='cover'
-                source={images.defaultThumbnail}
-              />
+              <Text note>No media available</Text>
             )
           }
         />
