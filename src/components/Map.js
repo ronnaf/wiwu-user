@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native'
 import MapView from 'react-native-maps'
-import { Toast, Container, Icon } from 'native-base'
+import { Toast, Container, Icon, Button } from 'native-base'
 import { useSelector, useDispatch } from 'react-redux'
 import { createAction } from 'redux-actions'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete'
@@ -164,13 +164,13 @@ const Map = props => {
           }}
         />
       </View>
-      <TouchableOpacity onPress={getCurrentPosition} style={styles.buttonStyle}>
-        <Icon
-          name='my-location'
-          style={styles.iconStyle}
-          type='MaterialIcons'
-        />
-      </TouchableOpacity>
+      <Button
+        size={'large'}
+        rounded
+        onPress={getCurrentPosition}
+        style={styles.buttonStyle}>
+        <Icon name='my-location' type='MaterialIcons' />
+      </Button>
     </Container>
   )
 }
@@ -193,16 +193,8 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     position: 'absolute',
-    bottom: 10,
-    right: 15,
-    width: 46,
-    height: 46
-  },
-  iconStyle: {
-    justifyContent: 'center',
-    alignSelf: 'center',
-    color: '#000080',
-    fontSize: 35
+    bottom: 24,
+    right: 24
   }
 })
 
