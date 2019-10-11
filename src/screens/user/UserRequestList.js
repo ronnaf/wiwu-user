@@ -91,13 +91,7 @@ const UserRequestList = props => {
                     }
                     style={{ marginLeft: 0 }}>
                     <Left>
-                      <Thumbnail
-                        source={
-                          emergency.media
-                            ? { uri: emergency.media }
-                            : images[emergency.department]
-                        }
-                      />
+                      <Thumbnail source={images[emergency.department]} />
                     </Left>
                     <Body>
                       <Text>
@@ -138,13 +132,7 @@ const UserRequestList = props => {
                     }
                     style={{ marginLeft: 0 }}>
                     <Left>
-                      <Thumbnail
-                        source={
-                          emergency.media
-                            ? { uri: emergency.media }
-                            : images[emergency.department]
-                        }
-                      />
+                      <Thumbnail source={images[emergency.department]} />
                     </Left>
                     <Body>
                       <Text>
