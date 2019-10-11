@@ -10,7 +10,6 @@ import {
   Text,
   View
 } from 'native-base'
-import { Image } from 'react-native'
 import GenericHeader from '../../components/GenericHeader'
 import { images } from '../../assets/assets'
 import moment from 'moment'
@@ -20,8 +19,8 @@ import { createAction } from 'redux-actions'
 import showToast from '../../helpers/toast.helper'
 import { useDispatch, useSelector } from 'react-redux'
 import { GET_ALERTS } from '../../actions/alert/alert.constants'
+import EmptyState from '../../components/EmptyState'
 import _ from 'lodash'
-import Spacer from '../../components/Spacer'
 
 const EmergencyAlertsList = props => {
   const dispatch = useDispatch()
@@ -59,7 +58,7 @@ const EmergencyAlertsList = props => {
 
   return (
     <Container>
-      <GenericHeader title='Emergency Alerts' type='drawer' />
+      <GenericHeader title='Emergency Alerts' type='drawer' hasTabs={true} />
       <Content padder>
         <List>
           {!_.isEmpty(alerts) ? (
@@ -85,23 +84,7 @@ const EmergencyAlertsList = props => {
               )
             })
           ) : (
-            <View
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}>
-              <Spacer height={32} />
-              <Image
-                resizeMode={'contain'}
-                source={images.emptyState}
-                style={{ height: 100, width: 100 }}
-              />
-              <Spacer height={16} />
-              <Text style={{ color: '#707070', fontSize: 14 }}>
-                No alerts available
-              </Text>
-            </View>
+            <EmptyState title={'No alerts available'} />
           )}
         </List>
       </Content>

@@ -39,13 +39,12 @@ const UserRequestDetails = props => {
           source={images[emergency.department]}
         />
         <Spacer height={8} />
-
         <Text style={{ fontSize: 24 }}>
-          You requested for{' '}
+          {emergency.isFromBroadcast ? 'A' : 'You requested for'}{' '}
           <Text style={{ fontWeight: 'bold', fontSize: 24 }}>
             {emergency.department}
           </Text>{' '}
-          assistance
+          {emergency.isFromBroadcast ? 'request was made' : 'assistance'}
         </Text>
         <Spacer height={4} />
 
